@@ -1,10 +1,199 @@
- 
 * {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-color-black);
+  margin: 0;
+  padding: 0;
+  font-family: "Geist", sans-serif;
 }
 
-p {
-    color:var(--primary-color);
+
+a {
+  color: var(--secondary-color);
+  cursor: pointer;
+  text-decoration: none;
+  transition: 0.2s;
+
+}
+
+a:hover {
+  color: var(--primary-color);
+  transition: 0.2s;
+}
+
+.custom-btn {
+  font-size: 17px;
+  background-color: var(--secondary-color);
+  color: var(--text-color-light);
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: 1px solid var(--text-color-light);
+  cursor: pointer;
+  transition: 0.2s;
+
+}
+
+.custom-btn:hover {
+  background-color: var(--background-color);
+  transform: scale(1.05);
+  transition: 0.2s;
+}
+
+
+.rotate-right {
+  transform: rotate(5deg);
+  transition: 0.5s;
+}
+
+.rotate-right:hover {
+  transform: rotate(2deg);
+  transition: 0.5s;
+}
+
+
+/* h1{
+   font-family: "Cal Sans", sans-serif;
+} */
+/* === Colores de fondo === */
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.bg-primary-dark {
+  background-color: var(--primary-dark);
+}
+
+.bg-secondary {
+  background-color: var(--secondary-color);
+}
+
+.bg-white {
+  background-color: var(--text-color-light);
+}
+
+.bg-accent {
+  background-color: var(--accent-color);
+}
+
+.bg-dark {
+  background-color: var(--background-color);
+}
+
+/* === Colores de texto === */
+.text-white {
+  color: var(--text-color-light);
+}
+
+.text-dark {
+  color: var(--text-color-black);
+}
+
+.text-primary-custom {
+  color: var(--primary-color);
+}
+
+.text-accent {
+  color: var(--accent-color);
+}
+
+/* === Bordes === */
+.border-default {
+  border: 1px solid var(--border-color);
+}
+
+.border-primary {
+  border: 1px solid var(--primary-color);
+}
+
+.border-accent {
+  border: 1px solid var(--accent-color);
+}
+
+/* === Hover states === */
+.hover-bg-primary:hover {
+  background-color: var(--primary-color);
+}
+
+.hover-bg-accent:hover {
+  background-color: var(--accent-color);
+}
+
+.hover-text-accent:hover {
+  color: var(--accent-color);
+}
+
+.text-gradient {
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.bg-gradient {
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+}
+
+
+
+
+
+/* 🎨 Animación de gradiente USANDO TEXTO */
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.text-gradient-animated {
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-dark), #eab543);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200% 100%;
+  animation: gradient 1s ease infinite;
+}
+
+
+/* 🎨 Borde con gradiente */
+.gradient-border {
+  position: relative;
+  z-index: 100;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 2px;
+  background: linear-gradient(90deg, var(--primary-color), var(--primary-dark), #eab543, var(--primary-color));
+  background-size: 300% 100%;
+  animation: animated-gradient-border 1s linear infinite;
+  border-radius: inherit;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  z-index: -1;
+}
+
+/* 🔄 Animación del borde */
+@keyframes animated-gradient-border {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
 }

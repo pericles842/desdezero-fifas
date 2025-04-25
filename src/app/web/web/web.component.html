@@ -1,1 +1,122 @@
-<p>esta es la pagina web </p>
+<header class="flex flex-wrap align-items-center  justify-content-between px-4 py-3 shadow-3 gap-3">
+  <div class="flex flex-column font-bold ">
+    <p class="text-xl text-gradient ">Desdezero</p>
+    <span class="text-xs font-italic ">No existe críticas constructivas de quien no construyó nada.</span>
+  </div>
+
+  <nav
+    class="flex    md:flex-row gap-3 md:gap-4 w-full md:w-auto justify-content-center md:justify-content-end mt-3 md:mt-0">
+    <a href="#" class="font-semibold text-sm md:text-base">Inicio</a>
+    <a href="#" class="font-semibold text-sm md:text-base">Rifas</a>
+    <a href="#" class="font-semibold text-sm md:text-base">Mis Tickets</a>
+    <a href="#" class="font-semibold text-sm md:text-base">Quiénes Somos</a>
+    <a href="#" class="font-semibold text-sm md:text-base">Contacto</a>
+  </nav>
+
+</header>
+
+
+
+<!-- HOME RESPONSIVO -->
+<section
+  class=" flex flex-column md:flex-row justify-content-center align-items-center px-2 md:px-4 py-7 flex-wrap pt-3 md:pt-6 bg-dark">
+  <!-- TEXTO Y BOTONES -->
+  <div class="flex flex-column gap-4 justify-content-center w-full md:w-6 ">
+    <div>
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-gradient">Gana premios de lujo</h1>
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gradient">Con un solo ticket</h1>
+    </div>
+
+    <div>
+      <p class="text-lg text-white">Participa en nuestras rifas exclusivas y llévate a casa premios de lujo.
+        <br> Sorteos transparentes y en vivo para garantizar tu confianza.
+      </p>
+    </div>
+
+    <!-- ICONOS -->
+    <div class="flex md:flex-nowrap justify-content-between  gap-1 md:justify-content-start  md:gap-2 ">
+      <div
+        class=" flex flex-column gap-2 w-full  sm:w-3 gradient-border text-gradient-animated shadow-5 px-1 py-3  justify-content-center align-items-center">
+        <i class="text-xl fa-solid fa-medal"></i>
+        <p class="text-xs font-bold">Calidad</p>
+      </div>
+      <div
+        class=" flex flex-column gap-2 w-full sm:w-3 gradient-border text-gradient-animated shadow-5  px-1 py-3 justify-content-center align-items-center">
+        <i class="text-xl fa-solid fa-shield-halved"></i>
+        <p class="text-xs font-bold">100% seguro</p>
+      </div>
+      <div
+        class=" flex flex-column  gap-2 w-full sm:w-3 gradient-border text-gradient-animated shadow-5 px-1 py-3   justify-content-center align-items-center">
+        <i class="text-xl fa-solid fa-trophy"></i>
+        <p class="text-xs font-bold ">Un ganador</p>
+      </div>
+    </div>
+
+    <!-- BOTONES -->
+    <div class="flex flex-column sm:flex-row gap-3 mt-4">
+      <button class="custom-btn gradient-border flex align-items-center justify-content-center gap-2  "
+        style="border: none;">
+        <span class="text-gradient-animated">Comprar ticket</span>
+        <i class="text-gradient-animated text-white fa-regular fa-credit-card"></i>
+      </button>
+      <button class="custom-btn">¿Cómo funciona?</button>
+    </div>
+  </div>
+
+  <!-- IMAGEN -->
+  @if (!esCelular) {
+  <img src="./assets/img/rifa.jpg" class=" w-full mt-4 md:mt-0 md:w-6   border-round-xl rotate-right  " alt="Rifa">
+
+  }
+
+</section>
+
+<!-- EStatistics -->
+<aside class="px-4">
+  <section class="my-5">
+
+    <h1 class="text-5xl mb-4 text-gradient">Estadísticas</h1>
+
+    <div class="grid  justify-content-between">
+      <div
+        class="col-12 md:col-6 lg:col-3 flex align-items-start justify-content-start p-3 shadow-5 border-round-md gap-2">
+        <i style="background-color: #0c6ef0;" class="fa-regular fa-user p-3 text-3xl text-white border-round-md"></i>
+        <div class="flex flex-column align-items-start">
+          <p class="text-sm font-semibold">Participantes</p>
+          <h2 class="text-3xl">1.000</h2>
+        </div>
+      </div>
+
+      <div
+        class="col-12 md:col-6 lg:col-3 flex align-items-start justify-content-start p-3 shadow-5 border-round-md gap-2">
+        <i style="background-color: #f0600c;" class="fa-solid fa-ticket p-3 text-3xl text-white border-round-md"></i>
+        <div class="flex flex-column align-items-start">
+          <p class="text-sm font-semibold">Tickets Vendidos</p>
+          <h2 class="text-3xl">45,782</h2>
+        </div>
+      </div>
+
+      <div
+        class="col-12 md:col-6 lg:col-3 flex align-items-start justify-content-start p-3 shadow-5 border-round-md gap-2">
+        <i style="background-color: #18c832;" class="fa-solid fa-medal p-3 text-3xl text-white border-round-md"></i>
+        <div class="flex flex-column align-items-start">
+          <p class="text-sm font-semibold">Premios Entregados</p>
+
+          <h2 class="text-3xl">128</h2>
+        </div>
+      </div>
+
+      <div
+        class="col-12 md:col-6 lg:col-3 flex align-items-start justify-content-start p-3 shadow-5 border-round-md gap-2">
+        <i style="background-color: #c77614;"
+          class="fa-solid fa-chart-line p-3 text-3xl text-white border-round-md"></i>
+        <div class="flex flex-column align-items-start">
+          <p class="text-sm font-semibold">Rifas Activas</p>
+
+          <h2 class="text-3xl">1</h2>
+        </div>
+      </div>
+    </div>
+
+  </section>
+</aside>

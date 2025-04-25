@@ -1,4 +1,10 @@
 :root {
-    --primary-color: #e04141;
-    --background-color: #ffffff;
-  }
+  --primary-color: #d4a017;          /* Dorado principal */
+  --primary-dark: #f2c94c;           /* Dorado oscuro */
+  --secondary-color: #242424;        /* Negro puro */
+  --background-color: #252525;       /* Negro suave */
+  --text-color-light: #ffffff;       /* Texto blanco */
+  --text-color-black: #292929;       /* Negro apagado para contraste */
+  --accent-color: #f5c542;           /* Dorado brillante para acentos */
+  --border-color: #2e2e2e;           /* Gris oscuro para bordes */
+}
