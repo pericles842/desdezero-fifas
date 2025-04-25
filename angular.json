@@ -65,10 +65,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "desdezero:build:production"
+              "buildTarget": "desdezero:build:production"
             },
             "development": {
-              "browserTarget": "desdezero:build:development"
+              "buildTarget": "desdezero:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -76,7 +76,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "desdezero:build"
+            "buildTarget": "desdezero:build"
           }
         },
         "test": {
