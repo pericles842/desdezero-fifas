@@ -5,11 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { WebComponent } from './web/web/web.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { LoadingComponent } from './web/components/loading/loading.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    WebComponent
+    WebComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
