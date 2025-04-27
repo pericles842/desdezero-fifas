@@ -61,6 +61,18 @@ a:hover {
 
 }
 
+.num-list {
+  margin-right: 10px;
+  /* este padding es para unos numeros, que todos se vean iguales */
+  padding: 5px 12px;
+  font-size: 20px;
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+  border-radius: 100%;
+  
+   
+}
+
 /* h1{
    font-family: "Cal Sans", sans-serif;
 } */
@@ -143,7 +155,12 @@ a:hover {
 }
 
 
-
+.box-info{
+  background-color: #b1d6ff;
+  color: #0077ff;
+  padding: 10px 20px;
+  border-radius: 5px;
+}
 
 
 /* 🎨 Animación de gradiente USANDO TEXTO */
