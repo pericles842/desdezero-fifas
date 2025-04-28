@@ -54,12 +54,12 @@
 
     <!-- BOTONES -->
     <div class="flex flex-column sm:flex-row gap-3 mt-4">
-      <button (click)="irASeccion()"
+      <button (click)="irASeccion('rifas')"
         class="custom-btn gradient-border flex align-items-center justify-content-center gap-2  " style="border: none;">
         <span class="text-gradient-animated">Comprar ticket</span>
         <i class="text-gradient-animated text-white fa-regular fa-credit-card"></i>
       </button>
-      <button class="custom-btn">¿Cómo funciona?</button>
+      <button (click)="irASeccion('comoFunciona')" class="custom-btn">¿Cómo funciona?</button>
     </div>
   </div>
 
@@ -73,10 +73,10 @@
 </section>
 
 <!-- EStatistics -->
-<aside class="px-4">
+<aside class="mx-4">
   <section class="my-5">
 
-    <h1 class="text-3xl md:text-5xl mb-4 text-gradient">Estadísticas</h1>
+    <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">Estadísticas</h1>
 
     <div class="grid justify-content-between">
       <div
@@ -122,8 +122,8 @@
   </section>
 
   <!-- COMO FUNCIONA -->
-  <section class="my-5">
-    <h1 class="text-3xl md:text-5xl mb-4 text-gradient">¿Cómo funciona?</h1>
+  <section style="margin: 70px 0;" #comoFunciona>
+    <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">¿Cómo funciona?</h1>
 
     <div class="grid ">
       <div class="col-12 md:col-6 lg:col flex flex-column gap-2">
@@ -146,17 +146,21 @@
         <p>Recibirás tus tickets por correo electrónico y estarás participando automáticamente.</p>
       </div>
     </div>
-    <p class="box-info flex align-items-center gap-2 mt-4">
-      <i class="text-xl fa-solid fa-circle-info" style="color: #0077ff;"></i> Todos los resultados serán tomados de la
-      lotería triple
-      tachira En sus
-      horarios correspondientes
-    </p>
+
+    <div class="box-info flex align-items-center  gap-2 mt-4">
+      <i class="text-xl fa-solid fa-circle-info" style="color: #0077ff;"></i>
+      <p style="color: #0077ff;">
+        Todos los resultados serán tomados de la
+        lotería <a href="https://supergana.com.ve/resultados.php" class="font-bold  "
+          style="color: #0077ff;">supergana.com.ve</a> En sus
+        horarios correspondientes
+      </p>
+    </div>
   </section>
 
   <!-- Rifas -->
 
-  <section #rifas id="rifas" class="grid my-5">
+  <section #rifas id="rifas" class="grid my-5  ">
     <div class="col-12 lg:col-6 ">
       <!-- !para una tamño de imagne quemado  h64 -->
       <div class="relative w-full h-full overflow-hidden border-round-xl">
@@ -233,24 +237,144 @@
               <p class="font-semibold text-sm">Total:</p>
               <span class="font-bold text-4xl text-gradient-animated">{{quantity_tickets*price_ticket}},00$</span>
             </div>
-            <button class="custom-btn w-full">Comprar</button>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-    <!-- FORMULARIO DE PAGO  
+  <!-- FORMULARIO DE PAGO   -->
 
-  <section>
-    <h1 class="text-3xl md:text-5xl mb-4 text-gradient">Formulario de pago</h1>
+  <section class="grid  gap-5 md:gap-0">
+    <!-- formulario de pago -->
+    <section class="col-12  lg:col-6  md:p-4 ">
+      <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">Formulario de pago</h1>
 
-    <div class="grid">
-      <div class="col">
-        
-        <input type="text" class="custom-input w-full">
+      <div class="formgrid grid ">
+        <div class="field col-12 md:col-6">
+          <label for="firstname1" class="font-semibold text-xs uppercase">
+            <i class="fa-regular fa-user text-sm mr-1"></i>
+            Nombre y Apellido</label>
+          <input id="firstname1" type="text" class="custom-input w-full" placeholder="Carolina Hernandez">
+        </div>
+
+        <div class="field col-12 md:col-6">
+          <label for="phone" class="font-semibold text-xs uppercase">
+            <i class="fa-solid fa-mobile-screen-button text-sm mr-1"></i>
+            Teléfono</label>
+          <input id="phone" type="number" class="custom-input w-full" placeholder="041212345678">
+        </div>
+
+        <div class="field col-12 ">
+          <label for="email" class="font-semibold text-xs uppercase">
+            <i class="fa-solid fa-at text-sm mr-1"></i>
+            Correo</label>
+          <input id="email" type="text" class="custom-input w-full" placeholder="carolinahernadez@gamil.com">
+        </div>
+
+        <div class=" col-12 md:col-6 flex justify-content-between">
+          <div class=" flex flex-column align-items-start ">
+            <p class="font-semibold text-sm">Total:</p>
+            <span class="font-bold text-4xl text-gradient-animated">{{quantity_tickets*price_ticket}},00$</span>
+          </div>
+
+          <div class=" flex flex-column align-items-start ">
+            <p class="font-semibold text-sm">Tickets:</p>
+            <span class="font-bold text-4xl text-gradient-animated">{{quantity_tickets}}</span>
+          </div>
+        </div>
       </div>
+
+    </section>
+
+    <!-- METODOS DE PAGO -->
+    <section class="col-12 lg:col-6  md:p-4 ">
+      <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">Métodos de pago</h1>
+
+      <div class="flex flex-wrap md:flex-nowrap justify-content-between gap-2">
+        @for ( method of paymentMethods; track $index) {
+        <div [ngClass]="method.active ? 'card-payment-active':'' " (click)="changeMethodPay(method)"
+          class="card-payment w-full md:w-4 shadow-6 p-3 flex flex-column align-items-center justify-content-center gap-2">
+          <img [src]="'./assets/img/bancos/'+method.url" class="img-payment" [alt]="method.url">
+          <p class="font-semibold text-sm md:text-xl">{{method.name}}</p>
+        </div>
+        }
+      </div>
+
+      <!-- DETALLES DE PAGO -->
+      @if (paymentMethod) {
+
+      <div class="flex flex-column gap-4 mt-5">
+
+        <div class="flex align-items-center justify-content-start gap-3">
+          <img src="./assets/img/bancos/pago-movil.png" width="60px" alt="">
+          <p class="text-xl md:text-2xl font-semibold text-gradient-animated">{{paymentMethod.details.description}}</p>
+        </div>
+
+        <div class="flex flex-column gap-2 ">
+
+          <div class="flex justify-content-between">
+            <p class="font-bold text-gradient">
+              <i class="fa-solid fa-building-columns"></i>
+              Banco
+            </p>
+            <p class="font-semibold">{{paymentMethod.details.bank}}</p>
+          </div>
+
+
+          <div class="flex justify-content-between">
+            <p class="font-bold text-gradient">
+              <i class="fa-solid fa-user"></i>
+              Titular
+            </p>
+            <p class="font-semibold">{{paymentMethod.details.holder}}</p>
+          </div>
+
+
+          <div class="flex justify-content-between">
+            <p class="font-bold text-gradient">
+              <i class="fa-solid fa-receipt"></i>
+              Cuenta
+            </p>
+            <p class="font-semibold">{{paymentMethod.details.account}}</p>
+          </div>
+
+
+          <div class="flex justify-content-between">
+            <p class="font-bold text-gradient">
+              <i class="fa-solid fa-phone"></i>
+              Numero
+            </p>
+            <p class="font-semibold">{{paymentMethod.details.phone}}</p>
+          </div>
+
+        </div>
+
+      </div>
+      }
+
+      <!-- subir archivo -->
+      <label class="file-upload mt-4">
+        <i class="fas fa-upload text-white"></i> Subir comprobante
+        <input type="file" (change)="onFileSelected($event)">
+        <div *ngIf="selectedFileName" class="text-white text-xs font-semibold">
+          Archivo seleccionado: {{ selectedFileName }}
+        </div>
+      </label>
+
+      <button 
+        class="mt-3 w-full  custom-btn gradient-border flex align-items-center justify-content-center gap-2  " style="border: none;">
+        <span class="text-gradient-animated">Comprar ticket</span>
+        <i class="text-gradient-animated text-white fa-regular fa-credit-card"></i>
+      </button>
+    </section>
+
+    <div class="col-12  flex align-items-center py-3 gap-2 mt-4" style="background-color:#ffb1b1; border-radius: 5px; ">
+      <i class="text-xl fa-solid fa-circle-info" style="color: #ff0000;"></i>
+      <p style="color: #ff0000;">
+        No nos hacemos responsables por errores, inexactitudes o datos incorrectos proporcionados por el usuario.
+      </p>
     </div>
 
-  </section> -->
+  </section>
 </aside>
