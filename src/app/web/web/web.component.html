@@ -19,12 +19,12 @@
 
 <!-- HOME RESPONSIVO -->
 <section
-  class=" flex flex-column md:flex-row justify-content-center align-items-center px-4 py-7 flex-wrap pt-3 md:pt-6 bg-dark">
+  class=" flex flex-column md:flex-row justify-content-center align-items-center px-4 py-7 flex-wrap pt-3 md:pt-6 bg-secondary ">
   <!-- TEXTO Y BOTONES -->
   <div class="flex flex-column gap-4 justify-content-center w-full md:w-6 ">
     <div>
-      <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-gradient">LLevate a tu casa</h1>
-      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gradient">la bendición que mereces</h1>
+      <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-gradient-animated">LLevate a tu casa</h1>
+      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gradient-animated">la bendición que mereces</h1>
     </div>
 
     <div>
@@ -272,6 +272,13 @@
           <input id="email" type="text" class="custom-input w-full" placeholder="carolinahernadez@gamil.com">
         </div>
 
+        <div class="field col-12 ">
+          <label for="email" class="font-semibold text-xs uppercase">
+            <i class="fa-solid fa-at text-sm mr-1"></i>
+            Confirmar correo</label>
+          <input id="email" type="text" class="custom-input w-full" placeholder="carolinahernadez@gamil.com">
+        </div>
+
         <div class=" col-12 md:col-6 flex justify-content-between">
           <div class=" flex flex-column align-items-start ">
             <p class="font-semibold text-sm">Total:</p>
@@ -296,7 +303,7 @@
         <div [ngClass]="method.active ? 'card-payment-active':'' " (click)="changeMethodPay(method)"
           class="card-payment w-full md:w-4 shadow-6 p-3 flex flex-column align-items-center justify-content-center gap-2">
           <img [src]="'./assets/img/bancos/'+method.url" class="img-payment" [alt]="method.url">
-          <p class="font-semibold text-sm md:text-xl">{{method.name}}</p>
+          <p class="font-semibold text-sm md:text-lg">{{method.name}}</p>
         </div>
         }
       </div>
@@ -304,7 +311,7 @@
       <!-- DETALLES DE PAGO -->
       @if (paymentMethod) {
 
-      <div class="flex flex-column gap-4 mt-5">
+      <div class="flex flex-column gap-4 mt-5 h-14rem">
 
         <div class="flex align-items-center justify-content-start gap-3">
           <img src="./assets/img/bancos/pago-movil.png" width="60px" alt="">
@@ -348,6 +355,17 @@
             <p class="font-semibold">{{paymentMethod.details.phone}}</p>
           </div>
 
+
+          @if (paymentMethod.id == 1) {
+          <div class="flex justify-content-between">
+            <p class="font-bold text-gradient">
+              <i class="fa-solid fa-phone"></i>
+              Tasa del dia
+            </p>
+            <p class="font-bold">104bs x 1$</p>
+          </div>
+          }
+
         </div>
 
       </div>
@@ -362,19 +380,66 @@
         </div>
       </label>
 
-      <button 
-        class="mt-3 w-full  custom-btn gradient-border flex align-items-center justify-content-center gap-2  " style="border: none;">
+      <button class="mt-3 w-full custom-btn gradient-border flex align-items-center justify-content-center gap-2  "
+        style="border: none;">
         <span class="text-gradient-animated">Comprar ticket</span>
         <i class="text-gradient-animated text-white fa-regular fa-credit-card"></i>
       </button>
+
+      <div class="col-12 flex align-items-center gap-2 mt-4"
+        style="background-color:#ffb1b1; border-radius: 5px; padding: 10px 20px;box-sizing: border-box;">
+        <i class="text-xl fa-solid fa-circle-info" style="color: #ff0000;"></i>
+        <p style="color: #ff0000;">
+          No nos hacemos responsables por errores, inexactitudes o datos incorrectos proporcionados por el usuario.
+        </p>
+      </div>
     </section>
 
-    <div class="col-12  flex align-items-center gap-2 mt-4" style="background-color:#ffb1b1; border-radius: 5px; padding: 10px 20px;" >
-      <i class="text-xl fa-solid fa-circle-info" style="color: #ff0000;"></i>
-      <p style="color: #ff0000;">
-        No nos hacemos responsables por errores, inexactitudes o datos incorrectos proporcionados por el usuario.
-      </p>
-    </div>
+  </section>
 
+  <!-- Validar tikets -->
+  <section class="my-5">
+    <app-validate-ticket class="w-full"></app-validate-ticket>
+  </section>
+
+  <!-- listado de tikects -->
+  <section class="flex flex-wrap justify-content-center md:justify-content-between lg:justify-content-evenly gap-2">
+    @for (tiket of tickets; track $index) {
+    <app-ticket [ticket]="tiket"></app-ticket>
+    }
   </section>
 </aside>
+
+
+<footer class="p-4 bg-secondary  shadow-2 mt-5">
+  <div class="flex flex-column md:flex-row justify-content-between align-items-center gap-4 text-white">
+
+    <!-- Logo -->
+    <div class="flex align-items-center gap-2">
+      <div class="w-4rem h-4rem surface-300 border-round flex justify-content-center align-items-center">
+        <!-- Aquí irá el logo -->
+        <i class="pi pi-image text-2xl"></i>
+      </div>
+      <div class="text-lg font-bold text-gradient-animated">Empresa</div>
+    </div>
+
+    <!-- Información de contacto -->
+    <div class="flex flex-column text-center md:text-left ">
+      <div class="text-sm text-white">
+        <i class="pi pi-phone mr-2 "></i> Soporte: +58 412-1234567
+      </div>
+      <div class="text-sm mt-1 text-white">
+        <i class="pi pi-envelope mr-2 "></i> {{'soporte@tuempresa.com'}}
+      </div>
+      <div class="text-sm mt-1 text-white">
+        <i class="pi pi-map-marker mr-2 "></i> Andrés Belandria, La Guaira, Catia La Mar
+      </div>
+    </div>
+
+    <!-- Lema -->
+    <div class="text-center md:text-right text-primary font-semibold text-white">
+      Bendecidos Para Bendecir
+    </div>
+
+  </div>
+</footer>

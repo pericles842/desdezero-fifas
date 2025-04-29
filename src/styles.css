@@ -164,6 +164,16 @@ a:hover {
 }
 
 
+.box-validate-ticket{
+  background-color: var(--background-color);
+  box-sizing: border-box;
+  border-radius: 5px;
+  label , i, p{
+    color: #fff;
+  }
+
+}
+
 /* 🎨 Animación de gradiente USANDO TEXTO */
 @keyframes gradient {
   0% {

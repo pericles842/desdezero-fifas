@@ -1,5 +1,6 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { PaymentMethods } from 'src/app/interfaces/PaymentMethods';
+import { Ticket } from 'src/app/interfaces/Ticket';
 
 @Component({
   selector: 'app-web',
@@ -19,6 +20,62 @@ export class WebComponent {
 
   selectedFileName: string = '';
 
+  tickets: Ticket[] = [
+    {
+      id: 'TCK-001',
+      title: 'Automóvil Toyota Corolla 2024',
+      name: 'Juan Pérez',
+      email: 'juan.perez@example.com',
+      date: '2023-02-15',
+      phone: 123456789,
+      status: 'pendiente'
+    },
+    {
+      id: 'TCK-002',
+      title: 'Automóvil Toyota Corolla 2024',
+      name: 'María Rodríguez',
+      email: 'maria.rodriguez@example.com',
+      date: '2023-02-10',
+      phone: 987654321,
+      status: 'aprobado'
+    },
+    {
+      id: 'TCK-003',
+      title: 'Automóvil Toyota Corolla 2024',
+      name: 'Carlos López',
+      email: 'carlos.lopez@example.com',
+      date: '2023-02-12',
+      phone: 555123456,
+      status: 'pendiente'
+    },
+    {
+      id: 'TCK-002',
+      title: 'Automóvil Toyota Corolla 2024',
+      name: 'María Rodríguez',
+      email: 'maria.rodriguez@example.com',
+      date: '2023-02-10',
+      phone: 987654321,
+      status: 'aprobado'
+    },
+    {
+      id: 'TCK-002',
+      title: 'Automóvil Toyota Corolla 2024',
+      name: 'María Rodríguez',
+      email: 'maria.rodriguez@example.com',
+      date: '2023-02-10',
+      phone: 987654321,
+      status: 'aprobado'
+    },
+    {
+      id: 'TCK-002',
+      title: 'Automóvil Toyota Corolla 2024',
+      name: 'María Rodríguez',
+      email: 'maria.rodriguez@example.com',
+      date: '2023-02-10',
+      phone: 987654321,
+      status: 'aprobado'
+    }
+  ];
 
   /**
    *METODOS de pago
@@ -62,6 +119,20 @@ export class WebComponent {
       active: false,
       details: {
         description: "Datos para zelle",
+        bank: "Venezuela (0102)",
+        holder: "Andres belandria",
+        account: "3253711435",
+        phone: "+58 412-9844334"
+      }
+
+    },
+    {
+      id: 4,
+      name: "Transferencia",
+      url: "pago-movil.png",
+      active: false,
+      details: {
+        description: "Datos para Transferencia",
         bank: "Venezuela (0102)",
         holder: "Andres belandria",
         account: "3253711435",
