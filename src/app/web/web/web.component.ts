@@ -16,13 +16,14 @@ export class WebComponent {
   rangeValue = 30;
   price_ticket: number = 10;
   quantity_tickets: number = 1;
+  today:Date = new Date()
 
 
   selectedFileName: string = '';
 
   tickets: Ticket[] = [
     {
-      id: 'TCK-001',
+      id: 'TCK-0013',
       title: 'Automóvil Toyota Corolla 2024',
       name: 'Juan Pérez',
       email: 'juan.perez@example.com',
@@ -31,7 +32,7 @@ export class WebComponent {
       status: 'pendiente'
     },
     {
-      id: 'TCK-002',
+      id: 'TCK-0021',
       title: 'Automóvil Toyota Corolla 2024',
       name: 'María Rodríguez',
       email: 'maria.rodriguez@example.com',
@@ -40,7 +41,7 @@ export class WebComponent {
       status: 'aprobado'
     },
     {
-      id: 'TCK-003',
+      id: 'TCK-0034',
       title: 'Automóvil Toyota Corolla 2024',
       name: 'Carlos López',
       email: 'carlos.lopez@example.com',
@@ -49,7 +50,7 @@ export class WebComponent {
       status: 'pendiente'
     },
     {
-      id: 'TCK-002',
+      id: 'TCK-0025',
       title: 'Automóvil Toyota Corolla 2024',
       name: 'María Rodríguez',
       email: 'maria.rodriguez@example.com',
@@ -58,7 +59,7 @@ export class WebComponent {
       status: 'aprobado'
     },
     {
-      id: 'TCK-002',
+      id: 'TCK-0022',
       title: 'Automóvil Toyota Corolla 2024',
       name: 'María Rodríguez',
       email: 'maria.rodriguez@example.com',
@@ -67,7 +68,7 @@ export class WebComponent {
       status: 'aprobado'
     },
     {
-      id: 'TCK-002',
+      id: 'TCK-0026',
       title: 'Automóvil Toyota Corolla 2024',
       name: 'María Rodríguez',
       email: 'maria.rodriguez@example.com',

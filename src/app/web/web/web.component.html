@@ -1,19 +1,20 @@
-<header class="flex flex-wrap align-items-center  justify-content-between px-4 py-3 shadow-3 gap-3">
-  <div class="flex flex-column font-bold ">
-    <p class="text-xl text-gradient ">Desdezero</p>
-    <span class="text-xs font-italic ">Recuerda que todos empezamos <span class="text-gradient">desdeZero</span></span>
+<header class="flex flex-wrap md:flex-nowrap align-items-center justify-content-between px-3 md:px-3 py-3 shadow-3  ">
+  <!-- Logo y nombre -->
+  <div class="flex flex-column align-items-center md:align-items-start font-bold col-12 md:col">
+    <img src="assets/img/logo.png" class="w-8 md:w-7" alt="Logo DesdeZero">
   </div>
 
-  <nav
-    class="flex md:flex-row gap-3 md:gap-4 w-full md:w-auto justify-content-center md:justify-content-end mt-3 md:mt-0">
+  <!-- Menú de navegación -->
+  <nav class="flex flex-wrap md:flex-nowrap col-12 md:col-8 justify-content-center
+   md:justify-content-end gap-3  ">
     <a href="#" class="font-semibold text-sm md:text-base">Inicio</a>
     <a href="#" class="font-semibold text-sm md:text-base">Rifas</a>
     <a href="#" class="font-semibold text-sm md:text-base">Tickets</a>
     <a href="#" class="font-semibold text-sm md:text-base">Quiénes Somos</a>
     <a href="#" class="font-semibold text-sm md:text-base">Contacto</a>
   </nav>
-
 </header>
+
 
 
 
@@ -65,8 +66,7 @@
 
   <!-- IMAGEN -->
   @if (!esCelular) {
-  <img src="./assets/img/rifa.jpg" class="w-full mt-4 md:mt-0 md:w-6 border-round-xl rotate-right"
-    style="box-shadow: -5px  5px 10px 2px rgba(218, 165, 32, 0.516);" alt="Rifa">
+  <img src="./assets/img/rifa.jpg" class="w-full mt-4 md:mt-0 md:w-6 border-round-xl rotate-right" alt="Rifa">
 
   }
 
@@ -416,11 +416,10 @@
 
     <!-- Logo -->
     <div class="flex align-items-center gap-2">
-      <div class="w-4rem h-4rem surface-300 border-round flex justify-content-center align-items-center">
+      <div class="w-15rem h-4rem surface-300 border-round flex justify-content-center align-items-center">
         <!-- Aquí irá el logo -->
-        <i class="pi pi-image text-2xl"></i>
+        <img src="assets/img/logo-negativo.png" class="w-full" alt="">
       </div>
-      <div class="text-lg font-bold text-gradient-animated">Empresa</div>
     </div>
 
     <!-- Información de contacto -->
@@ -442,4 +441,12 @@
     </div>
 
   </div>
+
+<!-- Copirray y Diseñado por -->
+<div class="text-center  mt-4">
+  <p class="text-sm text-white">
+    {{ '@Copyright ' + (today | date:'yyyy') + ' Todos los derechos reservados | Diseñado por ' }}<a  target="_blank" href="https://www.instagram.com/coffeecode.ve/"  style="color: #0077ff;" >Coffee Code</a>
+  </p>
+</div>
+
 </footer>
