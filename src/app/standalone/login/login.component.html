@@ -1,0 +1,26 @@
+<!-- login.component.html -->
+<div class="main-login flex justify-content-center align-items-center">
+
+	<div class="bg-white p-4 shadow-3 border-round-sm w-full sm:w-25rem border-login">
+		<div class="text-center mb-4">
+			<img src="assets/img/logo.png" class="w-full" alt="">
+			<h2 class="mt-2 text-gradient-animated uppercase">Iniciar Sesión</h2>
+		</div>
+
+		<div class="field ">
+			<label for="email" class="font-semibold text-xs uppercase">
+				<i class="fa-solid fa-user text-sm mr-1"></i>
+				Usuario</label>
+			<input id="email" type="text" class="custom-input w-full" placeholder="carolinahernadez@gamil.com">
+		</div>
+
+		<div class="field ">
+			<label for="pass" class="font-semibold text-xs uppercase">
+				<i class="fa-solid fa-key text-sm mr-1"></i>
+				Contraseña</label>
+			<input id="pass" type="password" class="custom-input w-full" placeholder="carolinahernadez@gamil.com">
+		</div>
+
+		<button class="w-full mt-4 custom-btn" (click)="login()">Entrar</button>
+	</div>
+</div>

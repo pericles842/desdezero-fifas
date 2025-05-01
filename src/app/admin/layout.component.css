@@ -1,0 +1,21 @@
+.item-active {
+    background-color: var(--text-color-light);
+
+}
+
+.item {
+    color: var(--text-color-light);
+
+    i {
+        color: var(--text-color-light);
+    }
+}
+
+.item:hover {
+    background-color: var(--text-color-light);
+    color: var(--text-color-black);
+
+    i {
+        color: var(--text-color-black);
+    }
+}

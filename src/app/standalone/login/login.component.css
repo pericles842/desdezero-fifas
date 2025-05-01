@@ -1,0 +1,8 @@
+.main-login{
+    /* background-color: var(--secondary-color); */
+    height: 100vh;     
+}
+
+.border-login{
+    border-bottom: 5px solid var(--primary-color);
+}
