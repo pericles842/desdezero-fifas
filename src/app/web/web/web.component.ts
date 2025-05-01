@@ -102,7 +102,7 @@ export class WebComponent {
     {
       id: 2,
       name: "Zinli",
-      url: "pago-movil.png",
+      url: "zinli.png",
       active: false,
       details: {
         description: "Datos para zinli",
@@ -116,7 +116,7 @@ export class WebComponent {
     {
       id: 3,
       name: "Zelle",
-      url: "pago-movil.png",
+      url: "zelle.png",
       active: false,
       details: {
         description: "Datos para zelle",
