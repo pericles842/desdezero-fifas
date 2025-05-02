@@ -10,6 +10,10 @@ html {
   scroll-behavior: smooth;
 }
 
+.grid {
+  margin: 0 !important;
+}
+
 a {
   color: var(--secondary-color);
   cursor: pointer;
@@ -165,11 +169,14 @@ a:hover {
 }
 
 
-.box-validate-ticket{
+.box-validate-ticket {
   background-color: var(--background-color);
   box-sizing: border-box;
   border-radius: 5px;
-  label , i, p{
+
+  label,
+  i,
+  p {
     color: #fff;
   }
 
@@ -287,29 +294,31 @@ input[type="number"] {
   cursor: pointer;
   border-radius: 7px;
   box-sizing: border-box;
-  transition: all 0.2s ;
+  transition: all 0.2s;
 }
 
-.card-payment:hover , .card-payment-active {
+.card-payment:hover,
+.card-payment-active {
   background-color: var(--secondary-color);
   border: 2px solid var(--primary-color);
-  transition: all 0.2s ;
+  transition: all 0.2s;
   box-sizing: border-box;
 
   p {
     background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    transition: all 0.2s ;
-    box-sizing: border-box;
-  }
-  img{
-    filter: brightness(0) invert(1);
-    transition: all 0.2s ;
+    transition: all 0.2s;
     box-sizing: border-box;
   }
 
-  
+  img {
+    filter: brightness(0) invert(1);
+    transition: all 0.2s;
+    box-sizing: border-box;
+  }
+
+
 }
 
 .img-payment {
@@ -324,10 +333,10 @@ input[type="number"] {
   justify-content: start;
   gap: 8px;
   background-color: var(--secondary-color);
-  color:  var(--text-color-light);
+  color: var(--text-color-light);
   padding: 10px 20px;
   font-size: 16px;
- 
+
   border-radius: 5px;
   cursor: pointer;
   transition: background-color 0.3s;
@@ -342,16 +351,35 @@ input[type="number"] {
 .support-btn {
   border-radius: 100%;
   cursor: pointer;
-  border:none;
+  border: none;
   background-color: rgb(26, 174, 26);
-  i{
+
+  i {
     color: #fff
   }
-  
+
 }
-.text-support{
+
+.text-support {
   color: #fff;
   padding: 6px;
   border-radius: 6px;
-  background-color: rgb(26, 174, 26) ;
+  background-color: rgb(26, 174, 26);
+}
+
+.btn-form {
+  background-color: var(--background-color);
+  font-size: 20px;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--text-color-light);
+  transform: scale(1);
+  transition: 0.2s;
+}
+
+.btn-form:hover {
+  transform: scale(1.05);
+  transition: 0.2s;
 }

@@ -8,7 +8,8 @@
       <i class="fa-solid fa-gear  mr-2"></i>
       Configuración
     </a>
-    <a class="flex align-items-center item  p-2  w-full justify-content-start border-round-md">
+    <a [routerLink]="['/dashboard/crear-rifas']"
+      class="flex align-items-center item  p-2  w-full justify-content-start border-round-md">
       <i class="fa-solid fa-trophy  mr-2"></i>
       Rifas
     </a>
@@ -17,10 +18,14 @@
       Pagos
     </a>
     <a class="flex align-items-center item  p-2  w-full justify-content-start border-round-md">
+      <i class="fa-solid fa-credit-card mr-2"></i>
+      Métodos de pago
+    </a>
+
+    <a class="flex align-items-center item  p-2  w-full justify-content-start border-round-md">
       <i class="fa-solid fa-chart-simple mr-2"></i>
       Estadísticas
     </a>
-
 
 
     <a class="flex align-items-center p-3 text-white border-round-md" style="position: absolute; bottom: 20px;">
@@ -34,12 +39,13 @@
 
     <i class="fa-solid fa-gear item-active p-2 text-2xl border-round-md"></i>
     <i class="fa-solid fa-trophy item p-2 text-2xl border-round-md"></i>
+    <i class="fa-solid fa-credit-card text-white p-2 text-2xl border-round-md"></i>
     <i class="fa-solid fa-money-bills item p-2 text-2xl border-round-md"></i>
     <i class="fa-solid fa-chart-simple item p-2 text-2xl border-round-md "></i>
   </div>
   }
 
-  <div class="flex flex-column  w-full">
+  <div class="flex flex-column w-full" style="background-color: rgb(238, 238, 238);">
     <header class="flex align-items-center bg-secondary justify-content-between p-3">
       <!-- Logo y nombre -->
       <div class="flex align-items-center">
@@ -52,9 +58,7 @@
       </div>
     </header>
 
-    <div style="background-color: red;" class="w-full">
-
-      <p>s</p>
+    <div class=" shadow-5 m-3 p-3 bg-white border-round-md"  >
       <router-outlet></router-outlet>
     </div>
   </div>
