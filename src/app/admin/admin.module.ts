@@ -8,6 +8,8 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
 import { CardStatiticsComponent } from './components/card-statitics/card-statitics.component';
 import { ConfigComponent } from './components/config/config.component';
 import { PayMethodsComponent } from './components/pay-methods/pay-methods.component';
+import { TableModule } from 'primeng/table';
+import { VentasComponent } from './components/ventas/ventas.component';
 
 
 
@@ -19,11 +21,14 @@ import { PayMethodsComponent } from './components/pay-methods/pay-methods.compon
     StatisticsComponent,
     CardStatiticsComponent,
     ConfigComponent,
-    PayMethodsComponent
+    PayMethodsComponent,
+    VentasComponent
   ],
   imports: [
     CommonModule,
-    AdminRoutingModule
+    AdminRoutingModule,
+    TableModule
+    
   ]
 })
 export class AdminModule { }

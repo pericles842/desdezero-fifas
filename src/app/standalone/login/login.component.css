@@ -4,5 +4,5 @@
 }
 
 .border-login{
-    border-bottom: 5px solid var(--primary-color);
+    border-bottom: 5px solid var(--primary-custom-color);
 }

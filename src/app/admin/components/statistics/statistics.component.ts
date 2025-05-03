@@ -25,7 +25,7 @@ export class StatisticsComponent {
     {
       id: 3,
       title: 'Total Recaudado',
-      statistic: 128,
+      statistic: '400$',
       icon: 'fa-solid fa-money-bill-trend-up',
       col:'md:col-4'
     }

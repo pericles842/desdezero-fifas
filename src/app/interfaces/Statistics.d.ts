@@ -1,7 +1,7 @@
 export interface Statistics {
     id:number,
     title:string,
-    statistic:number,
+    statistic:number|string,
     icon:string,
     col:string
 }

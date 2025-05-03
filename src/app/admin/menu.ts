@@ -27,7 +27,7 @@ export const MENU: Menu[] = [
         name: "Venta",
         active: false,
         icon: 'fa-solid fa-money-bills ',
-        rute: ''
+        rute: '/admin/ventas'
     },
     {
         id: 5,

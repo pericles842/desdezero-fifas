@@ -1,9 +1,16 @@
+
+
 * {
   color: var(--text-color-black);
   margin: 0;
   padding: 0;
   font-family: "Geist", sans-serif;
   box-sizing: border-box;
+}
+
+::selection {
+  background-color: var(--secondary-color); /* negro */
+  color: white;              /* texto blanco */
 }
 
 html {
@@ -23,7 +30,7 @@ a {
 }
 
 a:hover {
-  color: var(--primary-color);
+  color: var(--primary-custom-color);
   transition: 0.2s;
 }
 
@@ -73,7 +80,7 @@ a:hover {
   padding: 5px 12px;
   font-size: 20px;
   background-color: var(--secondary-color);
-  color: var(--primary-color);
+  color: var(--primary-custom-color);
   border-radius: 100%;
 
 
@@ -84,7 +91,7 @@ a:hover {
 } */
 /* === Colores de fondo === */
 .bg-primary {
-  background-color: var(--primary-color);
+  background-color: var(--primary-custom-color);
 }
 
 .bg-primary-dark {
@@ -117,7 +124,7 @@ a:hover {
 }
 
 .text-primary-custom {
-  color: var(--primary-color);
+  color: var(--primary-custom-color);
 }
 
 .text-accent {
@@ -130,7 +137,7 @@ a:hover {
 }
 
 .border-primary {
-  border: 1px solid var(--primary-color);
+  border: 1px solid var(--primary-custom-color);
 }
 
 .border-accent {
@@ -139,7 +146,7 @@ a:hover {
 
 /* === Hover states === */
 .hover-bg-primary:hover {
-  background-color: var(--primary-color);
+  background-color: var(--primary-custom-color);
 }
 
 .hover-bg-accent:hover {
@@ -151,13 +158,13 @@ a:hover {
 }
 
 .text-gradient {
-  background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+  background: linear-gradient(90deg, var(--primary-custom-color), var(--primary-dark));
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .bg-gradient {
-  background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+  background: linear-gradient(90deg, var(--primary-custom-color), var(--primary-dark));
 }
 
 
@@ -198,7 +205,7 @@ a:hover {
 }
 
 .text-gradient-animated {
-  background: linear-gradient(90deg, var(--primary-color), var(--primary-dark), #eab543);
+  background: linear-gradient(90deg, var(--primary-custom-color), var(--primary-dark), #eab543);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-size: 200% 100%;
@@ -219,7 +226,7 @@ a:hover {
   position: absolute;
   inset: 0;
   padding: 2px;
-  background: linear-gradient(90deg, var(--primary-color), var(--primary-dark), #eab543, var(--primary-color));
+  background: linear-gradient(90deg, var(--primary-custom-color), var(--primary-dark), #eab543, var(--primary-custom-color));
   background-size: 300% 100%;
   animation: animated-gradient-border 1s linear infinite;
   border-radius: inherit;
@@ -258,7 +265,7 @@ input[type="range"] {
   width: 100%;
   height: 12px;
   border-radius: 6px;
-  background: linear-gradient(to right, var(--primary-color) 0, var(--primary-color) 50%, #eee 50%, #eee 100%);
+  background: linear-gradient(to right, var(--primary-custom-color) 0, var(--primary-custom-color) 50%, #eee 50%, #eee 100%);
   outline: none;
   pointer-events: auto;
 }
@@ -300,12 +307,12 @@ input[type="number"] {
 .card-payment:hover,
 .card-payment-active {
   background-color: var(--secondary-color);
-  border: 2px solid var(--primary-color);
+  border: 2px solid var(--primary-custom-color);
   transition: all 0.2s;
   box-sizing: border-box;
 
   p {
-    background: linear-gradient(90deg, var(--primary-color), var(--primary-dark));
+    background: linear-gradient(90deg, var(--primary-custom-color), var(--primary-dark));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     transition: all 0.2s;

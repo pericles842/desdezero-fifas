@@ -5,6 +5,7 @@ import { RifasFormComponent } from './components/rifas-form/rifas-form.component
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { ConfigComponent } from './components/config/config.component';
 import { PayMethodsComponent } from './components/pay-methods/pay-methods.component';
+import { VentasComponent } from './components/ventas/ventas.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
       { path: 'rifas', component: RifasFormComponent },
       { path: 'estadisticas', component: StatisticsComponent },
       { path: 'configuracion', component: ConfigComponent },
-      { path: 'metodos-pagos', component: PayMethodsComponent }
+      { path: 'metodos-pagos', component: PayMethodsComponent },
+      { path: 'ventas', component: VentasComponent }
     ]
   },
   { path: '**', redirectTo: '/admin/estadisticas' } // Ruta no encontrada redirige a 'admin/estadisticas'

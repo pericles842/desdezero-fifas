@@ -184,7 +184,7 @@ export class WebComponent {
 
 
   getRangeBackground(value: number): string {
-    return `linear-gradient(to right, var(--primary-color) 0%,var(--primary-color) ${value}%, #eee ${value}%, #eee 100%)`;
+    return `linear-gradient(to right, var(--primary-custom-color) 0%,var(--primary-custom-color) ${value}%, #eee ${value}%, #eee 100%)`;
   }
 
   /**
