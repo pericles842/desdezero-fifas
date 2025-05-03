@@ -6,25 +6,25 @@ export const MENU: Menu[] = [
         name: "Estadísticas",
         active: true,
         icon: 'fa-solid fa-chart-simple ',
-        rute: ''
+        rute: '/admin/estadisticas'
     },
     {
         id: 2,
         name: "Configuración",
         active: false,
         icon: 'fa-solid fa-gear ',
-        rute: ''
+        rute: '/admin/configuracion'
     },
     {
         id: 3,
         name: "Rifas",
         active: false,
         icon: 'fa-solid fa-trophy ',
-        rute: '/dashboard/crear-rifas'
+        rute: '/admin/rifas'
     },
     {
         id: 4,
-        name: "Pagos",
+        name: "Venta",
         active: false,
         icon: 'fa-solid fa-money-bills ',
         rute: ''
@@ -34,6 +34,6 @@ export const MENU: Menu[] = [
         name: "Métodos de pago",
         active: false,
         icon: 'fa-solid fa-credit-card ',
-        rute: ''
+        rute: '/admin/metodos-pagos'
     }
 ]

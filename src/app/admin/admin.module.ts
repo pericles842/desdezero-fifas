@@ -4,6 +4,10 @@ import { LayoutComponent } from './layout.component';
 import { CommonModule } from '@angular/common';
 import { HeaderButtonsComponent } from './components/header-buttons/header-buttons.component';
 import { RifasFormComponent } from './components/rifas-form/rifas-form.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { CardStatiticsComponent } from './components/card-statitics/card-statitics.component';
+import { ConfigComponent } from './components/config/config.component';
+import { PayMethodsComponent } from './components/pay-methods/pay-methods.component';
 
 
 
@@ -11,7 +15,11 @@ import { RifasFormComponent } from './components/rifas-form/rifas-form.component
   declarations: [
     LayoutComponent,
     RifasFormComponent,
-    HeaderButtonsComponent
+    HeaderButtonsComponent,
+    StatisticsComponent,
+    CardStatiticsComponent,
+    ConfigComponent,
+    PayMethodsComponent
   ],
   imports: [
     CommonModule,

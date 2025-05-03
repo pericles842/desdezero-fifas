@@ -1,0 +1,12 @@
+<section class="main-form p-3 md:p-0  pb-5 md:pb-0">
+  <h1 class="text-3xl md:text-4xl mb-4 text-gradient">Estadísticas</h1>
+
+  <!-- nombre de la rifa fecha  -->
+  <div class="grid">
+   @for (statistic of statistics; track $index) {
+    <div class="field col-12 " [ngClass]="statistic.col">
+      <app-card-statitics [statistic]="statistic"></app-card-statitics>
+    </div>
+   }
+  </div>
+</section>
