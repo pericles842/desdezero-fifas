@@ -1,4 +1,6 @@
 import { Component, HostListener } from '@angular/core';
+import { Menu } from '../interfaces/menu';
+import { MENU } from './menu';
 
 @Component({
   selector: 'app-layout',
@@ -8,6 +10,7 @@ import { Component, HostListener } from '@angular/core';
 export class LayoutComponent {
 
   esCelular: boolean = false
+  menus: Menu[] = MENU
 
   ngOnInit() {
     this.onResize()
@@ -22,6 +25,14 @@ export class LayoutComponent {
     this.esCelular = window.innerWidth < 768;
   }
 
+  /**
+   * Activa el men  seleccionado y desactiva todos los dem s.
+   * @param menu El men  a activar.
+   */
+  activeMenu(menu: Menu) {
+    this.menus.forEach(m => m.active = false)
+    menu.active = true
+  }
 }
 
 

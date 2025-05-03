@@ -1,0 +1,8 @@
+.botones-sticky {
+    position: sticky;
+    /* EL TOP SUBE LOS BOTONES 20PX para que a la hora de
+     hcaer scroll no salga lo de atras */
+    top: -20px;
+  
+    z-index: 100;
+}

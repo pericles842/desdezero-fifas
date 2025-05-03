@@ -19,3 +19,11 @@
         color: var(--text-color-black);
     }
 }
+
+a{
+    color: none;
+}
+
+a:active{
+    color: none;
+}

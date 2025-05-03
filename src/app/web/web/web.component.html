@@ -7,11 +7,11 @@
   <!-- Menú de navegación -->
   <nav class="flex flex-wrap md:flex-nowrap col-12 md:col-8 justify-content-center
    md:justify-content-end gap-3  ">
-    <a href="#" class="font-semibold text-sm md:text-base">Inicio</a>
-    <a href="#" class="font-semibold text-sm md:text-base">Rifas</a>
-    <a href="#" class="font-semibold text-sm md:text-base">Tickets</a>
-    <a href="#" class="font-semibold text-sm md:text-base">Quiénes Somos</a>
-    <a href="#" class="font-semibold text-sm md:text-base">Contacto</a>
+    <a  (click)="irASeccion('inicio')" class="font-semibold text-sm md:text-base">Inicio</a>
+    <a  (click)="irASeccion('rifas')" class="font-semibold text-sm md:text-base">Rifas</a>
+    <a  (click)="irASeccion('ticket')" class="font-semibold text-sm md:text-base">Ticket</a>
+    <a  (click)="irASeccion('quienesSomos')" class="font-semibold text-sm md:text-base">Quiénes Somos</a>
+    <a  (click)="irASeccion('contacto')" class="font-semibold text-sm md:text-base">Contacto</a>
   </nav>
 </header>
 
@@ -19,7 +19,7 @@
 
 
 <!-- HOME RESPONSIVO -->
-<section
+<section #inicio
   class=" flex flex-column md:flex-row justify-content-center align-items-center px-4 py-7 flex-wrap pt-3 md:pt-6 bg-secondary ">
   <!-- TEXTO Y BOTONES -->
   <div class="flex flex-column gap-4 justify-content-center w-full md:w-6 ">
@@ -72,10 +72,10 @@
 
 </section>
 
-<!-- EStatistics -->
 <aside class="mx-4">
 
-  <section class="my-5 ">
+  <!-- quienes somos -->
+  <section class="my-5" #quienesSomos>
 
     <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">Quiénes Somos</h1>
 
@@ -89,6 +89,8 @@
         DesdeZero</span></p>
   </section>
 
+
+  <!-- EStatistics -->
   <section class="my-5">
 
     <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">Estadísticas</h1>
@@ -413,7 +415,7 @@
   </section>
 
   <!-- Validar tikets -->
-  <section class="my-5">
+  <section class="my-5" #ticket>
     <app-validate-ticket class="w-full"></app-validate-ticket>
   </section>
 
@@ -426,7 +428,7 @@
 </aside>
 
 
-<footer class="p-4 bg-secondary  shadow-2 mt-5">
+<footer class="p-4 bg-secondary  shadow-2 mt-5" #ticket>
   <div class="flex flex-column md:flex-row justify-content-between align-items-center gap-4 text-white">
 
     <!-- Logo -->
@@ -458,7 +460,7 @@
   </div>
 
   <!-- Copirray y Diseñado por -->
-  <div class="text-center  mt-4">
+  <div class="text-center  mt-4" #contacto>
     <p class="text-sm text-white">
       {{ '@Copyright ' + (today | date:'yyyy') + ' Todos los derechos reservados | Diseñado por ' }}<a target="_blank"
         href="https://www.instagram.com/coffeecode.ve/" style="color: #0077ff;">Coffee Code</a>

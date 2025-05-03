@@ -4,29 +4,13 @@
   <div class="flex flex-column  align-items-start justify-content-center  gap-3 p-2 bg-secondary h-screen"
     style="width: 20%;">
 
-    <a class="flex align-items-center w-full  justify-content-start p-2 item-active border-round-md">
-      <i class="fa-solid fa-gear  mr-2"></i>
-      Configuración
+    @for (menu of menus; track $index) {
+    <a [routerLink]="menu.rute" [ngClass]="menu.active?'item-active':'item'" (click)="activeMenu(menu)"
+      class="flex align-items-center p-2  w-full justify-content-start border-round-md">
+      <i [ngClass]="menu.icon" class=" mr-2"></i>
+      {{menu.name}}
     </a>
-    <a [routerLink]="['/dashboard/crear-rifas']"
-      class="flex align-items-center item  p-2  w-full justify-content-start border-round-md">
-      <i class="fa-solid fa-trophy  mr-2"></i>
-      Rifas
-    </a>
-    <a class="flex align-items-center item  p-2  w-full justify-content-start border-round-md">
-      <i class="fa-solid fa-money-bills mr-2"></i>
-      Pagos
-    </a>
-    <a class="flex align-items-center item  p-2  w-full justify-content-start border-round-md">
-      <i class="fa-solid fa-credit-card mr-2"></i>
-      Métodos de pago
-    </a>
-
-    <a class="flex align-items-center item  p-2  w-full justify-content-start border-round-md">
-      <i class="fa-solid fa-chart-simple mr-2"></i>
-      Estadísticas
-    </a>
-
+    }
 
     <a class="flex align-items-center p-3 text-white border-round-md" style="position: absolute; bottom: 20px;">
       <i class="fa-solid fa-right-from-bracket mr-2 text-white"></i>
@@ -37,15 +21,14 @@
   }@else {
   <div class="flex bg-secondary gap-3  p-2 justify-content-center" style="position: fixed; bottom: 0; width: 100%;">
 
-    <i class="fa-solid fa-gear item-active p-2 text-2xl border-round-md"></i>
-    <i class="fa-solid fa-trophy item p-2 text-2xl border-round-md"></i>
-    <i class="fa-solid fa-credit-card text-white p-2 text-2xl border-round-md"></i>
-    <i class="fa-solid fa-money-bills item p-2 text-2xl border-round-md"></i>
-    <i class="fa-solid fa-chart-simple item p-2 text-2xl border-round-md "></i>
+    @for (menu of menus; track $index) {
+    <i (click)="activeMenu(menu)" [routerLink]="menu.rute" [ngClass]="[menu.icon, menu.active ? 'item-active' : 'item']"
+      class=" p-2 text-2xl border-round-md "></i>
+    }
   </div>
   }
 
-  <div class="flex flex-column w-full" style="background-color: rgb(238, 238, 238);">
+  <div class="flex flex-column w-full h-screen" style="background-color: rgb(238, 238, 238);">
     <header class="flex align-items-center bg-secondary justify-content-between p-3">
       <!-- Logo y nombre -->
       <div class="flex align-items-center">
@@ -58,7 +41,7 @@
       </div>
     </header>
 
-    <div class=" shadow-5 m-3 p-3 bg-white border-round-md"  >
+    <div class=" shadow-5 m-0 md:m-3 p-0 md:p-3 bg-white border-round-md overflow-y-scroll">
       <router-outlet></router-outlet>
     </div>
   </div>

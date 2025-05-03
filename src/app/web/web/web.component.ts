@@ -10,13 +10,17 @@ import { Ticket } from 'src/app/interfaces/Ticket';
 export class WebComponent {
   @ViewChild('rifas') rifas!: ElementRef;
   @ViewChild('comoFunciona') comoFunciona!: ElementRef;
+  @ViewChild('inicio') inicio!: ElementRef;
+  @ViewChild('ticket') ticket!: ElementRef;
+  @ViewChild('quienesSomos') quienesSomos!: ElementRef;
+  @ViewChild('contacto') contacto!: ElementRef;
 
   esCelular = window.innerWidth < 768;
   loading = true;
   rangeValue = 30;
   price_ticket: number = 10;
   quantity_tickets: number = 1;
-  today:Date = new Date()
+  today: Date = new Date()
 
 
   selectedFileName: string = '';
@@ -154,7 +158,12 @@ export class WebComponent {
   irASeccion(seccion: string) {
     const secciones: { [key: string]: ElementRef } = {
       rifas: this.rifas,
-      comoFunciona: this.comoFunciona
+      comoFunciona: this.comoFunciona,
+      inicio: this.inicio,
+      ticket: this.ticket,
+      quienesSomos: this.quienesSomos,
+      contacto: this.contacto,
+
     };
 
     const elemento = secciones[seccion];
