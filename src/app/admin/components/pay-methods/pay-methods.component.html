@@ -6,10 +6,10 @@
 
 
   <p class="text-xl md:text-2xl font-semibold pb-3 text-gradient">Tipo de pago</p>
-  <div class="flex flex-wrap gap-2">
+  <div class="grid gap-2">
     @for (category of categoryBank; track $index) {
     <div (click)="changeCategoryPay(category)" [ngClass]="category.active?'card-payment-active':'card-payment'"
-      class="card-payment p-3 shadow-5">
+      class="card-payment p-3 shadow-5 col-12 md:col">
       <p lass="font-semibold text-sm md:text-lg">{{category.name}}</p>
     </div>
     }
