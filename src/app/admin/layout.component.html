@@ -19,7 +19,7 @@
 
   </div>
   }@else {
-  <div class="flex bg-secondary gap-3  p-2 justify-content-center" style="position: fixed; bottom: 0; width: 100%;">
+  <div class="flex bg-secondary gap-3  p-2 justify-content-center z-5" style="position: fixed; bottom: 0; width: 100%; ">
 
     @for (menu of menus; track $index) {
     <i (click)="activeMenu(menu)" [routerLink]="menu.rute" [ngClass]="[menu.icon, menu.active ? 'item-active' : 'item']"

@@ -10,7 +10,8 @@ import { ConfigComponent } from './components/config/config.component';
 import { PayMethodsComponent } from './components/pay-methods/pay-methods.component';
 import { TableModule } from 'primeng/table';
 import { VentasComponent } from './components/ventas/ventas.component';
-
+import { TooltipModule } from 'primeng/tooltip';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 
 
 @NgModule({
@@ -27,7 +28,9 @@ import { VentasComponent } from './components/ventas/ventas.component';
   imports: [
     CommonModule,
     AdminRoutingModule,
-    TableModule
+    TableModule,
+    TooltipModule,
+    OverlayPanelModule
     
   ]
 })
