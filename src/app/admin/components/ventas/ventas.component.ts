@@ -24,7 +24,7 @@ export class VentasComponent {
       numero: '04149876543',
       img: 'https://randomuser.me/api/portraits/women/2.jpg',
       estatus: 'aprobado',
-      tckts: ['2345', '6789'],
+      tckts: ['1111', '6789'],
       total: 200,
       fecha: new Date('2023-01-06').toLocaleDateString()
     },
@@ -39,7 +39,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-07').toLocaleDateString()
     },
     {
-      nombre: 'Laura Daniela S nchez',
+      nombre: 'Laura Daniela Sánchez',
       correo: 'laura.sanchez@gmail.com',
       numero: '04141234567',
       img: 'https://randomuser.me/api/portraits/women/4.jpg',
@@ -49,7 +49,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-08').toLocaleDateString()
     },
     {
-      nombre: 'Andr s Jos  P rez',
+      nombre: 'Andrés José Pérez',
       correo: 'andres.perez@outlook.com',
       numero: '04149876543',
       img: 'https://randomuser.me/api/portraits/men/5.jpg',
@@ -59,7 +59,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-09').toLocaleDateString()
     },
     {
-      nombre: 'Mar a del Carmen G mez',
+      nombre: 'María del Carmen Gómez',
       correo: 'maria.gomez@hotmail.com',
       numero: '04141239876',
       img: 'https://randomuser.me/api/portraits/women/6.jpg',
@@ -69,7 +69,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-10').toLocaleDateString()
     },
     {
-      nombre: 'C sar Alejandro Mart nez',
+      nombre: 'César Alejandro Martínez',
       correo: 'cesar.martinez@gmail.com',
       numero: '04141234567',
       img: 'https://randomuser.me/api/portraits/men/7.jpg',
@@ -79,7 +79,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-11').toLocaleDateString()
     },
     {
-      nombre: 'Sandra Patricia L pez',
+      nombre: 'Sandra Patricia López',
       correo: 'sandra.lopez@outlook.com',
       numero: '04149876543',
       img: 'https://randomuser.me/api/portraits/women/8.jpg',
@@ -89,7 +89,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-12').toLocaleDateString()
     },
     {
-      nombre: 'Jorge Luis D az',
+      nombre: 'Jorge Luis Díaz',
       correo: 'jorge.diaz@hotmail.com',
       numero: '04141239876',
       img: 'https://randomuser.me/api/portraits/men/9.jpg',
@@ -99,7 +99,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-13').toLocaleDateString()
     },
     {
-      nombre: 'Ana Mar a Garc a',
+      nombre: 'Ana María García',
       correo: 'ana.garcia@gmail.com',
       numero: '04141234567',
       img: 'https://randomuser.me/api/portraits/women/10.jpg',
@@ -109,7 +109,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-14').toLocaleDateString()
     },
     {
-      nombre: 'Pedro Jos  P rez',
+      nombre: 'Pedro José Pérez',
       correo: 'pedro.perez@outlook.com',
       numero: '04149876543',
       img: 'https://randomuser.me/api/portraits/men/11.jpg',
@@ -119,7 +119,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-15').toLocaleDateString()
     },
     {
-      nombre: 'Mar a Teresa S nchez',
+      nombre: 'María Teresa Sánchez',
       correo: 'maria.sanchez@hotmail.com',
       numero: '04141239876',
       img: 'https://randomuser.me/api/portraits/women/12.jpg',
@@ -129,7 +129,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-16').toLocaleDateString()
     },
     {
-      nombre: 'Juan Pablo Ram rez',
+      nombre: 'Juan Pablo Ramírez',
       correo: 'juan.ramirez@gmail.com',
       numero: '04141234567',
       img: 'https://randomuser.me/api/portraits/men/13.jpg',
@@ -139,7 +139,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-17').toLocaleDateString()
     },
     {
-      nombre: 'Luis Alfredo G mez',
+      nombre: 'Luis Alfredo Gómez',
       correo: 'luis.gomez@outlook.com',
       numero: '04149876543',
       img: 'https://randomuser.me/api/portraits/men/14.jpg',
@@ -149,7 +149,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-18').toLocaleDateString()
     },
     {
-      nombre: 'Ana Sof a L pez',
+      nombre: 'Ana Sofía López',
       correo: 'ana.lopez@hotmail.com',
       numero: '04141239876',
       img: 'https://randomuser.me/api/portraits/women/15.jpg',
@@ -159,7 +159,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-19').toLocaleDateString()
     },
     {
-      nombre: 'Rodrigo Jos  P rez',
+      nombre: 'Rodrigo José Pérez',
       correo: 'rodrigo.perez@gmail.com',
       numero: '04141234567',
       img: 'https://randomuser.me/api/portraits/men/16.jpg',
@@ -169,7 +169,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-20').toLocaleDateString()
     },
     {
-      nombre: 'Mar a del Carmen D az',
+      nombre: 'María del Carmen Díaz',
       correo: 'maria.diaz@outlook.com',
       numero: '04149876543',
       img: 'https://randomuser.me/api/portraits/women/17.jpg',
@@ -179,7 +179,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-21').toLocaleDateString()
     },
     {
-      nombre: 'C sar Augusto G mez',
+      nombre: 'César Augusto Gómez',
       correo: 'cesar.gomez@hotmail.com',
       numero: '04141239876',
       img: 'https://randomuser.me/api/portraits/men/18.jpg',
@@ -189,7 +189,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-22').toLocaleDateString()
     },
     {
-      nombre: 'Laura Daniela S nchez',
+      nombre: 'Laura Daniela Sánchez',
       correo: 'laura.sanchez@gmail.com',
       numero: '04141234567',
       img: 'https://randomuser.me/api/portraits/women/19.jpg',
@@ -199,7 +199,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-23').toLocaleDateString()
     },
     {
-      nombre: 'Jorge Luis D az',
+      nombre: 'Jorge Luis Díaz',
       correo: 'jorge.diaz@outlook.com',
       numero: '04149876543',
       img: 'https://randomuser.me/api/portraits/men/20.jpg',
@@ -208,8 +208,8 @@ export class VentasComponent {
       total: 300,
       fecha: new Date('2023-01-24').toLocaleDateString()
     }
-  ]
-
+  ];
+  
   columnas: any[] = [
     { key: 'nombre', label: 'Nombre', activa: true, id: 'nombre' },
     { key: 'numero', label: 'Teléfono', activa: true, id: 'numero' },
