@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -9,11 +10,36 @@ import { Observable } from 'rxjs';
 export class UserService {
 
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) { }
+
+  /**
+   * Authenticates a user with the provided login credentials.
+   * 
+   * @param {Object} login - An object containing the user's login credentials.
+   * @param {string} login.correo - The email address of the user.
+   * @param {string} login.password - The password of the user.
+   * @returns {Observable<Object>} An observable that emits the authentication response containing the user's name and token.
+   * 
+   * @example
+   * this.auth({ correo: 'user@example.com', password: 'password123' }).subscribe({
+   *   next: (res) => console.log(res),
+   *   error: (err) => console.error(err)
+   * });
+   */
 
   auth(login: { correo: string, password: string }): Observable<{ nombre: string, token: string }> {
     let body = { user: login }
     return this.http.post<{ nombre: string, token: string }>(`${environment.host}/user/auth`, body)
+  }
+  /**
+   * Elimina la cookie de inicio de sesión y redirige al usuario a la página principal
+   */
+  logout() {
+    this.deleteCookie('user')
+    this.router.navigate(['/']);
   }
 
   /**
@@ -39,7 +65,7 @@ export class UserService {
 
     document.cookie = encodeURIComponent(key) + '=' + encodeURIComponent(value) + expires + '; path=/';
   }
-   
+
   /**
    * Obtiene el valor de una cookie por su nombre
    *

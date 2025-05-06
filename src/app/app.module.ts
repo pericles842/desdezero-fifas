@@ -11,7 +11,8 @@ import { ValidateTicketComponent } from './web/components/validate-ticket/valida
 import { TicketComponent } from './web/components/ticket/ticket.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
- 
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+
 
 
 
@@ -31,7 +32,9 @@ import { AuthInterceptor } from './auth.interceptor';
     HttpClientModule
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }  // Registra el interceptor
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService
   ],
   bootstrap: [AppComponent]
 })

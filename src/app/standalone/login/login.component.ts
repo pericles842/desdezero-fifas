@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 import { UserService } from 'src/app/service/user.service';
 
 @Component({
@@ -16,15 +17,16 @@ export class LoginComponent {
     correo: '',
     password: ''
   }
-  constructor(private userService: UserService) { }
+  constructor(
+    private userService: UserService,
+    private router: Router
+  ) { }
 
   auth() {
     this.userService.auth(this.login).subscribe({
       next: (res) => {
         this.userService.createCookie('user', JSON.stringify(res), 5);
-
-        console.log(this.userService.getCookie('user'))
-
+        this.router.navigate(['/admin']);
 
       },
       error(err) {
