@@ -9,6 +9,10 @@ import { LoadingComponent } from './web/components/loading/loading.component';
 import { FormsModule } from '@angular/forms';
 import { ValidateTicketComponent } from './web/components/validate-ticket/validate-ticket.component';
 import { TicketComponent } from './web/components/ticket/ticket.component';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthInterceptor } from './auth.interceptor';
+ 
+
 
 
 @NgModule({
@@ -23,9 +27,12 @@ import { TicketComponent } from './web/components/ticket/ticket.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }  // Registra el interceptor
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
