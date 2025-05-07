@@ -12,6 +12,8 @@ import { TableModule } from 'primeng/table';
 import { VentasComponent } from './components/ventas/ventas.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { FormsModule } from '@angular/forms';
+
 
 
 @NgModule({
@@ -30,7 +32,8 @@ import { OverlayPanelModule } from 'primeng/overlaypanel';
     AdminRoutingModule,
     TableModule,
     TooltipModule,
-    OverlayPanelModule
+    OverlayPanelModule,
+    FormsModule
     
   ]
 })

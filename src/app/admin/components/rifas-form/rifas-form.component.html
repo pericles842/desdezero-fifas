@@ -6,7 +6,7 @@
   <div class="grid">
     <label class="col-12 field file-upload  ">
       <i class="fas fa-upload text-white"></i> Imagen de la rifa
-      <input type="file" (change)="onFileSelected($event)">
+      <input  type="file" (change)="onFileSelected($event)">
       <div *ngIf="selectedFileName" class="text-white text-xs font-semibold">
         Archivo seleccionado: {{ selectedFileName }}
       </div>
@@ -19,7 +19,7 @@
       <label for="email" class="font-semibold text-xs uppercase">
         <i class="fa-solid fa-trophy text-sm mr-1"></i>
         Nombre de rifa</label>
-      <input id="text" type="text" class="custom-input w-full" placeholder="Familia activa">
+      <input [(ngModel)]="rifa.nombre" id="text" type="text" class="custom-input w-full" placeholder="Familia activa">
     </div>
 
     <div class="field col-12 md:col-4 ">

@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    host: 'https://tuservidor.com/api'
+    host: 'https://desdezero-server-production.up.railway.app'
 };

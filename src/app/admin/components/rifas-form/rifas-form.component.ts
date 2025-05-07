@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Rifa } from 'src/app/models/rifa.model';
 
 @Component({
   selector: 'app-rifas-form',
@@ -6,6 +7,8 @@ import { Component } from '@angular/core';
   styleUrl: './rifas-form.component.css'
 })
 export class RifasFormComponent {
+
+  rifa: Rifa = new Rifa()
 
   selectedFileName: string = '';
 

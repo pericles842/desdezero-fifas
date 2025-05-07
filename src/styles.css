@@ -404,3 +404,13 @@ input[type="number"] {
   border-radius: 10px;
   cursor: pointer;
 }
+
+::-webkit-scrollbar {
+  width: 5px;
+  background-color: #fff;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--secondary-color);
+  border-radius: 0px;
+}
