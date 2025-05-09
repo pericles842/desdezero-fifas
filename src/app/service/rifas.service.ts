@@ -17,7 +17,30 @@ export class RifasService {
    * @returns Rifa
    */
 
-  createRaffle(rifa: Rifa): Observable<Rifa> {
-    return this.http.post<Rifa>(`${environment.host}/rifas`, rifa)
+  createRaffle(_rifa: Rifa): Observable<Rifa> {
+    return this.http.post<Rifa>(`${environment.host}/rifa/create`, _rifa)
+  }
+
+  listRaffle(): Observable<Rifa[]> {
+    return this.http.get<Rifa[]>(`${environment.host}/rifa/list`)
+  }
+
+  /**
+   *Activa una rifa en base al id
+   *
+   * @param {number} id id de larifa
+   * @return {*}  {Observable<Rifa>} objeto rifga
+   * @memberof RifasService
+   */
+  activeRaffle(id: number): Observable<Rifa> {
+    return this.http.get<Rifa>(`${environment.host}/rifa/activate/${id}`)
+  }
+
+  getActiveRaffle(): Observable<Rifa> {
+    return this.http.get<Rifa>(`${environment.host}/rifa/active`)
+  }
+
+  deleteRaffle(id:number){
+     return this.http.delete<any>(`${environment.host}/rifa/delete/${id}`)
   }
 }

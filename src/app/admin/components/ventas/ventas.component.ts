@@ -7,6 +7,8 @@ import { Component, HostListener } from '@angular/core';
 })
 export class VentasComponent {
   esCelular: boolean = false
+
+  tikesArray!: string[]|number[]
   tickets = [
     {
       nombre: 'Juan Carlos Marquez',
@@ -209,7 +211,7 @@ export class VentasComponent {
       fecha: new Date('2023-01-24').toLocaleDateString()
     }
   ];
-  
+
   columnas: any[] = [
     { key: 'nombre', label: 'Nombre', activa: true, id: 'nombre' },
     { key: 'numero', label: 'Teléfono', activa: true, id: 'numero' },
@@ -225,7 +227,7 @@ export class VentasComponent {
   toggleColumna(col: any): void {
     col.activa = !col.activa;
   }
- 
+
   ngOnInit() {
     this.onResize()
   }
@@ -242,6 +244,13 @@ export class VentasComponent {
    */
   onResize() {
     this.esCelular = window.innerWidth < 768;
+  }
+
+  mostrarTickets(tickets: string[]|number[], overlay: any, event: MouseEvent): void {
+    this.tikesArray = tickets
+
+    // Muestra el overlay
+    overlay.toggle(event);
   }
 
 }

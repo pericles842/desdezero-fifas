@@ -20,24 +20,4 @@ export class AppComponent {
   }
 
 
-  async ngOnInit() {
-    try {
-      const [fonts, theme, fa] = await Promise.all([
-        fetch('https://fonts.googleapis.com/css2?family=Cal+Sans&family=Geist:wght@100..900&display=swap'),
-        fetch('assets/theme/light-theme.css'),
-        fetch('https://kit.fontawesome.com/da29abc60a.js')
-      ]);
-
-      if (!fonts.ok || !theme.ok || !fa.ok) {
-        this.loading = false;
-        throw new Error('❌ Alguno de los recursos no se pudo cargar');
-      }
-
-      this.loading = false;
-      // Aquí podrías continuar con tu lógica
-    } catch (err) {
-      this.loading = false;
-      console.error('Error detectado:', err);
-    }
-  }
 }

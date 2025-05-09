@@ -13,6 +13,9 @@ import { VentasComponent } from './components/ventas/ventas.component';
 import { TooltipModule } from 'primeng/tooltip';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { FormsModule } from '@angular/forms';
+import { DialogModule } from 'primeng/dialog';
+import { MinimalTableComponent } from "./components/minimal-table/minimal-table.component";
+import { LoadingComponent } from '../web/components/loading/loading.component';
 
 
 
@@ -25,7 +28,8 @@ import { FormsModule } from '@angular/forms';
     CardStatiticsComponent,
     ConfigComponent,
     PayMethodsComponent,
-    VentasComponent
+    VentasComponent,
+    MinimalTableComponent
   ],
   imports: [
     CommonModule,
@@ -33,8 +37,9 @@ import { FormsModule } from '@angular/forms';
     TableModule,
     TooltipModule,
     OverlayPanelModule,
-    FormsModule
-    
-  ]
+    FormsModule,
+    DialogModule,
+    LoadingComponent
+]
 })
 export class AdminModule { }

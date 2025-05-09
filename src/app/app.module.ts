@@ -1,17 +1,19 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { WebComponent } from './web/web/web.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { LoadingComponent } from './web/components/loading/loading.component';
-import { FormsModule } from '@angular/forms';
-import { ValidateTicketComponent } from './web/components/validate-ticket/validate-ticket.component';
-import { TicketComponent } from './web/components/ticket/ticket.component';
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthInterceptor } from './auth.interceptor';
-import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
+import { LoadingComponent } from './web/components/loading/loading.component';
+import { TicketComponent } from './web/components/ticket/ticket.component';
+import { ValidateTicketComponent } from './web/components/validate-ticket/validate-ticket.component';
+import { WebComponent } from './web/web/web.component';
+import { UserWinComponent } from "./standalone/user-win/user-win.component";
 
 
 
@@ -20,7 +22,6 @@ import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
   declarations: [
     AppComponent,
     WebComponent,
-    LoadingComponent,
     ValidateTicketComponent,
     TicketComponent
   ],
@@ -29,8 +30,11 @@ import { JWT_OPTIONS, JwtHelperService } from '@auth0/angular-jwt';
     AppRoutingModule,
     BrowserAnimationsModule,
     FormsModule,
-    HttpClientModule
-  ],
+    HttpClientModule,
+    SweetAlert2Module.forRoot(),
+    LoadingComponent,
+    UserWinComponent
+],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

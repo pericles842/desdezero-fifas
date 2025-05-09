@@ -414,3 +414,7 @@ input[type="number"] {
   background-color: var(--secondary-color);
   border-radius: 0px;
 }
+
+.swal2-container {
+  z-index: 20000 !important;
+}

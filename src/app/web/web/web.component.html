@@ -1,17 +1,17 @@
 <header class="flex flex-wrap md:flex-nowrap align-items-center justify-content-between px-3 md:px-3 py-3 shadow-3  ">
   <!-- Logo y nombre -->
-  <div class="flex flex-column align-items-center md:align-items-start font-bold col-12 md:col">
-    <img src="assets/img/logo.png" class="w-8 md:w-7" alt="Logo DesdeZero">
+  <div class="flex flex-column align-items-center md:align-items-start font-bold col-12 md:col cursor-pointer">
+    <img routerLink="/admin" src="assets/img/logo.png" class="w-8 md:w-7" alt="Logo DesdeZero">
   </div>
 
   <!-- Menú de navegación -->
   <nav class="flex flex-wrap md:flex-nowrap col-12 md:col-8 justify-content-center
    md:justify-content-end gap-3  ">
-    <a  (click)="irASeccion('inicio')" class="font-semibold text-sm md:text-base">Inicio</a>
-    <a  (click)="irASeccion('rifas')" class="font-semibold text-sm md:text-base">Rifas</a>
-    <a  (click)="irASeccion('ticket')" class="font-semibold text-sm md:text-base">Ticket</a>
-    <a  (click)="irASeccion('quienesSomos')" class="font-semibold text-sm md:text-base">Quiénes Somos</a>
-    <a  (click)="irASeccion('contacto')" class="font-semibold text-sm md:text-base">Contacto</a>
+    <a (click)="irASeccion('inicio')" class="font-semibold text-sm md:text-base">Inicio</a>
+    <a (click)="irASeccion('rifas')" class="font-semibold text-sm md:text-base">Rifas</a>
+    <a (click)="irASeccion('ticket')" class="font-semibold text-sm md:text-base">Ticket</a>
+    <a (click)="irASeccion('quienesSomos')" class="font-semibold text-sm md:text-base">Quiénes Somos</a>
+    <a (click)="irASeccion('contacto')" class="font-semibold text-sm md:text-base">Contacto</a>
   </nav>
 </header>
 
@@ -20,7 +20,7 @@
 
 <!-- HOME RESPONSIVO -->
 <section #inicio
-  class=" flex flex-column md:flex-row justify-content-center align-items-center px-4 py-7 flex-wrap pt-3 md:pt-6 bg-secondary ">
+  class=" flex flex-column md:flex-row justify-content-evenly align-items-center px-4 py-7 flex-wrap pt-3 md:pt-6 bg-secondary ">
   <!-- TEXTO Y BOTONES -->
   <div class="flex flex-column gap-4 justify-content-center w-full md:w-6 ">
     <div>
@@ -66,11 +66,24 @@
 
   <!-- IMAGEN -->
   @if (!esCelular) {
-  <img src="./assets/img/rifa.jpg" class="w-full mt-4 md:mt-0 md:w-6 border-round-xl rotate-right" alt="Rifa">
-
+  @if (rifa.id != 0) {
+  <img [src]="host+rifa.url_img" class="w-full mt-4 md:mt-0 md:w-6 border-round-xl rotate-right"
+    style="max-width: 400px;" [alt]="rifa.url_img">
+  }@else {
+  <img src="assets/img/desdezero-isotipo2.jpg" class="w-full mt-4 md:mt-0 md:w-6 border-round-xl rotate-right"
+    style="max-width: 500px;" alt="">
+  }
   }
 
 </section>
+@if (rifa.id == 0) {
+  <p class="text-center text-sm md:text-xl bg-secondary text-white pb-3">
+  <i class="fa-brands fa-instagram mr-2 text-white"></i>
+  Plataforma cerrada, síguenos en instagram para estar al tanto de las rifas y sorteos.
+   <span class="text-gradient-animated font-semibold">{{'@'}}desdezerolg</span>
+</p>
+}
+
 
 <aside class="mx-4">
 
@@ -176,35 +189,39 @@
   </section>
 
   <!-- Rifas -->
-
+  @if (rifa.id != 0) {
   <section #rifas id="rifas" class="grid my-5  ">
+
     <div class="col-12 lg:col-6 ">
-      <!-- !para una tamño de imagne quemado  h64 -->
+      <!-- !para una tamño de imagne quemado  h64  arreglar foto-->
       <div class="relative w-full h-full overflow-hidden border-round-xl">
-        <img src="assets/img/rifa.jpg" class="w-full h-full object-cover" />
+        <img [src]="host+rifa!.url_img" class="w-full h-full object-cover" />
         <div class="gradient-bottom-to-top"></div>
       </div>
 
+      @if (rifa.ver_fecha) {
       <div style="top: -4rem; left: 1.5rem;" class="flex flex-column relative z-5 gap-2">
         <div class="flex align-items-center justify-content-start gap-2 ">
           <i class="fa-solid fa-calendar text-gradient text-xl"></i>
-          <span class="text-white ">Sorteo: 30, de junio de 2024</span>
+          <span class="text-white ">Sorteo: {{rifa.fecha_fin | date}}</span>
         </div>
 
         <div class="flex align-items-center justify-content-start gap-2">
           <i class="fa-solid fa-business-time text-gradient text-xl"></i>
-          <span class="text-white">Quedan: 45 Dias</span>
+          <span class="text-white">Quedan: {{ getDaysCount(rifa.fecha_fin) }} Días</span>
         </div>
       </div>
+      }
     </div>
     <div class="col-12 lg:col-6 flex flex-column">
-      <div class="flex flex-column gap-2">
-        <h1 class="text-3xl md:text-5xl font-bold text-gradient-animated">Automóvil Toyota Corolla 2024</h1>
+      <div class="flex flex-column  gap-2">
+        <h1 class="text-3xl md:text-5xl font-bold text-gradient-animated">{{rifa.nombre}}</h1>
 
+        @if (rifa.ver_participantes || rifa.ver_ganador) {
         <div class="flex align-items-center gap-4 justify-content-start">
           <div class="flex align-items-center gap-2">
             <i class="fa-regular fa-user font-semibold text-gradient"></i>
-            <span class="text-sm">1,245 Participantes</span>
+            <span class="text-sm">{{rifa.participantes}} Participantes</span>
           </div>
           <span>|</span>
           <div class="flex align-items-center gap-2">
@@ -212,24 +229,25 @@
             <span class="text-sm">1 Ganador</span>
           </div>
         </div>
+        }
 
-        <p class="mt-3 ">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos, voluptas quo dicta
-          provident sint vitae quibusdam maiores libero, ipsa quod, quia iusto nulla ex quasi illum omnis consequatur
-          illo tempore nostrum tenetur! Architecto !</p>
+        <p class="mt-3 ">{{rifa.descripcion}}</p>
 
 
         <div class="flex justify-content-between  mt-3">
           <div class="flex flex-column align-items-start">
             <p class="text-sm font-semibold">Precio de ticket</p>
-            <h2 class="text-3xl md:text-5xl text-gradient-animated">{{price_ticket}},00$</h2>
+            <h2 class="text-3xl md:text-5xl text-gradient-animated">{{rifa.precio | number:'1.2-2'}}$</h2>
           </div>
 
+          @if (rifa.ver_tickets) {
           <div class="flex flex-column gap-2 align-items-end">
             <p class="text-sm font-semibold">Tickets disponibles</p>
-            <input type="range" min="0" max="100" disabled [(ngModel)]="rangeValue"
-              [style.background]="getRangeBackground(rangeValue)" />
-            <p class="font-bold">1,369 / 5000</p>
+            <input type="range" min="0" [max]="rifa.objetivo_ventas" disabled [(ngModel)]="rifa.participantes"
+              [style.background]="getRangeBackground(rifa.participantes)" />
+            <p class="font-bold">{{rifa.participantes}} / {{rifa.objetivo_ventas}}</p>
           </div>
+          }
 
         </div>
 
@@ -252,12 +270,14 @@
           <div flex class="flex flex-column gap-2">
             <div class="flex align-items-center gap-2">
               <p class="font-semibold text-sm">Total:</p>
-              <span class="font-bold text-4xl text-gradient-animated">{{quantity_tickets*price_ticket}},00$</span>
+              <span class="font-bold text-4xl text-gradient-animated">{{quantity_tickets*rifa.precio |
+                number:'1.2-2'}}$</span>
             </div>
           </div>
         </div>
       </div>
     </div>
+
   </section>
 
   <!-- FORMULARIO DE PAGO   -->
@@ -299,7 +319,8 @@
         <div class=" col-12 md:col-6 flex justify-content-between">
           <div class=" flex flex-column align-items-start ">
             <p class="font-semibold text-sm">Total:</p>
-            <span class="font-bold text-4xl text-gradient-animated">{{quantity_tickets*price_ticket}},00$</span>
+            <span class="font-bold text-4xl text-gradient-animated">{{quantity_tickets*rifa.precio |
+              number:'1.2-2'}}$</span>
           </div>
 
           <div class=" flex flex-column align-items-start ">
@@ -425,7 +446,11 @@
     <app-ticket [ticket]="tiket"></app-ticket>
     }
   </section>
+  }@else {
+  <app-user-win></app-user-win>
+  }
 </aside>
+
 
 
 <footer class="p-4 bg-secondary  shadow-2 mt-5" #ticket>
@@ -476,3 +501,5 @@
   </a>
   <p class="font-semibold text-support">Soporte</p>
 </div>
+
+<app-loading [loading]="loading"></app-loading>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-header-buttons',
@@ -7,4 +7,8 @@ import { Component } from '@angular/core';
 })
 export class HeaderButtonsComponent {
 
+  @Output() touchCreate: EventEmitter<any> = new EventEmitter<any>();
+  @Output() touchSearch: EventEmitter<any> = new EventEmitter<any>();
+  @Output() touchDelete: EventEmitter<any> = new EventEmitter<any>();
+  @Output() touchUpdate: EventEmitter<any> = new EventEmitter<any>();
 }

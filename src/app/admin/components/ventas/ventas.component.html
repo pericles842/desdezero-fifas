@@ -4,84 +4,95 @@
   </div>
 </p-overlayPanel>
 
-<section class="main-form p-3 md:p-0  pb-5 md:pb-0 mb-5 md:mb-0 " >
+<p-overlayPanel #tk>
+  <div class="flex justify-content-center  w-full md:w-w-3">
+    @for (t of tikesArray; track $index) {
+    <p class="text-gradient-animated p-3 text-xl font-bold">{{t}}</p>
+    }
+  </div>
+</p-overlayPanel>
+
+<section class="main-form p-3 md:p-0  pb-5 md:pb-0 mb-5 md:mb-0 ">
 
 
   <div style="overflow-x: auto; width: 100%;">
     <p-table #dt [value]="tickets" [paginator]="!esCelular" [rows]="10"
-    [globalFilterFields]="['numero', 'correo', 'estatus','tckts', 'fecha']" [scrollable]="true" scrollHeight="300px"
-    [resizableColumns]="true" class="p-datatable-sm" styleClass="p-datatable-responsive w-full"
-    [tableStyle]="{ 'min-width': '1000px' }">
+      [globalFilterFields]="['numero', 'correo', 'estatus','tckts', 'fecha']" [scrollable]="true" scrollHeight="300px"
+      [resizableColumns]="true" class="p-datatable-sm" styleClass="p-datatable-responsive w-full"
+      [tableStyle]="{ 'min-width': '1000px' }">
 
-    <!-- Caption for search and column visibility toggle -->
-    <ng-template pTemplate="caption">
-      <div class="flex align-items-center flex-wrap gap-2 justify-content-start my-4">
-        <span class="p-input-icon-left">
-          <i class="pi pi-search"></i>
-          <input type="text" class="custom-input" pInputText placeholder="Buscar" (input)="filterGlobal($event, dt)" />
-        </span>
-        <div *ngFor="let c of columnas">
-          <div (click)="toggleColumna(c)" [ngClass]="c.activa ? 'card-payment-active' : 'card-payment'"
-            class="card-payment px-1 shadow-5 col-12 md:col">
-            <p class="font-semibold text-sm px-1">{{ c.label }}</p>
+      <!-- Caption for search and column visibility toggle -->
+      <ng-template pTemplate="caption">
+        <div class="flex align-items-center flex-wrap gap-2 justify-content-start my-4">
+          <span class="p-input-icon-left">
+            <i class="pi pi-search"></i>
+            <input type="text" class="custom-input" pInputText placeholder="Buscar"
+              (input)="filterGlobal($event, dt)" />
+          </span>
+          <div *ngFor="let c of columnas">
+            <div (click)="toggleColumna(c)" [ngClass]="c.activa ? 'card-payment-active' : 'card-payment'"
+              class="card-payment px-1 shadow-5 col-12 md:col">
+              <p class="font-semibold text-sm px-1">{{ c.label }}</p>
+            </div>
           </div>
         </div>
-      </div>
-    </ng-template>
+      </ng-template>
 
-    <!-- Table Header -->
-    <ng-template pTemplate="header">
-      <tr>
-        <ng-container *ngFor="let c of columnas">
-          <th *ngIf="c.activa" class="p-3">
-            {{ c.label }}
-          </th>
-        </ng-container>
-      </tr>
-    </ng-template>
+      <!-- Table Header -->
+      <ng-template pTemplate="header">
+        <tr>
+          <ng-container *ngFor="let c of columnas">
+            <th *ngIf="c.activa" class="p-2">
+              {{ c.label }}
+            </th>
+          </ng-container>
+        </tr>
+      </ng-template>
 
-    <!-- Table Body -->
-    <ng-template pTemplate="body" let-ticket>
-      <tr>
-        <ng-container *ngFor="let c of columnas">
-          <td *ngIf="c.activa" >
-            <ng-container [ngSwitch]="c.key">
+      <!-- Table Body -->
+      <ng-template pTemplate="body" let-ticket>
+        <tr>
+          <ng-container *ngFor="let c of columnas">
+            <td *ngIf="c.activa">
+              <ng-container [ngSwitch]="c.key">
 
-              <!-- Direct values -->
-              <span *ngSwitchCase="'nombre'">{{ ticket.nombre }}</span>
-              <span *ngSwitchCase="'numero'">{{ ticket.numero }}</span>
-              <span *ngSwitchCase="'correo'">{{ ticket.correo }}</span>
-              <span *ngSwitchCase="'total'">{{ ticket.total }}</span>
-              <span *ngSwitchCase="'fecha'">{{ ticket.fecha }}</span>
+                <!-- Direct values -->
+                <span class="p-2" *ngSwitchCase="'nombre'">{{ ticket.nombre }}</span>
+                <span class="p-2" *ngSwitchCase="'numero'">{{ ticket.numero }}</span>
+                <span class="p-2" *ngSwitchCase="'correo'">{{ ticket.correo }}</span>
+                <span class="p-2" *ngSwitchCase="'total'">{{ ticket.total }}</span>
+                <span class="p-2" *ngSwitchCase="'fecha'">{{ ticket.fecha }}</span>
 
-              <!-- Tickets: array join -->
-              <span *ngSwitchCase="'tckts'" class="text-gradient-animated font-semibold">
-                {{ ticket.tckts.join(', ') }}
-              </span>
+                <!-- Tickets: array join -->
+                <span *ngSwitchCase="'tckts'" (click)="mostrarTickets(ticket.tckts, tk, $event)"
+                  class="cursor-pointer text-gradient-animated  font-bold">
+                  {{ ticket.tckts.length > 1 ? ticket.tckts.slice(0, 1).join(', ') + '...' : ticket.tckts.join(', ') }}
+                </span>
 
-              <!-- Pago: imagen -->
-              <img *ngSwitchCase="'pago'" (click)="op.toggle($event)" src="/assets/img/rifa.jpg"
-                class="w-4rem border-round-xl cursor-pointer" />
+                <!-- Pago: imagen -->
+                <img *ngSwitchCase="'pago'" (click)="op.toggle($event)" src="/assets/img/rifa.jpg"
+                  class="w-4rem border-round-xl cursor-pointer" />
 
-              <!-- Estatus: badge -->
-              <p *ngSwitchCase="'estatus'" [style.color]="ticket.estatus === 'aprobado' ? '#28a745' : '#ffc107'"
-                class="px-2 py-1 border-round-md font-bold">
-                {{ ticket.estatus === 'aprobado' ? 'Aprobado' : 'Pendiente' }}
-              </p>
+                <!-- Estatus: badge -->
+                <p *ngSwitchCase="'estatus'" [style.color]="ticket.estatus === 'aprobado' ? '#28a745' : '#ffc107'"
+                  class="px-2 py-1 border-round-md font-bold">
+                  {{ ticket.estatus === 'aprobado' ? 'Aprobado' : 'Pendiente' }}
+                </p>
 
-              <!-- Acción: botones -->
-              <span *ngSwitchCase="'accion'" class="flex align-items-center justify-content-start gap-2">
-                <button [pTooltip]="aprobar" tooltipPosition="top" class="btn-form fa-solid fa-circle-check"></button>
-                <button [pTooltip]="rechazar" tooltipPosition="top" class="btn-form fa-solid fa-circle-xmark"></button>
-              </span>
+                <!-- Acción: botones -->
+                <span *ngSwitchCase="'accion'" class="flex align-items-center justify-content-start gap-2">
+                  <button [pTooltip]="aprobar" tooltipPosition="top" class="btn-form  fa-solid fa-check"></button>
+                  <button [pTooltip]="rechazar" tooltipPosition="top" class="btn-form fa-solid fa-xmark"></button>
 
-            </ng-container>
-          </td>
-        </ng-container>
-      </tr>
-    </ng-template>
+                </span>
 
-  </p-table>
+              </ng-container>
+            </td>
+          </ng-container>
+        </tr>
+      </ng-template>
+
+    </p-table>
   </div>
 
 

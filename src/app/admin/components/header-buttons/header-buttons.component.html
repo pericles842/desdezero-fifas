@@ -1,9 +1,8 @@
 <div class="flex justify-content-start w-full py-3 px-2 md:px-2  gap-3 bg-white botones-sticky ">
 
-  <button class="btn-form fa-solid fa-plus  w-3"></button>
-  <button class="btn-form fa-solid fa-pen"></button>
-  <button class="btn-form fa-solid fa-magnifying-glass"></button>
-  <button class="btn-form fa-solid fa-trash"></button>
- 
+  <button (click)="touchCreate.emit()" class="btn-form fa-solid fa-plus w-3"></button>
+  <!-- <button (click)="touchUpdate.emit()" class="btn-form fa-solid fa-pen"></button>
+  <button (click)="touchSearch.emit()" class="btn-form fa-solid fa-magnifying-glass"></button>
+  <button (click)="touchDelete.emit()" class="btn-form fa-solid fa-trash"></button> -->
 
 </div>

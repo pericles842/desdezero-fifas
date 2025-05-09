@@ -1,12 +1,44 @@
-<app-header-buttons></app-header-buttons>
+<app-header-buttons (touchCreate)="showDialog()"></app-header-buttons>
 
 <section class="main-form p-3 md:p-0  pb-5 md:pb-0">
-  <h1 class="text-3xl md:text-4xl mb-4 text-gradient">Formulario de Rifa</h1>
+  <h1 class="text-3xl md:text-4xl mb-4 text-gradient">Listado de Rifa</h1>
   <!-- FOTO -->
+  <p-table [value]="listRaffle" styleClass="p-datatable-striped" [tableStyle]="{'min-width': 'w-5'}">
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="p-3">Nombre</th>
+        <th>Precio</th>
+        <th>Fondos</th>
+        <th>Estatus</th>
+        <th>Acción</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td class="p-3">{{product.nombre}}</td>
+        <td>{{product.precio+' $'}}</td>
+        <td>{{product.fondos_recaudados}}</td>
+        <td class="uppercase" [style.color]="product.status === 'activa' ? 'green' : 'red'">
+          {{product.status === 'activa' ? 'Activa' : 'Inactiva'}}
+        </td>
+        <td class="flex gap-1 justify-content-start">
+          <button (click)="setRaffle(product)" class="btn-form fa-solid fa-pen"></button>
+          <button  (click)="activateRaffle(product.id)" [pTooltip]="activar" tooltipPosition="top"  class="btn-form fa-solid fa-check"></button>
+          <button (click)="deleteRaffle(product.id)" class="btn-form fa-solid fa-trash"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</section>
+
+
+<p-dialog [modal]="true" contentStyleClass="p-3 md:p-4" [showHeader]="true" [resizable]="false" [(visible)]="visible"
+  ngClass="w-5  " >
   <div class="grid">
     <label class="col-12 field file-upload  ">
       <i class="fas fa-upload text-white"></i> Imagen de la rifa
-      <input  type="file" (change)="onFileSelected($event)">
+      <input type="file" (input)="onFileSelected($event)"(change)="onFileSelected($event)">
       <div *ngIf="selectedFileName" class="text-white text-xs font-semibold">
         Archivo seleccionado: {{ selectedFileName }}
       </div>
@@ -26,7 +58,8 @@
       <label for="date" class="font-semibold text-xs uppercase">
         <i class="fa-solid fa-calendar-days text-sm mr-1"></i>
         Fecha de finalización</label>
-      <input id="date" type="date" class="custom-input w-full" placeholder="Familia activa">
+      <input [(ngModel)]="rifa.fecha_fin" id="date" type="date" class="custom-input w-full"
+        placeholder="Familia activa">
     </div>
   </div>
 
@@ -36,7 +69,8 @@
       <label for="date" class="font-semibold text-xs uppercase">
         <i class="fa-solid fa-note-sticky text-sm mr-1"></i>
         Descripción de la Rifa</label>
-      <textarea id="description" class="custom-input w-full" placeholder="Descripción de la rifa"></textarea>
+      <textarea [(ngModel)]="rifa.descripcion" id="description" class="custom-input w-full"
+        placeholder="Descripción de la rifa"></textarea>
     </div>
   </div>
 
@@ -46,14 +80,14 @@
       <label for="date" class="font-semibold text-xs uppercase">
         <i class="fa-solid fa-dollar-sign text-sm mr-1"></i>
         Precio del ticket ( $ )</label>
-      <input id="date" type="number" class="custom-input w-full" value="1">
+      <input [(ngModel)]="rifa.precio" id="date" type="number" class="custom-input w-full" value="1">
     </div>
 
     <div class="field col-12 md:col-2 ">
       <label for="date" class="font-semibold text-xs uppercase">
         <i class="fa-solid fa-money-bill-trend-up text-sm mr-1"></i>
         objetivo de Ventas</label>
-      <input id="date" type="number" class="custom-input w-full" value="100000">
+      <input [(ngModel)]="rifa.objetivo_ventas" id="date" type="number" class="custom-input w-full" value="100000">
     </div>
   </div>
 
@@ -65,7 +99,7 @@
         <i class="fa-solid fa-hourglass-end text-sm mr-1"></i>
         Finalización de la rifa
       </label>
-      <input id="active-date" type="checkbox" class="custom-input" />
+      <input [(ngModel)]="rifa.ver_fecha" id="active-date" type="checkbox" class="custom-input" />
     </div>
 
     <div class="field col-12 md:col-3 flex  flex-column justify-content-start  gap-2">
@@ -73,7 +107,7 @@
         <i class="fa-solid fa-users text-sm mr-1"></i>
         Participantes
       </label>
-      <input id="active-date" type="checkbox" class="custom-input" />
+      <input [(ngModel)]="rifa.ver_participantes" id="active-date" type="checkbox" class="custom-input" />
     </div>
 
 
@@ -82,7 +116,7 @@
         <i class="fa-solid fa-award text-sm mr-1"></i>
         Ganador
       </label>
-      <input id="active-date" type="checkbox" class="custom-input" />
+      <input [(ngModel)]="rifa.ver_ganador" id="active-date" type="checkbox" class="custom-input" />
     </div>
 
 
@@ -91,9 +125,23 @@
         <i class="fa-solid fa-ticket text-sm mr-1"></i>
         Tickets disponibles
       </label>
-      <input id="active-date" type="checkbox" class="custom-input" />
+      <input [(ngModel)]="rifa.ver_tickets" id="active-date" type="checkbox" class="custom-input" />
     </div>
   </div>
 
+  <ng-template pTemplate="footer">
+    <div class="flex gap-1 p-2 justify-content-end">
+      <button (click)="createRaffle()" class="custom-btn">Guardar</button>
+      <button (click)="visible= !visible" class="custom-btn">cerrar</button>
+    </div>
+  </ng-template>
+</p-dialog>
 
-</section>
+<app-loading [loading]="loading"></app-loading>
+
+
+<ng-template #activar>
+  <div class="flex align-items-center p-2 bg-secondary  border-round-xl">
+    <p class="text-white">Activar Rifa</p>
+  </div>
+</ng-template>
