@@ -6,6 +6,7 @@ export class PayMethod {
     min_tickets: number = 1
     url_img: string = ''
     datos: any = ''
+    active?: boolean = true
 
     constructor(id: number = 0,
         tipo: TypePay = 'pagomovil',

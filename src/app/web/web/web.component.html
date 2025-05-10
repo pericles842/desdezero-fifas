@@ -318,12 +318,20 @@
           <input id="email" type="text" class="custom-input w-full" placeholder="carolinahernadez@gamil.com">
         </div>
 
-        <div class=" col-12 md:col-6 flex justify-content-between">
+        <div class=" col-12 md:col-12 flex justify-content-between">
           <div class=" flex flex-column align-items-start ">
             <p class="font-semibold text-sm">Total:</p>
             <span class="font-bold text-4xl text-gradient-animated">{{quantity_tickets*rifa.precio |
               number:'1.2-2'}}$</span>
           </div>
+
+          @if (paymentMethod.tipo == 'transferencia' || paymentMethod.tipo == 'pagomovil') {
+          <div class=" flex flex-column align-items-start ">
+            <p class="font-semibold text-sm">Total (Bs):</p>
+            <span class="font-bold text-4xl text-gradient-animated">{{ returnDollarForBs(quantity_tickets ,rifa.precio ,
+              dollars[1].price) | number:'1.2-2'}} Bs</span>
+          </div>
+          }
 
           <div class=" flex flex-column align-items-start ">
             <p class="font-semibold text-sm">Tickets:</p>
@@ -342,70 +350,46 @@
         @for ( method of paymentMethods; track $index) {
         <div [ngClass]="method.active ? 'card-payment-active':'' " (click)="changeMethodPay(method)"
           class="card-payment w-full md:w-4 shadow-6 p-3 flex flex-column align-items-center justify-content-center gap-2">
-          <img [src]="'./assets/img/bancos/'+method.url" class="img-payment" [alt]="method.url">
-          <p class="font-semibold text-sm md:text-lg">{{method.name}}</p>
+          <img [src]="host+method.url_img" class="img-payment" [alt]="host+method.url_img">
+          <p class="font-semibold text-sm md:text-lg">{{method.nombre}}</p>
         </div>
         }
       </div>
 
-      <!-- DETALLES DE PAGO -->
       @if (paymentMethod) {
 
-      <div class="flex flex-column gap-4 mt-5 h-14rem">
+      <div class="flex flex-column gap-4 mt-5 h-18rem">
 
         <div class="flex align-items-center justify-content-start gap-3">
-          <img src="./assets/img/bancos/pago-movil.png" width="60px" alt="">
-          <p class="text-xl md:text-2xl font-semibold text-gradient-animated">{{paymentMethod.details.description}}</p>
+          <img [src]="host+paymentMethod.url_img" width="60px" alt="">
+          <p class="text-xl md:text-2xl font-semibold text-gradient-animated">{{paymentMethod.nombre}}</p>
         </div>
 
         <div class="flex flex-column gap-2 ">
 
-          <div class="flex justify-content-between">
-            <p class="font-bold text-gradient">
-              <i class="fa-solid fa-building-columns"></i>
-              Banco
-            </p>
-            <p class="font-semibold">{{paymentMethod.details.bank}}</p>
-          </div>
-
+          @for ( pay_datos of paymentMethod.datos | keyvalue; track $index) {
 
           <div class="flex justify-content-between">
             <p class="font-bold text-gradient">
-              <i class="fa-solid fa-user"></i>
-              Titular
+              <i class="fa-solid fa-hand-point-right"></i>
+              {{parseKeyPayMethods(pay_datos.key)}}
             </p>
-            <p class="font-semibold">{{paymentMethod.details.holder}}</p>
-          </div>
-
-
-          <div class="flex justify-content-between">
-            <p class="font-bold text-gradient">
-              <i class="fa-solid fa-receipt"></i>
-              Cuenta
-            </p>
-            <p class="font-semibold">{{paymentMethod.details.account}}</p>
-          </div>
-
-
-          <div class="flex justify-content-between">
-            <p class="font-bold text-gradient">
-              <i class="fa-solid fa-phone"></i>
-              Numero
-            </p>
-            <p class="font-semibold">{{paymentMethod.details.phone}}</p>
-          </div>
-
-
-          @if (paymentMethod.id == 1) {
-          <div class="flex justify-content-between">
-            <p class="font-bold text-gradient">
-              <i class="fa-solid fa-phone"></i>
-              Tasa del dia
-            </p>
-            <p class="font-bold">104bs x 1$</p>
+            <p class="font-semibold">{{pay_datos.value}}</p>
           </div>
           }
 
+          @if (paymentMethod.tipo == 'transferencia' || paymentMethod.tipo == 'pagomovil' ) {
+          <div class="flex justify-content-between">
+            <p class="font-bold text-gradient">
+              <i class="fa-solid fa-hand-point-right"></i>
+              Tasa {{dollars[1].title}}
+            </p>
+            <div class="flex align-items-center gap-2">
+              <p class="font-semibold">{{dollars[1].price}} Bs</p>
+              <img class="w-2rem" [src]="dollars[1].imgUrl" [alt]="dollars[1].imgUrl">
+            </div>
+          </div>
+          }
         </div>
 
       </div>

@@ -1,7 +1,10 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
-import { PaymentMethods } from 'src/app/interfaces/PaymentMethods';
+import { forkJoin } from 'rxjs/internal/observable/forkJoin';
+import { DollarOficial } from 'src/app/interfaces/PaymentMethods';
 import { Ticket } from 'src/app/interfaces/Ticket';
+import { PayMethod } from 'src/app/models/pay_method';
 import { Rifa } from 'src/app/models/rifa.model';
+import { PayService } from 'src/app/service/pay.service';
 import { RifasService } from 'src/app/service/rifas.service';
 import { ToastService } from 'src/app/service/toast.service';
 import { environment } from 'src/environments/environment';
@@ -27,6 +30,7 @@ export class WebComponent {
   price_ticket: number = 10;
   quantity_tickets: number = 1;
   today: Date = new Date()
+  dollars: DollarOficial[] | [] = []
 
   selectedFileName: string = '';
 
@@ -90,78 +94,21 @@ export class WebComponent {
   /**
    *METODOS de pago
    *
-   * @type {PaymentMethods[]}
+   * @type {PayMethod[]}
    * @memberof WebComponent
    */
-  paymentMethods: PaymentMethods[] = [
-    {
-      id: 1,
-      name: "Pago movil",
-      url: "pago-movil.png",
-      active: true,
-      details: {
-        description: "Datos para Pago Movil",
-        bank: "Venezuela (0102)",
-        holder: "Andres belandria",
-        account: "81531964016t653r916",
-        phone: "+58 412-9844334"
-      }
-
-    },
-    {
-      id: 2,
-      name: "Zinli",
-      url: "zinli.png",
-      active: false,
-      details: {
-        description: "Datos para zinli",
-        bank: "Zinli",
-        holder: "Andres belandria",
-        account: "andres@gmail.com",
-        phone: "+58 412-9844334"
-      }
-
-    },
-    {
-      id: 3,
-      name: "Zelle",
-      url: "zelle.png",
-      active: false,
-      details: {
-        description: "Datos para zelle",
-        bank: "Venezuela (0102)",
-        holder: "Andres belandria",
-        account: "3253711435",
-        phone: "+58 412-9844334"
-      }
-
-    },
-    {
-      id: 4,
-      name: "Transferencia",
-      url: "pago-movil.png",
-      active: false,
-      details: {
-        description: "Datos para Transferencia",
-        bank: "Venezuela (0102)",
-        holder: "Andres belandria",
-        account: "3253711435",
-        phone: "+58 412-9844334"
-      }
-
-    }
-
-  ]
-  paymentMethod: PaymentMethods | any = {}
+  paymentMethods!: PayMethod[]
+  paymentMethod!: PayMethod
 
 
   constructor(
     private rifasService: RifasService,
+    private payService: PayService,
     private toastService: ToastService
   ) { }
 
   ngOnInit() {
-    this.paymentMethod = this.paymentMethods.find(m => m.active)
+
 
     // try {
     //   const [fonts, theme, fa] = await Promise.all([
@@ -181,13 +128,25 @@ export class WebComponent {
     //   this.loading = false;
     //   console.error('Error detectado:', err);
     // }
-
     this.loading = true
-    this.rifasService.getActiveRaffle().subscribe({
-      next: (res) => {
+    forkJoin(
+      this.rifasService.getActiveRaffle(),
+      this.payService.listPayMethod(),
+      this.payService.getRateDollar()
+    ).subscribe({
+      next: ([rifa, payList, dollarList]) => {
 
-        this.rifa = 'id' in res ? res : new Rifa      
+        //proceso para las rifas
+        this.rifa = 'id' in rifa ? rifa : new Rifa
 
+        //Proceso para los metodos de pago
+        this.paymentMethods = payList
+        this.paymentMethod = this.paymentMethods[0]
+        this.changeMethodPay(this.paymentMethod)
+
+
+        //Proceso par aobtener la tasas
+        this.dollars = dollarList
         this.loading = false
       },
       error: (err) => {
@@ -195,7 +154,6 @@ export class WebComponent {
         this.loading = false
       },
     })
-
 
   }
 
@@ -239,7 +197,7 @@ export class WebComponent {
    * @param {PaymentMethods} method
    * @memberof WebComponent
    */
-  changeMethodPay(method: PaymentMethods) {
+  changeMethodPay(method: PayMethod) {
     this.paymentMethods.forEach(m => m.active = false)
     method.active = true
     this.paymentMethod = method
@@ -283,5 +241,31 @@ export class WebComponent {
     return Math.ceil(diffMs / msPerDay);
   }
 
+  /**
+   * Función que toma una key de los métodos de pago y devuelve su correspondiente título
+   * en formato string.
+   *
+   * @param {string} pay Key del método de pago
+   * @returns {string} Título del método de pago
+   */
+  parseKeyPayMethods(pay: any) {
+    let titles: any = {
+      banco: 'Banco',
+      ci: 'Cédula',
+      codigo_banco: 'Código del Banco',
+      telefono: 'Teléfono',
+      type_person: 'Persona',
+      cuenta: 'Cuenta',
+      nro_cuenta: 'Numero de Cuenta',
+      correo: 'Correo'
+    }
+    return titles[pay]
+  }
+
+  returnDollarForBs(tikes: number, monto: number, precio_dolar: string) {
+    const tasa = parseFloat(precio_dolar.replace(',', '.'));
+    if (!tikes || !monto || isNaN(tasa) || tasa <= 0) return 0;
+    return tikes * monto * tasa;
+  }
 
 }

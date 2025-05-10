@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { PayMethod } from '../models/pay_method';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs/internal/Observable';
+import { DollarOficial } from '../interfaces/PaymentMethods';
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,8 @@ export class PayService {
   }
   deletePayMethod(id: number): Observable<any> {
     return this.http.delete<any>(`${environment.host}/pay/delete/${id}`)
+  }
+  getRateDollar() {
+    return this.http.get<DollarOficial[]>(`${environment.host}/pay/get-rates`)
   }
 }
