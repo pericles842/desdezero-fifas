@@ -21,6 +21,11 @@ export class LayoutComponent {
     const user = this.userService.getCookie('user') as any
     this.name = user.nombre
 
+    //Procedimiento para setear el menu dependiendo de la url
+    const findUrl = window.location.href.split('/').pop()
+    const menu = this.menus.find(m => m.rute.split('/').pop()?.toString() === findUrl?.toString() )
+    this.activeMenu(menu as Menu)
+
     this.onResize()
   }
   @HostListener('window:resize')

@@ -38,7 +38,7 @@
   <div class="grid">
     <label class="col-12 field file-upload  ">
       <i class="fas fa-upload text-white"></i> Imagen de la rifa
-      <input type="file" (input)="onFileSelected($event)"(change)="onFileSelected($event)">
+      <input type="file" #fileInput (input)="onFileSelected($event)"(change)="onFileSelected($event)">
       <div *ngIf="selectedFileName" class="text-white text-xs font-semibold">
         Archivo seleccionado: {{ selectedFileName }}
       </div>
@@ -132,7 +132,7 @@
   <ng-template pTemplate="footer">
     <div class="flex gap-1 p-2 justify-content-end">
       <button (click)="createRaffle()" class="custom-btn">Guardar</button>
-      <button (click)="visible= !visible" class="custom-btn">cerrar</button>
+      <button (click)="closeModal()" class="custom-btn">cerrar</button>
     </div>
   </ng-template>
 </p-dialog>

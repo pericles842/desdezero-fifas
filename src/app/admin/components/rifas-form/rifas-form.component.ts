@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { Rifa } from 'src/app/models/rifa.model';
 import { RifasService } from 'src/app/service/rifas.service';
 import { ToastService } from 'src/app/service/toast.service';
@@ -11,6 +11,7 @@ import { SweetAlertResult } from 'sweetalert2';
   styleUrl: './rifas-form.component.css'
 })
 export class RifasFormComponent {
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   loading: boolean = false
   rifa: Rifa = new Rifa()
   selectedFile: File | null = null;
@@ -181,5 +182,12 @@ export class RifasFormComponent {
         })
       }
     })
+  }
+
+  closeModal() {
+    this.visible = false
+    this.selectedFileName = ''
+    this.selectedFile = null
+    this.fileInput.nativeElement.value = '';
   }
 }

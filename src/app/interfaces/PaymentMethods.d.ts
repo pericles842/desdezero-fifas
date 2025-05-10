@@ -1,4 +1,5 @@
 import { TemplateRef } from "@angular/core";
+import { TypePay } from "../models/pay_method";
 
 export interface PaymentMethods {
     id: number;
@@ -21,6 +22,6 @@ export interface CategoryPay {
     id: number,
     name: string,
     key_template?: TemplateRef<any>,
-    key:string,
+    key:TypePay,
     active: boolean
 }
