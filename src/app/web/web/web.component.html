@@ -262,7 +262,7 @@
             <!-- !RECUERDA VALIDAR NO COMPRAR DEMAS DE LA CANTIDAD DE TIKETS DISPONIBLES -->
             <div class="flex justify-content-between align-items-center gap-2 ">
               <button class="custom-btn fa-solid fa-minus text-base" (click)="quantity_tickets = quantity_tickets - 1"
-                [disabled]="quantity_tickets <= 1"></button>
+                [disabled]="quantity_tickets <= paymentMethod.min_tickets"></button>
               <input type="number" class="custom-input  w-full" [min]="1" max="100" step="1"
                 [(ngModel)]="quantity_tickets">
               <button class="custom-btn fa-solid fa-plus " (click)="quantity_tickets = quantity_tickets + 1"> </button>
