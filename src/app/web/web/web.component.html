@@ -318,7 +318,7 @@
           <input id="email" type="text" class="custom-input w-full" placeholder="carolinahernadez@gamil.com">
         </div>
 
-        <div class=" col-12 md:col-12 flex justify-content-between">
+        <div class=" col-12 md:col-12 flex flex-column md:flex-row gap-3 justify-content-between">
           <div class=" flex flex-column align-items-start ">
             <p class="font-semibold text-sm">Total:</p>
             <span class="font-bold text-4xl text-gradient-animated">{{quantity_tickets*rifa.precio |
@@ -358,7 +358,7 @@
 
       @if (paymentMethod) {
 
-      <div class="flex flex-column gap-4 mt-5 h-18rem">
+      <div class="flex flex-column gap-4 mt-5 h-20rem">
 
         <div class="flex align-items-center justify-content-start gap-3">
           <img [src]="host+paymentMethod.url_img" width="60px" alt="">
