@@ -16,7 +16,8 @@
     <ng-template pTemplate="body" let-pay>
       <tr>
         <td class="p-3">{{pay.nombre}}</td>
-        <td>{{ pay.tipo === 'billeteradigital' ? 'Billetera Digital' : pay.tipo === 'pagomovil' ? 'Pago Movil' : pay.tipo ===
+        <td>{{ pay.tipo === 'billeteradigital' ? 'Billetera Digital' : pay.tipo === 'pagomovil' ? 'Pago Movil' :
+          pay.tipo ===
           'transferencia' ? 'Transferencia' : 'No determinado' }}</td>
         <td>{{pay.min_tickets }}</td>
 
@@ -232,3 +233,5 @@
   </div>
 
 </ng-template>
+
+<app-loading [loading]="loading"></app-loading>

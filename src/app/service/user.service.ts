@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { Config } from '../models/config';
 
 @Injectable({
   providedIn: 'root'
@@ -103,5 +104,14 @@ export class UserService {
    */
   deleteCookie(key: string) {
     document.cookie = encodeURIComponent(key) + '=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+  }
+
+  saveConfig(config: Config) {
+    let body = { config: config }
+    return this.http.post<Config>(`${environment.host}/user/create-config`, body)
+  }
+  
+  getConfig(): Observable<Config[]> {
+    return this.http.get<Config[]>(`${environment.host}/user/config`)
   }
 }

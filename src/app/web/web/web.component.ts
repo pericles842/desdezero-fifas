@@ -1,13 +1,17 @@
 import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { catchError, of } from 'rxjs';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { DollarOficial } from 'src/app/interfaces/PaymentMethods';
 import { Ticket } from 'src/app/interfaces/Ticket';
+import { Config } from 'src/app/models/config';
 import { PayMethod } from 'src/app/models/pay_method';
 import { Rifa } from 'src/app/models/rifa.model';
 import { PayService } from 'src/app/service/pay.service';
 import { RifasService } from 'src/app/service/rifas.service';
 import { ToastService } from 'src/app/service/toast.service';
+import { UserService } from 'src/app/service/user.service';
 import { environment } from 'src/environments/environment';
+import { phoneCountryCodes } from './nums';
 
 @Component({
   selector: 'app-web',
@@ -21,6 +25,7 @@ export class WebComponent {
   @ViewChild('ticket') ticket!: ElementRef;
   @ViewChild('quienesSomos') quienesSomos!: ElementRef;
   @ViewChild('contacto') contacto!: ElementRef;
+  phoneList: string[] = phoneCountryCodes
 
   rifa: Rifa = new Rifa;
   host = environment.host
@@ -30,10 +35,16 @@ export class WebComponent {
   price_ticket: number = 10;
   quantity_tickets: number = 1;
   today: Date = new Date()
-  dollars: DollarOficial[] | [] = []
+  dollar: DollarOficial = {
+    id: 0,
+    title: '',
+    imgUrl: '',
+    price: ''
+  };
 
   selectedFileName: string = '';
 
+  config: Config = new Config()
   tickets: Ticket[] = [
     {
       id: 'TCK-0013',
@@ -104,7 +115,8 @@ export class WebComponent {
   constructor(
     private rifasService: RifasService,
     private payService: PayService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
@@ -128,13 +140,80 @@ export class WebComponent {
     //   this.loading = false;
     //   console.error('Error detectado:', err);
     // }
+
+    //Carga el rolar y la configuración
+    this.configDolarDownload()
+    //Carga los recurso de la pagina web 
+
+  }
+
+  /**
+   * Descarga la configuración actual del sistema y las tasas de
+   * cambio del dólar.
+   *
+   * Si la tasa web da error, se utiliza la tasa personalizada
+   * configurada en la base de datos.
+   *
+   * @returns {void}
+   */
+  configDolarDownload() {
+    this.loading = true
+    forkJoin({
+      config: this.userService.getConfig(),
+      dollarList: this.payService.getRateDollar().pipe(
+        catchError((err) => {
+          this.toastService.warning('', 'No se pudo cargar las tasas');
+          return of([]);
+        })
+      )
+    }).subscribe({
+      next: ({ config, dollarList }) => {
+        this.config = config[0]
+
+        //!Si la tasa web da error
+        if (dollarList.length == 0) {
+          let { tasa_banco, tasa_personalizada } = this.config
+
+          this.dollar = {
+            id: 1,
+            title: tasa_banco,
+            imgUrl: '',
+            price: tasa_personalizada.toString()
+          }
+        } else {
+          let tasas = { paralelo: 1, bcv: 0, promedio: 3 }
+
+          this.dollar = dollarList[tasas[this.config.tasa_banco]]
+        }
+
+        this.loading = false;
+
+        this.resourcesWeb()
+      },
+      error: (err) => {
+        console.error('Error general:', err);
+        this.toastService.error('', err);
+        this.loading = false;
+      }
+    });
+
+  }
+
+  /**
+   * Realiza una petición para obtener la rifa activa y los métodos de pago
+   * disponibles y los asigna a las variables correspondientes.
+   *
+   * Si la petición falla, muestra un mensaje de error.
+   *
+   * @returns {void}
+   */
+  resourcesWeb() {
     this.loading = true
     forkJoin(
       this.rifasService.getActiveRaffle(),
-      this.payService.listPayMethod(),
-      this.payService.getRateDollar()
+      this.payService.listPayMethod()
     ).subscribe({
-      next: ([rifa, payList, dollarList]) => {
+      next: ([rifa, payList]) => {
 
         //proceso para las rifas
         this.rifa = 'id' in rifa ? rifa : new Rifa
@@ -144,9 +223,6 @@ export class WebComponent {
         this.paymentMethod = this.paymentMethods[0]
         this.changeMethodPay(this.paymentMethod)
 
-
-        //Proceso par aobtener la tasas
-        this.dollars = dollarList
         this.loading = false
       },
       error: (err) => {
@@ -154,10 +230,7 @@ export class WebComponent {
         this.loading = false
       },
     })
-
   }
-
-
 
   irASeccion(seccion: string) {
     const secciones: { [key: string]: ElementRef } = {
@@ -201,6 +274,7 @@ export class WebComponent {
     this.paymentMethods.forEach(m => m.active = false)
     method.active = true
     this.paymentMethod = method
+    this.quantity_tickets = this.paymentMethod.min_tickets
   }
 
 
@@ -266,6 +340,17 @@ export class WebComponent {
     const tasa = parseFloat(precio_dolar.replace(',', '.'));
     if (!tikes || !monto || isNaN(tasa) || tasa <= 0) return 0;
     return tikes * monto * tasa;
+  }
+
+  validateMinTike(tike: any): void {
+    const min = this.paymentMethod.min_tickets;
+
+
+    if (!this.quantity_tickets || this.quantity_tickets < min) {
+      this.quantity_tickets = min;
+
+      this.toastService.warning('El tiket no puede ser menor a ' + min);
+    }
   }
 
 }

@@ -12,11 +12,11 @@ export class ToastService {
       text,
       icon,
       confirmButtonText: 'Aceptar',
-      ...options   
+      ...options
     });
   }
 
-  success(title:string, message: string = '') {
+  success(title: string, message: string = '') {
     return this.show(title, message, 'success', {
       timer: 2000,
       showConfirmButton: false
@@ -28,10 +28,13 @@ export class ToastService {
   }
 
   warning(message: string, title = '¡Cuidado!') {
-    return this.show(title, message, 'warning');
+    return this.show(title, message, 'warning', {
+      timer: 2000,
+      showConfirmButton: false
+    });
   }
 
-  
+
   confirm(
     title: string,
     text: string,
