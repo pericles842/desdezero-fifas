@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 import { PayMethod } from '../models/pay_method';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs/internal/Observable';
-import { DollarOficial } from '../interfaces/PaymentMethods';
+import { DollarOficial, Payment } from '../interfaces/PaymentMethods';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +26,8 @@ export class PayService {
   }
   getRateDollar() {
     return this.http.get<DollarOficial[]>(`${environment.host}/pay/get-rates`)
+  }
+  createPayForUser(pay: User) {
+    return this.http.post<Payment>(`${environment.host}/pay/create-pay`, pay)
   }
 }

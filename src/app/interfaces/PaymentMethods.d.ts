@@ -17,3 +17,20 @@ export interface DollarOficial {
     imgUrl: string
     price: string
 }
+
+
+export interface Payment {
+    id: number,
+    total: number,
+    total_bs: number,
+    tasa: string,
+    comprobante: string,
+    status: 'aprobado' | 'pendiente' | 'rechazado',
+    cantidad_tickets: number,
+    id_usuario: number,
+    id_metodo_pago: number,
+    id_rifa: number,
+    fecha: string,
+    nombre: string,
+    telefono: string
+}

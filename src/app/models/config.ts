@@ -1,15 +1,28 @@
+export class ConfigResponse {
+    config: Config ;
+    estadisticas: Estadisticas;
+
+    constructor() {
+        this.config = new Config();
+        this.estadisticas = new Estadisticas();
+    }
+}
 export class Config {
     id: number = 0;
-    tasa_banco: TypeDolar = 'paralelo';
+    tasa_banco: TypeDolar = 'promedio';
     tasa_personalizada: number = 0;
-    telefono: number = 0;
+    telefono: string = '';
     correo: string = '';
-    estadisticas: boolean = false
-
-
-
-
-
+    estadisticas: number = 0;
+    createdAt: Date = new Date();
 }
+
+export class Estadisticas {
+    participantes: number = 0;
+    tikes_vendidos: number = 0;
+    premios: number = 0;
+    rifas_activas: number = 0;
+}
+
 
 export type TypeDolar = 'paralelo' | 'bcv' | 'promedio'

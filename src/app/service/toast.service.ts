@@ -37,14 +37,14 @@ export class ToastService {
 
   confirm(
     title: string,
-    text: string,
+    html: string,
     confirmButtonText = 'Sí',
     cancelButtonText = 'No'
   ): Promise<SweetAlertResult> {
     return Swal.fire({
       title,
-      text,
-      icon: 'question',
+      html,
+      icon: 'warning',
       showCancelButton: true,
       confirmButtonText,
       cancelButtonText

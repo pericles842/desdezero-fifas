@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
-import { Config } from '../models/config';
+import { Config, ConfigResponse } from '../models/config';
 
 @Injectable({
   providedIn: 'root'
@@ -111,7 +111,7 @@ export class UserService {
     return this.http.post<Config>(`${environment.host}/user/create-config`, body)
   }
   
-  getConfig(): Observable<Config[]> {
-    return this.http.get<Config[]>(`${environment.host}/user/config`)
+  getConfig(): Observable<ConfigResponse> {
+    return this.http.get<ConfigResponse>(`${environment.host}/user/config`)
   }
 }

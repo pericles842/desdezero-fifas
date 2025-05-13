@@ -106,6 +106,7 @@
 
 
   <!-- EStatistics -->
+  @if(config.config.estadisticas){
   <section class="my-5">
 
     <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">Estadísticas</h1>
@@ -116,7 +117,7 @@
         <i style="background-color: #0c6ef0;" class="fa-regular fa-user p-3 text-3xl text-white border-round-md"></i>
         <div class="flex flex-column align-items-start">
           <p class="text-sm font-semibold">Participantes</p>
-          <h2 class="text-3xl">1.000</h2>
+          <h2 class="text-3xl">{{config.estadisticas.participantes}}</h2>
         </div>
       </div>
 
@@ -125,7 +126,7 @@
         <i style="background-color: #f0600c;" class="fa-solid fa-ticket p-3 text-3xl text-white border-round-md"></i>
         <div class="flex flex-column align-items-start">
           <p class="text-sm font-semibold">Tickets Vendidos</p>
-          <h2 class="text-3xl">45,782</h2>
+          <h2 class="text-3xl">{{config.estadisticas.tikes_vendidos}}</h2>
         </div>
       </div>
 
@@ -135,7 +136,7 @@
         <div class="flex flex-column align-items-start">
           <p class="text-sm font-semibold">Premios Entregados</p>
 
-          <h2 class="text-3xl">128</h2>
+          <h2 class="text-3xl">{{config.estadisticas.premios}}</h2>
         </div>
       </div>
 
@@ -146,12 +147,13 @@
         <div class="flex flex-column align-items-start">
           <p class="text-sm font-semibold">Rifas Activas</p>
 
-          <h2 class="text-3xl">1</h2>
+          <h2 class="text-3xl">{{config.estadisticas.rifas_activas}}</h2>
         </div>
       </div>
     </div>
 
   </section>
+  }
 
   <!-- COMO FUNCIONA -->
   <section style="margin: 70px 0;" #comoFunciona>
@@ -261,18 +263,20 @@
 
             <!-- !RECUERDA VALIDAR NO COMPRAR DEMAS DE LA CANTIDAD DE TIKETS DISPONIBLES -->
             <div class="flex justify-content-between align-items-center gap-2 ">
-              <button class="custom-btn fa-solid fa-minus text-base" (click)="quantity_tickets = quantity_tickets - 1"
-                [disabled]="quantity_tickets <= paymentMethod.min_tickets"></button>
+              <button class="custom-btn fa-solid fa-minus text-base"
+                (click)="user.cantidad_tickets = user.cantidad_tickets - 1"
+                [disabled]="user.cantidad_tickets <= paymentMethod.min_tickets"></button>
               <input type="number" (blur)="validateMinTike($event)" class="custom-input  w-full" [min]="1" max="100"
-                step="1" [(ngModel)]="quantity_tickets">
-              <button class="custom-btn fa-solid fa-plus " (click)="quantity_tickets = quantity_tickets + 1"> </button>
+                step="1" [(ngModel)]="user.cantidad_tickets">
+              <button class="custom-btn fa-solid fa-plus " (click)="user.cantidad_tickets = user.cantidad_tickets + 1">
+              </button>
 
             </div>
           </div>
           <div flex class="flex flex-column gap-2">
             <div class="flex align-items-center gap-2">
               <p class="font-semibold text-sm">Total:</p>
-              <span class="font-bold text-4xl text-gradient-animated">{{quantity_tickets*rifa.precio |
+              <span class="font-bold text-4xl text-gradient-animated">{{user.cantidad_tickets*rifa.precio |
                 number:'1.2-2'}}$</span>
             </div>
           </div>
@@ -294,7 +298,8 @@
           <label for="firstname1" class="font-semibold text-xs uppercase">
             <i class="fa-regular fa-user text-sm mr-1"></i>
             Nombre y Apellido</label>
-          <input id="firstname1" type="text" class="custom-input w-full" placeholder="Carolina Hernandez">
+          <input [(ngModel)]="user.nombre" id="firstname1" type="text" class="custom-input w-full"
+            placeholder="Carolina Hernandez">
         </div>
 
         <div class="field col-12 md:col-6 flex flex-column ">
@@ -302,51 +307,62 @@
             <i class="fa-solid fa-mobile-screen-button text-sm mr-1"></i>
             Teléfono</label>
           <div class="flex gap-2">
-            <select class="custom-input w-4" name="" id="">
+            <select class="custom-input w-4" [(ngModel)]="user.cod_num">
               @for (num of phoneList; track $index) {
-              <option [selected]="num == '+58'" [value]="num">{{num}}</option>
+              <option [value]="num">{{num}}</option>
               }
             </select>
-            <input id="phone" type="number" class="custom-input w-full" placeholder="041212345678">
+            <input [(ngModel)]="user.telefono" id="phone" type="number" class="custom-input w-full"
+              placeholder="04248576749">
           </div>
         </div>
 
         <div class="field col-12 ">
           <label for="email" class="font-semibold text-xs uppercase">
+            <i class="fa-solid fa-mobile-screen-button text-sm mr-1"></i>
+            Confirmar numero</label>
+          <input id="email" (blur)="validePhone()" [(ngModel)]="user.confirm_telefono" type="number"
+            class="custom-input w-full" placeholder="04248576749">
+        </div>
+
+        <!-- <div class="field col-12 ">
+          <label for="email" class="font-semibold text-xs uppercase">
             <i class="fa-solid fa-at text-sm mr-1"></i>
             Correo</label>
-          <input id="email" type="text" class="custom-input w-full" placeholder="carolinahernadez@gamil.com">
+          <input id="email" [(ngModel)]="user.correo" type="text" class="custom-input w-full"
+            placeholder="carolinahernadez@gmail.com">
         </div>
 
         <div class="field col-12 ">
           <label for="email" class="font-semibold text-xs uppercase">
             <i class="fa-solid fa-at text-sm mr-1"></i>
             Confirmar correo</label>
-          <input id="email" type="text" class="custom-input w-full" placeholder="carolinahernadez@gamil.com">
-        </div>
+          <input (blur)="valideEmail()" id="email" [(ngModel)]="user.confirm_correo" type="text" class="custom-input w-full"
+            placeholder="carolinahernadez@gmail.com">
+        </div> -->
 
         <div class=" col-12 md:col-12 flex flex-column md:flex-row gap-3 justify-content-between">
           <div class=" flex flex-column align-items-start ">
             <p class="font-semibold text-sm">Total:</p>
-            <span class="font-bold text-4xl text-gradient-animated">{{quantity_tickets*rifa.precio |
+            <span class="font-bold text-4xl text-gradient-animated">{{user.cantidad_tickets*rifa.precio |
               number:'1.2-2'}}$</span>
           </div>
 
           @if (paymentMethod.tipo == 'transferencia' || paymentMethod.tipo == 'pagomovil') {
           <div class=" flex flex-column align-items-start ">
             <p class="font-semibold text-sm">Total (Bs):</p>
-            <span class="font-bold text-4xl text-gradient-animated">{{ returnDollarForBs(quantity_tickets ,rifa.precio ,
+            <span class="font-bold text-4xl text-gradient-animated">{{ returnDollarForBs(user.cantidad_tickets
+              ,rifa.precio ,
               dollar.price) | number:'1.2-2'}} Bs</span>
           </div>
           }
 
           <div class=" flex flex-column align-items-start ">
             <p class="font-semibold text-sm">Tickets:</p>
-            <span class="font-bold text-4xl text-gradient-animated">{{quantity_tickets}}</span>
+            <span class="font-bold text-4xl text-gradient-animated">{{user.cantidad_tickets}}</span>
           </div>
         </div>
       </div>
-
     </section>
 
     <!-- METODOS DE PAGO -->
@@ -403,15 +419,18 @@
       }
 
       <!-- subir archivo -->
-      <label class="file-upload mt-4">
-        <i class="fas fa-upload text-white"></i> Subir comprobante
-        <input type="file" (change)="onFileSelected($event)">
+      <label class="col-12 field file-upload  ">
+        <i class="fas fa-upload text-white"></i> Captura de pago
+        <input type="file" #fileInput (input)="onFileSelected($event)" (change)="onFileSelected($event)">
         <div *ngIf="selectedFileName" class="text-white text-xs font-semibold">
           Archivo seleccionado: {{ selectedFileName }}
         </div>
       </label>
 
-      <button class="mt-3 w-full custom-btn gradient-border flex align-items-center justify-content-center gap-2  "
+
+      <!-- COMPRAR TIKE -->
+      <button (click)="saleTicket()"
+        class="mt-3 w-full custom-btn gradient-border flex align-items-center justify-content-center gap-2  "
         style="border: none;">
         <span class="text-gradient-animated">Comprar ticket</span>
         <i class="text-gradient-animated text-white fa-regular fa-credit-card"></i>
@@ -460,10 +479,10 @@
     <!-- Información de contacto -->
     <div class="flex flex-column text-center md:text-left ">
       <div class="text-sm text-white">
-        <i class="pi pi-phone mr-2 "></i> Soporte: +58 {{config.telefono}}
+        <i class="pi pi-phone mr-2 "></i> Soporte: +58 {{config.config.telefono}}
       </div>
       <div class="text-sm mt-1 text-white">
-        <i class="pi pi-envelope mr-2 "></i> {{config.correo}}
+        <i class="pi pi-envelope mr-2 "></i> {{config.config.correo}}
       </div>
       <div class="text-sm mt-1 text-white">
         <i class="pi pi-map-marker mr-2 "></i> Andrés Belandria, La Guaira, Catia La Mar
@@ -489,7 +508,7 @@
 
 <!-- Botones flotantes -->
 <div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;" class="flex flex-column  text-center gap-2 ">
-  <a [href]="'https://wa.me/58'+config.telefono" target="_blank" class="support-btn">
+  <a [href]="'https://wa.me/58'+config.config.telefono" target="_blank" class="support-btn">
     <i class="fa-brands fa-whatsapp text-5xl px-2 py-3"></i>
   </a>
   <p class="font-semibold text-support">Soporte</p>

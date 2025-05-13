@@ -3,7 +3,7 @@ import { catchError, of } from 'rxjs';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { DollarOficial } from 'src/app/interfaces/PaymentMethods';
 import { Ticket } from 'src/app/interfaces/Ticket';
-import { Config } from 'src/app/models/config';
+import { Config, ConfigResponse, TypeDolar } from 'src/app/models/config';
 import { PayMethod } from 'src/app/models/pay_method';
 import { Rifa } from 'src/app/models/rifa.model';
 import { PayService } from 'src/app/service/pay.service';
@@ -12,6 +12,9 @@ import { ToastService } from 'src/app/service/toast.service';
 import { UserService } from 'src/app/service/user.service';
 import { environment } from 'src/environments/environment';
 import { phoneCountryCodes } from './nums';
+import { User } from 'src/app/models/user.model';
+import { SweetAlertResult } from 'sweetalert2';
+import { contract } from './terminos';
 
 @Component({
   selector: 'app-web',
@@ -19,6 +22,7 @@ import { phoneCountryCodes } from './nums';
   styleUrl: './web.component.scss'
 })
 export class WebComponent {
+  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
   @ViewChild('rifas') rifas!: ElementRef;
   @ViewChild('comoFunciona') comoFunciona!: ElementRef;
   @ViewChild('inicio') inicio!: ElementRef;
@@ -26,14 +30,17 @@ export class WebComponent {
   @ViewChild('quienesSomos') quienesSomos!: ElementRef;
   @ViewChild('contacto') contacto!: ElementRef;
   phoneList: string[] = phoneCountryCodes
-
-  rifa: Rifa = new Rifa;
+  loading = false;
   host = environment.host
   esCelular = window.innerWidth < 768;
-  loading = false;
   rangeValue = 30;
-  price_ticket: number = 10;
-  quantity_tickets: number = 1;
+  contract: string = contract
+
+  selectedFile: File | null = null;
+  selectedFileName: string | null = null;
+  user: User = new User()
+
+  rifa: Rifa = new Rifa;
   today: Date = new Date()
   dollar: DollarOficial = {
     id: 0,
@@ -42,9 +49,8 @@ export class WebComponent {
     price: ''
   };
 
-  selectedFileName: string = '';
 
-  config: Config = new Config()
+  config: ConfigResponse = new ConfigResponse()
   tickets: Ticket[] = [
     {
       id: 'TCK-0013',
@@ -121,26 +127,6 @@ export class WebComponent {
 
   ngOnInit() {
 
-
-    // try {
-    //   const [fonts, theme, fa] = await Promise.all([
-    //     fetch('https://fonts.googleapis.com/css2?family=Cal+Sans&family=Geist:wght@100..900&display=swap'),
-    //     fetch('assets/theme/light-theme.css'),
-    //     fetch('https://kit.fontawesome.com/da29abc60a.js')
-    //   ]);
-
-    //   if (!fonts.ok || !theme.ok || !fa.ok) {
-    //     this.loading = false;
-    //     throw new Error('❌ Alguno de los recursos no se pudo cargar');
-    //   }
-
-    //   this.loading = false;
-    //   // Aquí podrías continuar con tu lógica
-    // } catch (err) {
-    //   this.loading = false;
-    //   console.error('Error detectado:', err);
-    // }
-
     //Carga el rolar y la configuración
     this.configDolarDownload()
     //Carga los recurso de la pagina web 
@@ -168,11 +154,12 @@ export class WebComponent {
       )
     }).subscribe({
       next: ({ config, dollarList }) => {
-        this.config = config[0]
+
+        this.config = config
 
         //!Si la tasa web da error
         if (dollarList.length == 0) {
-          let { tasa_banco, tasa_personalizada } = this.config
+          let { tasa_banco, tasa_personalizada } = this.config.config as Config
 
           this.dollar = {
             id: 1,
@@ -183,9 +170,12 @@ export class WebComponent {
         } else {
           let tasas = { paralelo: 1, bcv: 0, promedio: 3 }
 
-          this.dollar = dollarList[tasas[this.config.tasa_banco]]
+          if (this.config && Array.isArray(this.config.config) === false) {
+            const key = this.config.config.tasa_banco as keyof typeof tasas;
+            const index = tasas[key];
+            this.dollar = dollarList[index];
+          }
         }
-
         this.loading = false;
 
         this.resourcesWeb()
@@ -219,9 +209,13 @@ export class WebComponent {
         this.rifa = 'id' in rifa ? rifa : new Rifa
 
         //Proceso para los metodos de pago
-        this.paymentMethods = payList
-        this.paymentMethod = this.paymentMethods[0]
-        this.changeMethodPay(this.paymentMethod)
+        //!VALIDA LOS METODOS DE PAGO PORQUE DA ERROR SI NO HAY NADA
+        if (payList.length != 0) {
+          this.paymentMethods = payList
+          this.paymentMethod = this.paymentMethods[0]
+          this.changeMethodPay(this.paymentMethod)
+        }
+
 
         this.loading = false
       },
@@ -274,7 +268,7 @@ export class WebComponent {
     this.paymentMethods.forEach(m => m.active = false)
     method.active = true
     this.paymentMethod = method
-    this.quantity_tickets = this.paymentMethod.min_tickets
+    this.user.cantidad_tickets = this.paymentMethod.min_tickets
   }
 
 
@@ -288,9 +282,11 @@ export class WebComponent {
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      this.selectedFileName = input.files[0].name;
+      this.selectedFile = input.files[0];
+      this.selectedFileName = this.selectedFile.name;
     } else {
-      this.selectedFileName = '';
+      this.selectedFile = null;
+      this.selectedFileName = null;
     }
   }
 
@@ -346,11 +342,104 @@ export class WebComponent {
     const min = this.paymentMethod.min_tickets;
 
 
-    if (!this.quantity_tickets || this.quantity_tickets < min) {
-      this.quantity_tickets = min;
+    if (!this.user.cantidad_tickets || this.user.cantidad_tickets < min) {
+      this.user.cantidad_tickets = min;
 
       this.toastService.warning('El tiket no puede ser menor a ' + min);
     }
+  }
+
+  validePhone() {
+    if (this.user.telefono !== this.user.confirm_telefono) {
+      this.toastService.warning('', 'El numero de teléfono no coincide')
+      this.user.confirm_telefono = ''
+    }
+  }
+
+  /**
+   * Realiza una petición para comprar los tickets de una rifa.
+   * Antes de hacer la petición, se muestra un mensaje de confirmación
+   * con los términos y condiciones de la rifa.
+   * Si se confirma, se crea el pago y se env an las instrucciones
+   * al usuario por medio de un mensaje de confirmación.
+   * Si la petición falla, se muestra un mensaje de error.
+   *
+   * @returns {void}
+   */
+  saleTicket() {
+
+    if (!this.valideFormPay()) return
+    //terminos u condiciones
+    this.toastService.confirm('Términos y condiciones', this.contract).then((res: SweetAlertResult) => {
+      if (res.isConfirmed) {
+        this.loading = true
+
+        //extraemos inforamcion de apgos y tasa
+        this.user.total = this.user.cantidad_tickets * this.rifa.precio
+        this.user.total_bs = this.returnDollarForBs(this.user.cantidad_tickets, this.rifa.precio, this.dollar.price)
+        this.user.tasa = this.dollar.price
+        this.user.detalle_metodo_pago = this.paymentMethod
+
+        //agregamos el form data
+        const formData = new FormData();
+        if (this.selectedFile) {
+          formData.append('image', this.selectedFile);
+        }
+        formData.append('pay', JSON.stringify(this.user))
+
+        //ejecutamos el servicio
+        this.payService.createPayForUser(formData as any).subscribe({
+          next: (pago) => {
+
+            //limpiamos todo, por si quiere hacer otro pago
+            this.selectedFileName = ''
+            this.selectedFile = null
+            this.fileInput.nativeElement.value = '';
+            this.user = new User();
+            this.user.detalle_metodo_pago = this.paymentMethod
+
+            //mandamos las instrucciones
+            this.toastService.confirm('Pago esta en proceso', `
+              Hola <b>${pago.nombre}</b>, tu pago está en proceso. Puede demorar hasta 24 horas. Al confirmarse,
+              te enviaremos el comprobante y tus tickets a este número: <b>${pago.telefono}</b>.
+              ¡Gracias por tu confianza!
+            `).then(() => { })
+
+            this.loading = false
+          }, error: (err) => {
+
+            this.selectedFileName = ''
+            this.selectedFile = null
+            this.fileInput.nativeElement.value = '';
+            this.user = new User();
+            this.user.detalle_metodo_pago = this.paymentMethod
+            this.toastService.warning('Hubo un problema con el pago por favor vuelva a llenar los datos', err);
+            this.loading = false
+          },
+        })
+      }
+    })
+  }
+
+  valideFormPay() {
+    let pass = true
+
+    if (!this.selectedFileName) {
+      this.toastService.warning('Debe seleccionar el comprobante')
+      pass = false
+    }
+
+    if (!this.user.nombre.trim()) {
+      this.toastService.warning('Debe ingresar su nombre')
+      pass = false
+    }
+
+    if (!/^[0-9]+$/.test(this.user.telefono)) {
+      this.toastService.warning('El teléfono debe contener solo números sin signos ni espacios')
+      pass = false
+    }
+
+    return pass
   }
 
 }

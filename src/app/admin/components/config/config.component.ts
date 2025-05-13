@@ -22,7 +22,7 @@ export class ConfigComponent {
     this.userService.getConfig().subscribe({
       next: (config) => {
 
-        this.configuration_web = config.length == 0 ? new Config() : config[0]
+        this.configuration_web = Array.isArray(config.config) && config.config.length === 0 ? new Config() : config.config as Config
         this.loading = false
       },
       error: (err) => {
@@ -33,6 +33,7 @@ export class ConfigComponent {
   }
 
   createConfig() {
+    //!VALIDAR CAMPOS
     this.loading = true
     this.userService.saveConfig(this.configuration_web).subscribe({
       next: (c) => {
@@ -46,4 +47,6 @@ export class ConfigComponent {
       },
     })
   }
+
+
 }
