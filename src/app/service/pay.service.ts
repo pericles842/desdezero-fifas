@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { PayMethod } from '../models/pay_method';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs/internal/Observable';
-import { DollarOficial, Payment } from '../interfaces/PaymentMethods';
+import { DollarOficial, Payment, Sales } from '../interfaces/PaymentMethods';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -29,5 +29,11 @@ export class PayService {
   }
   createPayForUser(pay: User) {
     return this.http.post<Payment>(`${environment.host}/pay/create-pay`, pay)
+  }
+  ticketSales(): Observable<Sales[]> {
+    return this.http.get<Sales[]>(`${environment.host}/pay/sales`)
+  }
+  validatePay(id: number): Observable<{ sale: Sales, email: any }> {
+    return this.http.get<{ sale: Sales, email: any }>(`${environment.host}/pay/approve-sale/${id}`)
   }
 }

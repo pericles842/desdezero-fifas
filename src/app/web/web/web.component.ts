@@ -115,7 +115,7 @@ export class WebComponent {
    * @memberof WebComponent
    */
   paymentMethods!: PayMethod[]
-  paymentMethod!: PayMethod
+  paymentMethod: PayMethod = new PayMethod()
 
 
   constructor(
@@ -401,7 +401,7 @@ export class WebComponent {
             //mandamos las instrucciones
             this.toastService.confirm('Pago esta en proceso', `
               Hola <b>${pago.nombre}</b>, tu pago está en proceso. Puede demorar hasta 24 horas. Al confirmarse,
-              te enviaremos el comprobante y tus tickets a este número: <b>${pago.telefono}</b>.
+              te enviaremos el comprobante y tus tickets a este correo: <b>${pago.correo} recuerda revisar en spam</b>.
               ¡Gracias por tu confianza!
             `).then(() => { })
 
@@ -433,6 +433,10 @@ export class WebComponent {
       this.toastService.warning('Debe ingresar su nombre')
       pass = false
     }
+    if (!this.user.referencia.trim()) {
+      this.toastService.warning('Debe ingresar la referencia del pago')
+      pass = false
+    }
 
     if (!/^[0-9]+$/.test(this.user.telefono)) {
       this.toastService.warning('El teléfono debe contener solo números sin signos ni espacios')
@@ -440,6 +444,13 @@ export class WebComponent {
     }
 
     return pass
+  }
+
+  valideEmail() {
+    if (this.user.correo !== this.user.confirm_correo) {
+      this.toastService.warning('', 'El correo no coincide')
+      this.user.confirm_correo = ''
+    }
   }
 
 }

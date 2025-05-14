@@ -5,10 +5,12 @@ export class User {
     nombre: string = '';
     cod_num: string = '+58';
     correo: string = '';
+    confirm_correo: string = ''
     confirm_telefono: string = ''
+    referencia: string = '';
     total: number = 0;
     total_bs: number = 0
-    tasa:string = ''
+    tasa: string = ''
     telefono: string = '';
     comprobante: string = ''
     password?: string = '';

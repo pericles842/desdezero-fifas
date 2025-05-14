@@ -1,6 +1,8 @@
 <p-overlayPanel #op>
-  <div class="flex justify-content-center  w-full md:w-30rem">
-    <img src="/assets/img/rifa.jpg" class="w-full border-round-xl">
+  <div class="flex justify-content-center  w-full overflow-y-scroll">
+    @if (sale) {
+    <img [src]="host+sale.comprobante||''" class="w-full border-round-xl">
+    }
   </div>
 </p-overlayPanel>
 
@@ -12,13 +14,61 @@
   </div>
 </p-overlayPanel>
 
+<p-dialog [modal]="true" contentStyleClass="p-3 md:p-4" [showHeader]="true" [resizable]="false" [(visible)]="visible"
+  ngClass="w-30rem">
+  <div *ngIf="sale" class="p-2 ">
+    <div class="flex flex-column gap-2">
+      <h3 class="text-2xl font-bold">{{sale.rifa}}</h3>
+
+      <div class="flex justify-content-between align-items-center ">
+        <span class="font-semibold">Correo:</span>
+        <span class="font-medium bg-secondary text-white border-round-md p-1">{{ sale.correo }}</span>
+      </div>
+      <div class="flex justify-content-between align-items-center ">
+        <span class="font-semibold">Teléfono:</span>
+        <span class="font-medium bg-secondary text-white border-round-md p-1">{{ sale.telefono }}</span>
+      </div>
+      <div class="flex justify-content-between align-items-center ">
+        <span class="font-semibold">Cantidad de Tickets:</span>
+        <span class="font-medium bg-secondary text-white border-round-md p-1">{{ sale.cantidad_tickets }}</span>
+      </div>
+      <div class="flex justify-content-between align-items-center ">
+        <span class="font-semibold">Total (USD):</span>
+        <span class="font-medium bg-secondary text-white border-round-md p-1">{{ sale.total }} $</span>
+      </div>
+      <div class="flex justify-content-between align-items-center ">
+        <span class="font-semibold">Total (BS):</span>
+        <span class="font-medium bg-secondary text-white border-round-md p-1">{{ sale.total_bs |number:'1.2-2'}}
+          Bs</span>
+      </div>
+      <div class="flex justify-content-between align-items-center ">
+        <span class="font-semibold">Tasa:</span>
+        <span class="font-medium bg-secondary text-white border-round-md p-1">{{ sale.tasa }} Bs</span>
+      </div>
+      <div class="flex justify-content-between align-items-center ">
+        <span class="font-semibold">Referencia:</span>
+        <span class="font-medium bg-secondary text-white border-round-md p-1">{{ sale.referencia }}</span>
+      </div>
+      <div class="flex justify-content-between align-items-center ">
+        <span class="font-semibold">Método de Pago:</span>
+        <span class="font-medium bg-secondary text-white border-round-md p-1">{{ sale.metodo_pago }}</span>
+      </div>
+      <div class="flex justify-content-start flex-wrap gap-1 align-items-center mt-2">
+        @for (t of sale.tikes; track $index) {
+        <p class="bg-secondary text-white border-round-md p-3 font-bold text-white">{{t}}</p>
+        }
+      </div>
+    </div>
+  </div>
+</p-dialog>
+
 <section class="main-form p-3 md:p-0  pb-5 md:pb-0 mb-5 md:mb-0 ">
 
 
   <div style="overflow-x: auto; width: 100%;">
-    <p-table #dt [value]="tickets" [paginator]="!esCelular" [rows]="10"
-      [globalFilterFields]="['numero', 'correo', 'estatus','tckts', 'fecha']" [scrollable]="true" scrollHeight="300px"
-      [resizableColumns]="true" class="p-datatable-sm" styleClass="p-datatable-responsive w-full"
+    <p-table #dt [value]="sales" [paginator]="!esCelular" [rows]="10"
+      [globalFilterFields]="['usuario','estatus','tikes','telefono', 'fecha','correo']" [scrollable]="true"
+      scrollHeight="300px" [resizableColumns]="true" class="p-datatable-sm" styleClass="p-datatable-responsive w-full"
       [tableStyle]="{ 'min-width': '1000px' }">
 
       <!-- Caption for search and column visibility toggle -->
@@ -57,21 +107,20 @@
               <ng-container [ngSwitch]="c.key">
 
                 <!-- Direct values -->
-                <span class="p-2" *ngSwitchCase="'nombre'">{{ ticket.nombre }}</span>
-                <span class="p-2" *ngSwitchCase="'numero'">{{ ticket.numero }}</span>
-                <span class="p-2" *ngSwitchCase="'correo'">{{ ticket.correo }}</span>
-                <span class="p-2" *ngSwitchCase="'total'">{{ ticket.total }}</span>
-                <span class="p-2" *ngSwitchCase="'fecha'">{{ ticket.fecha }}</span>
+                <span class="p-2" *ngSwitchCase="'usuario'">{{ ticket.usuario }}</span>
+                <span class="p-2" *ngSwitchCase="'telefono'">{{ ticket.telefono }}</span>
+                <span class="p-2" *ngSwitchCase="'total_bs'">{{ ticket.total_bs+' Bs' }}</span>
+                <span class="p-2" *ngSwitchCase="'fecha'">{{ ticket.fecha| date: 'short' }}</span>
 
                 <!-- Tickets: array join -->
-                <span *ngSwitchCase="'tckts'" (click)="mostrarTickets(ticket.tckts, tk, $event)"
+                <span *ngSwitchCase="'tikes'" (click)="mostrarTickets(ticket.tikes, tk, $event)"
                   class="cursor-pointer text-gradient-animated  font-bold">
-                  {{ ticket.tckts.length > 1 ? ticket.tckts.slice(0, 1).join(', ') + '...' : ticket.tckts.join(', ') }}
+                  {{ ticket.tikes.length > 1 ? ticket.tikes.slice(0, 1).join(', ') + '...' : ticket.tikes.join(', ') }}
                 </span>
 
                 <!-- Pago: imagen -->
-                <img *ngSwitchCase="'pago'" (click)="op.toggle($event)" src="/assets/img/rifa.jpg"
-                  class="w-4rem border-round-xl cursor-pointer" />
+                <img *ngSwitchCase="'comprobante'" (click)="mostrarComprobante(ticket, op, $event)"
+                  [src]="host+ticket.comprobante" class="w-4rem border-round-xl cursor-pointer" />
 
                 <!-- Estatus: badge -->
                 <p *ngSwitchCase="'estatus'" [style.color]="ticket.estatus === 'aprobado' ? '#28a745' : '#ffc107'"
@@ -81,9 +130,16 @@
 
                 <!-- Acción: botones -->
                 <span *ngSwitchCase="'accion'" class="flex align-items-center justify-content-start gap-2">
-                  <button [pTooltip]="aprobar" tooltipPosition="top" class="btn-form  fa-solid fa-check"></button>
-                  <button [pTooltip]="rechazar" tooltipPosition="top" class="btn-form fa-solid fa-xmark"></button>
-
+                  <button [pTooltip]="aprobar" tooltipPosition="top" class="btn-form  fa-solid fa-check"
+                    (click)="validatePay(ticket.id)" ></button>
+                  <button (click)="ver_mas(ticket)" [pTooltip]="vermas" tooltipPosition="top"
+                    class="btn-form fa-solid fa-eye"></button>
+                  <button (click)="sendEmail()" [pTooltip]="mensaje" tooltipPosition="top"
+                    class="btn-form fa-solid fa-comment"></button>
+                  <button (click)="rejectPayment()" [pTooltip]="rechazar" [disabled]="ticket.estatus == 'aprobado'"
+                    tooltipPosition="top" class="btn-form fa-solid fa-xmark"></button>
+                  <button (click)="winUser()" [pTooltip]="ganador" [disabled]="ticket.estatus != 'aprobado'"
+                    tooltipPosition="top" class="btn-form fa-solid fa-trophy"></button>
                 </span>
 
               </ng-container>
@@ -111,3 +167,22 @@
     <p class="text-white">Rechazar pago</p>
   </div>
 </ng-template>
+
+<ng-template #vermas>
+  <div class="flex align-items-center p-2 bg-secondary  border-round-xl">
+    <p class="text-white">Visualizar mas</p>
+  </div>
+</ng-template>
+
+<ng-template #ganador>
+  <div class="flex align-items-center p-2 bg-secondary  border-round-xl">
+    <p class="text-white">Seleccionar ganador</p>
+  </div>
+</ng-template>
+<ng-template #mensaje>
+  <div class="flex align-items-center p-2 bg-secondary  border-round-xl">
+    <p class="text-white">Mensaje personalizado</p>
+  </div>
+</ng-template>
+
+<app-loading [loading]="loading"></app-loading>

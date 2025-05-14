@@ -1,4 +1,9 @@
 import { Component, HostListener } from '@angular/core';
+import { Sales } from 'src/app/interfaces/PaymentMethods';
+import { PayService } from 'src/app/service/pay.service';
+import { ToastService } from 'src/app/service/toast.service';
+import { environment } from 'src/environments/environment';
+import { SweetAlertResult } from 'sweetalert2';
 
 @Component({
   selector: 'app-ventas',
@@ -7,228 +12,50 @@ import { Component, HostListener } from '@angular/core';
 })
 export class VentasComponent {
   esCelular: boolean = false
+  loading: boolean = false
+  tikesArray!: string[] | number[]
+  sales: Sales[] = []
+  host: string = environment.host
+  visible: boolean = false
 
-  tikesArray!: string[]|number[]
-  tickets = [
-    {
-      nombre: 'Juan Carlos Marquez',
-      correo: 'jc.marquez@gmail.com',
-      numero: '04141234567',
-      img: 'https://randomuser.me/api/portraits/men/1.jpg',
-      estatus: 'pendiente',
-      tckts: ['1234', '5678'],
-      total: 100,
-      fecha: new Date('2023-01-05').toLocaleDateString()
-    },
-    {
-      nombre: 'Maria Elena Gomez',
-      correo: 'maria.gomez@outlook.com',
-      numero: '04149876543',
-      img: 'https://randomuser.me/api/portraits/women/2.jpg',
-      estatus: 'aprobado',
-      tckts: ['1111', '6789'],
-      total: 200,
-      fecha: new Date('2023-01-06').toLocaleDateString()
-    },
-    {
-      nombre: 'Carlos Alberto Rodriguez',
-      correo: 'carlos.rodriguez@hotmail.com',
-      numero: '04141239876',
-      img: 'https://randomuser.me/api/portraits/men/3.jpg',
-      estatus: 'pendiente',
-      tckts: ['3456', '7890', '1245', '3861'],
-      total: 150,
-      fecha: new Date('2023-01-07').toLocaleDateString()
-    },
-    {
-      nombre: 'Laura Daniela Sánchez',
-      correo: 'laura.sanchez@gmail.com',
-      numero: '04141234567',
-      img: 'https://randomuser.me/api/portraits/women/4.jpg',
-      estatus: 'aprobado',
-      tckts: ['4567', '8901', '2345'],
-      total: 300,
-      fecha: new Date('2023-01-08').toLocaleDateString()
-    },
-    {
-      nombre: 'Andrés José Pérez',
-      correo: 'andres.perez@outlook.com',
-      numero: '04149876543',
-      img: 'https://randomuser.me/api/portraits/men/5.jpg',
-      estatus: 'pendiente',
-      tckts: ['5678', '9012', '4567'],
-      total: 200,
-      fecha: new Date('2023-01-09').toLocaleDateString()
-    },
-    {
-      nombre: 'María del Carmen Gómez',
-      correo: 'maria.gomez@hotmail.com',
-      numero: '04141239876',
-      img: 'https://randomuser.me/api/portraits/women/6.jpg',
-      estatus: 'aprobado',
-      tckts: ['6789', '0123', '8901'],
-      total: 250,
-      fecha: new Date('2023-01-10').toLocaleDateString()
-    },
-    {
-      nombre: 'César Alejandro Martínez',
-      correo: 'cesar.martinez@gmail.com',
-      numero: '04141234567',
-      img: 'https://randomuser.me/api/portraits/men/7.jpg',
-      estatus: 'pendiente',
-      tckts: ['7890', '1234', '5678'],
-      total: 150,
-      fecha: new Date('2023-01-11').toLocaleDateString()
-    },
-    {
-      nombre: 'Sandra Patricia López',
-      correo: 'sandra.lopez@outlook.com',
-      numero: '04149876543',
-      img: 'https://randomuser.me/api/portraits/women/8.jpg',
-      estatus: 'aprobado',
-      tckts: ['8901', '2345', '6789'],
-      total: 300,
-      fecha: new Date('2023-01-12').toLocaleDateString()
-    },
-    {
-      nombre: 'Jorge Luis Díaz',
-      correo: 'jorge.diaz@hotmail.com',
-      numero: '04141239876',
-      img: 'https://randomuser.me/api/portraits/men/9.jpg',
-      estatus: 'pendiente',
-      tckts: ['0123', '4567', '8901'],
-      total: 200,
-      fecha: new Date('2023-01-13').toLocaleDateString()
-    },
-    {
-      nombre: 'Ana María García',
-      correo: 'ana.garcia@gmail.com',
-      numero: '04141234567',
-      img: 'https://randomuser.me/api/portraits/women/10.jpg',
-      estatus: 'aprobado',
-      tckts: ['2345', '6789', '0123'],
-      total: 250,
-      fecha: new Date('2023-01-14').toLocaleDateString()
-    },
-    {
-      nombre: 'Pedro José Pérez',
-      correo: 'pedro.perez@outlook.com',
-      numero: '04149876543',
-      img: 'https://randomuser.me/api/portraits/men/11.jpg',
-      estatus: 'pendiente',
-      tckts: ['3456', '7890', '4567'],
-      total: 150,
-      fecha: new Date('2023-01-15').toLocaleDateString()
-    },
-    {
-      nombre: 'María Teresa Sánchez',
-      correo: 'maria.sanchez@hotmail.com',
-      numero: '04141239876',
-      img: 'https://randomuser.me/api/portraits/women/12.jpg',
-      estatus: 'aprobado',
-      tckts: ['5678', '9012', '0123'],
-      total: 300,
-      fecha: new Date('2023-01-16').toLocaleDateString()
-    },
-    {
-      nombre: 'Juan Pablo Ramírez',
-      correo: 'juan.ramirez@gmail.com',
-      numero: '04141234567',
-      img: 'https://randomuser.me/api/portraits/men/13.jpg',
-      estatus: 'pendiente',
-      tckts: ['6789', '2345', '5678'],
-      total: 200,
-      fecha: new Date('2023-01-17').toLocaleDateString()
-    },
-    {
-      nombre: 'Luis Alfredo Gómez',
-      correo: 'luis.gomez@outlook.com',
-      numero: '04149876543',
-      img: 'https://randomuser.me/api/portraits/men/14.jpg',
-      estatus: 'aprobado',
-      tckts: ['8901', '4567', '9012'],
-      total: 250,
-      fecha: new Date('2023-01-18').toLocaleDateString()
-    },
-    {
-      nombre: 'Ana Sofía López',
-      correo: 'ana.lopez@hotmail.com',
-      numero: '04141239876',
-      img: 'https://randomuser.me/api/portraits/women/15.jpg',
-      estatus: 'pendiente',
-      tckts: ['0123', '1234', '7890'],
-      total: 150,
-      fecha: new Date('2023-01-19').toLocaleDateString()
-    },
-    {
-      nombre: 'Rodrigo José Pérez',
-      correo: 'rodrigo.perez@gmail.com',
-      numero: '04141234567',
-      img: 'https://randomuser.me/api/portraits/men/16.jpg',
-      estatus: 'aprobado',
-      tckts: ['4567', '8901', '2345'],
-      total: 300,
-      fecha: new Date('2023-01-20').toLocaleDateString()
-    },
-    {
-      nombre: 'María del Carmen Díaz',
-      correo: 'maria.diaz@outlook.com',
-      numero: '04149876543',
-      img: 'https://randomuser.me/api/portraits/women/17.jpg',
-      estatus: 'pendiente',
-      tckts: ['7890', '5678', '9012'],
-      total: 200,
-      fecha: new Date('2023-01-21').toLocaleDateString()
-    },
-    {
-      nombre: 'César Augusto Gómez',
-      correo: 'cesar.gomez@hotmail.com',
-      numero: '04141239876',
-      img: 'https://randomuser.me/api/portraits/men/18.jpg',
-      estatus: 'aprobado',
-      tckts: ['8901', '0123', '5678'],
-      total: 250,
-      fecha: new Date('2023-01-22').toLocaleDateString()
-    },
-    {
-      nombre: 'Laura Daniela Sánchez',
-      correo: 'laura.sanchez@gmail.com',
-      numero: '04141234567',
-      img: 'https://randomuser.me/api/portraits/women/19.jpg',
-      estatus: 'pendiente',
-      tckts: ['6789', '4567', '0123'],
-      total: 150,
-      fecha: new Date('2023-01-23').toLocaleDateString()
-    },
-    {
-      nombre: 'Jorge Luis Díaz',
-      correo: 'jorge.diaz@outlook.com',
-      numero: '04149876543',
-      img: 'https://randomuser.me/api/portraits/men/20.jpg',
-      estatus: 'aprobado',
-      tckts: ['9012', '8901', '4567'],
-      total: 300,
-      fecha: new Date('2023-01-24').toLocaleDateString()
-    }
-  ];
-
+  sale: Sales = new Sales()
   columnas: any[] = [
-    { key: 'nombre', label: 'Nombre', activa: true, id: 'nombre' },
-    { key: 'numero', label: 'Teléfono', activa: true, id: 'numero' },
-    { key: 'correo', label: 'Correo', activa: true, id: 'correo' },
-    { key: 'tckts', label: 'Tickets', activa: true, id: 'tckts' },
-    { key: 'pago', label: 'Pago', activa: true, id: 'pago' },
+    { key: 'usuario', label: 'Nombre', activa: true, id: 'usuario' },
+    { key: 'telefono', label: 'Teléfono', activa: true, id: 'telefono' },
+    { key: 'tikes', label: 'Tickets', activa: true, id: 'tikes' },
+    { key: 'comprobante', label: 'Pago', activa: true, id: 'comprobante' },
     { key: 'estatus', label: 'Estatus', activa: true, id: 'estatus' },
-    { key: 'total', label: 'Total', activa: true, id: 'total' },
+    { key: 'total_bs', label: 'Total (Bs)', activa: true, id: 'total_bs' },
     { key: 'fecha', label: 'Fecha', activa: true, id: 'fecha' },
     { key: 'accion', label: 'Acción', activa: true, id: 'accion' }
   ];
 
+  constructor(
+    private toastService: ToastService,
+    private payService: PayService
+  ) { }
   toggleColumna(col: any): void {
     col.activa = !col.activa;
   }
 
+
   ngOnInit() {
+    this.loading = true
+    this.payService.ticketSales().subscribe({
+      next: (sales) => {
+
+        this.sales = sales.map(sale => {
+          sale.tikes = sale.tikes.split(',').map((tike: string) => tike.trim())
+          return sale
+        });
+        this.sales = sales
+        this.loading = false
+      },
+      error: (err) => {
+        this.toastService.error('', err)
+        this.loading = false
+      },
+    })
     this.onResize()
   }
   filterGlobal(event: Event, dt: any) {
@@ -246,11 +73,63 @@ export class VentasComponent {
     this.esCelular = window.innerWidth < 768;
   }
 
-  mostrarTickets(tickets: string[]|number[], overlay: any, event: MouseEvent): void {
+  mostrarTickets(tickets: string[] | number[], overlay: any, event: MouseEvent): void {
     this.tikesArray = tickets
 
     // Muestra el overlay
     overlay.toggle(event);
   }
+  mostrarComprobante(sale: Sales, overlay: any, event: MouseEvent): void {
+    this.sale = sale
+    overlay.toggle(event);
+  }
 
+  ver_mas(sale: Sales) {
+    this.visible = true
+    this.sale = sale
+  }
+
+  validatePay(id: number) {
+    this.toastService.confirm('Seguro desea validar el pago', '').then((res: SweetAlertResult) => {
+      if (res.isConfirmed) {
+        this.loading = true
+        this.payService.validatePay(id).subscribe({
+          next: (sales) => {
+
+            //trasformamos los tikes de string a un arreglo de numeros
+            sales.sale.tikes = sales.sale.tikes.split(',').map((t: string) => Number(t))
+            const index = this.sales.findIndex(sale => sale.id === id)
+
+            this.sales[index] = sales.sale
+            this.toastService.success('Pago validado correctamente', '')
+
+            if (sales.email && sales.email.errno) {
+              setTimeout(() => {
+                this.toastService.error('', 'No se pudo enviar el correo')
+              }, 2000)
+            } else {
+              setTimeout(() => {
+                this.toastService.success('Correo enviado correctamente', '')
+              }, 2000)
+
+            }
+            this.loading = false
+          },
+          error: (err) => {
+            this.loading = false
+            this.toastService.error('', err)
+          },
+        })
+      }
+    })
+  }
+  rejectPayment() {
+    console.log('rejectPayment')
+  }
+  sendEmail() {
+    console.log('sendEmail')
+  }
+  winUser() {
+    console.log('winUser')
+  }
 }

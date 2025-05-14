@@ -193,7 +193,7 @@
   </section>
 
   <!-- Rifas -->
-  @if (rifa.id != 0) {
+  @if (rifa.id != 0 && paymentMethod.id != 0 ) {
   <section #rifas id="rifas" class="grid my-5  ">
 
     <div class="col-12 lg:col-6 ">
@@ -325,7 +325,7 @@
             class="custom-input w-full" placeholder="04248576749">
         </div>
 
-        <!-- <div class="field col-12 ">
+        <div class="field col-12 ">
           <label for="email" class="font-semibold text-xs uppercase">
             <i class="fa-solid fa-at text-sm mr-1"></i>
             Correo</label>
@@ -337,9 +337,16 @@
           <label for="email" class="font-semibold text-xs uppercase">
             <i class="fa-solid fa-at text-sm mr-1"></i>
             Confirmar correo</label>
-          <input (blur)="valideEmail()" id="email" [(ngModel)]="user.confirm_correo" type="text" class="custom-input w-full"
-            placeholder="carolinahernadez@gmail.com">
-        </div> -->
+          <input (blur)="valideEmail()" id="email" [(ngModel)]="user.confirm_correo" type="text"
+            class="custom-input w-full" placeholder="carolinahernadez@gmail.com">
+        </div>
+
+        <div class="field col-12 ">
+          <label for="email" class="font-semibold text-xs uppercase">
+            <i class="fa-solid fa-hashtag text-sm mr-1"></i>
+            Referencia</label>
+          <input [(ngModel)]="user.referencia" type="text" class="custom-input w-full" placeholder="636813584">
+        </div>
 
         <div class=" col-12 md:col-12 flex flex-column md:flex-row gap-3 justify-content-between">
           <div class=" flex flex-column align-items-start ">
