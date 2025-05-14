@@ -45,8 +45,10 @@ export class VentasComponent {
       next: (sales) => {
 
         this.sales = sales.map(sale => {
-          sale.tikes = sale.tikes.split(',').map((tike: string) => tike.trim())
-          return sale
+          sale.tikes = sale.tikes
+            ? sale.tikes.split(',').map((tike: string) => tike.trim())
+            : [];
+          return sale;
         });
         this.sales = sales
         this.loading = false
