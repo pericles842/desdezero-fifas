@@ -421,6 +421,18 @@
             </div>
           </div>
           }
+
+          @if (paymentMethod.tipo == 'billeteradigital' ) {
+          <div class="flex justify-content-between">
+            <p class="font-bold text-gradient">
+              <i class="fa-solid fa-hand-point-right"></i>
+              Titular
+            </p>
+            <div class="flex align-items-center gap-2">
+              <p class="font-semibold">{{paymentMethod.titular}}</p>
+            </div>
+          </div>
+          }
         </div>
 
       </div>

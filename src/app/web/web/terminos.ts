@@ -7,9 +7,9 @@ export const contract = `
         (se puede hacer una exception bajo el consentimiento de los padres )</p>
 
     <p style="text-align: justify;">3- Las Entregas se programan en el transcurso de la semana a traves 
-    de correo electrónico lo Más Pronto Posible.</p>
+    de WhatsApp o llamada Telefonica lo Más Pronto Posible.</p>
 
-    <p style="text-align: justify;">4- Los tickets serán asignados de manera aleatoria y los recibirás a través del número de teléfono proporcionado.
+    <p style="text-align: justify;">4- Los tickets serán asignados de manera aleatoria y los recibirás a través del correo proporcionado.
     </p>
 
     <p style="text-align: justify;">5- Los ganadores aceptan aparecer en el contenido audiovisual del sorteo mostrando su presencia en las redes y
