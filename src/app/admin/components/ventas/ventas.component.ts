@@ -13,7 +13,7 @@ import { SweetAlertResult } from 'sweetalert2';
 export class VentasComponent {
   esCelular: boolean = false
   loading: boolean = false
-  tikesArray!: string[] | number[]
+  visibleTikes: boolean = false
   sales: Sales[] = []
   host: string = environment.host
   visible: boolean = false
@@ -75,11 +75,9 @@ export class VentasComponent {
     this.esCelular = window.innerWidth < 768;
   }
 
-  mostrarTickets(tickets: string[] | number[], overlay: any, event: MouseEvent): void {
-    this.tikesArray = tickets
-
-    // Muestra el overlay
-    overlay.toggle(event);
+  mostrarTickets(sale: Sales): void {
+    this.visibleTikes = true
+    this.sale = sale
   }
   mostrarComprobante(sale: Sales, overlay: any, event: MouseEvent): void {
     this.sale = sale
@@ -125,8 +123,39 @@ export class VentasComponent {
       }
     })
   }
-  rejectPayment() {
-    console.log('rejectPayment')
+  rejectPayment(id: number) {
+    this.toastService.confirm('Seguro desea rechazar el pago', '').then((res: SweetAlertResult) => {
+      if (res.isConfirmed) {
+        this.loading = true
+        this.payService.rejectPay(id).subscribe({
+          next: (sales) => {
+
+            //trasformamos los tikes de string a un arreglo de numeros
+            sales.sale.tikes = sales.sale.tikes ? sales.sale.tikes.split(',').map((tike: string) => tike.trim()) : []
+            const index = this.sales.findIndex(sale => sale.id === id)
+
+            this.sales[index] = sales.sale
+            this.toastService.success('Pago rechazado correctamente', '')
+
+            if (sales.email && sales.email.errno) {
+              setTimeout(() => {
+                this.toastService.error('', 'No se pudo enviar el correo')
+              }, 2000)
+            } else {
+              setTimeout(() => {
+                this.toastService.success('Correo enviado correctamente', '')
+              }, 2000)
+
+            }
+            this.loading = false
+          },
+          error: (err) => {
+            this.loading = false
+            this.toastService.error('', err)
+          },
+        })
+      }
+    })
   }
   sendEmail() {
     console.log('sendEmail')

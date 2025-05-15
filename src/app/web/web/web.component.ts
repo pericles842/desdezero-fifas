@@ -36,6 +36,7 @@ export class WebComponent {
   rangeValue = 30;
   contract: string = contract
 
+  emailSearch: string = ''
   selectedFile: File | null = null;
   selectedFileName: string | null = null;
   user: User = new User()
@@ -51,62 +52,7 @@ export class WebComponent {
 
 
   config: ConfigResponse = new ConfigResponse()
-  tickets: Ticket[] = [
-    {
-      id: 'TCK-0013',
-      title: 'Automóvil Toyota Corolla 2024',
-      name: 'Juan Pérez',
-      email: 'juan.perez@example.com',
-      date: '2023-02-15',
-      phone: 123456789,
-      status: 'pendiente'
-    },
-    {
-      id: 'TCK-0021',
-      title: 'Automóvil Toyota Corolla 2024',
-      name: 'María Rodríguez',
-      email: 'maria.rodriguez@example.com',
-      date: '2023-02-10',
-      phone: 987654321,
-      status: 'aprobado'
-    },
-    {
-      id: 'TCK-0034',
-      title: 'Automóvil Toyota Corolla 2024',
-      name: 'Carlos López',
-      email: 'carlos.lopez@example.com',
-      date: '2023-02-12',
-      phone: 555123456,
-      status: 'pendiente'
-    },
-    {
-      id: 'TCK-0025',
-      title: 'Automóvil Toyota Corolla 2024',
-      name: 'María Rodríguez',
-      email: 'maria.rodriguez@example.com',
-      date: '2023-02-10',
-      phone: 987654321,
-      status: 'aprobado'
-    },
-    {
-      id: 'TCK-0022',
-      title: 'Automóvil Toyota Corolla 2024',
-      name: 'María Rodríguez',
-      email: 'maria.rodriguez@example.com',
-      date: '2023-02-10',
-      phone: 987654321,
-      status: 'aprobado'
-    },
-    {
-      id: 'TCK-0026',
-      title: 'Automóvil Toyota Corolla 2024',
-      name: 'María Rodríguez',
-      email: 'maria.rodriguez@example.com',
-      date: '2023-02-10',
-      phone: 987654321,
-      status: 'aprobado'
-    }
-  ];
+  tickets: Ticket[] = []
 
   /**
    *METODOS de pago
@@ -456,5 +402,15 @@ export class WebComponent {
       this.user.confirm_correo = ''
     }
   }
+  searchTikeByEmail() {
+    this.rifasService.searchTikeByEmail(this.emailSearch).subscribe({
+      next: (tikes) => {
+        this.tickets = tikes
 
+      },
+      error(err) {
+
+      },
+    })
+  }
 }

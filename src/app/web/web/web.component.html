@@ -432,6 +432,12 @@
               <p class="font-semibold">{{paymentMethod.titular}}</p>
             </div>
           </div>
+
+          <p class="mt-3">Importante: Al realizar la transferencia, asegúrate de colocar en los comentarios el nombre
+            del titular de
+            la cuenta desde la cual estás transfiriendo.
+            Por favor, no incluyas conceptos relacionados con rifas, sorteos o ventas en el comentario de la
+            transacción.</p>
           }
         </div>
 
@@ -469,11 +475,12 @@
 
   <!-- Validar tikets -->
   <section class="my-5" #ticket>
-    <app-validate-ticket class="w-full"></app-validate-ticket>
+    <app-validate-ticket (touchSearch)="searchTikeByEmail()" [(search)]="emailSearch"
+      class="w-full"></app-validate-ticket>
   </section>
-
   <!-- listado de tikects -->
-  <section class="flex flex-wrap justify-content-center md:justify-content-between lg:justify-content-evenly gap-2">
+  <section class="flex flex-wrap justify-content-center md:justify-content-between lg:justify-content-evenly
+   gap-1" [ngClass]="tickets.length > 0 ? 'h-30rem overflow-y-auto' : ''">
     @for (tiket of tickets; track $index) {
     <app-ticket [ticket]="tiket"></app-ticket>
     }

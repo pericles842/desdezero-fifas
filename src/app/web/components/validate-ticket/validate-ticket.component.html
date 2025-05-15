@@ -3,8 +3,8 @@
     <i class="fa-solid fa-ticket text-xl mr-1 text-gradient-animated"></i>
     validar tickets</label>
   <div class="flex gap-2 w-full">
-    <input id="tikect" type="text" class="custom-input w-full" placeholder="carolinahernadez@gamil.com">
-    <button class="custom-btn">Buscar</button>
+    <input  [(ngModel)]="internalSearch" (ngModelChange)="onInputChange($event)" id="tikect" type="text" class="custom-input w-full" placeholder="carolinahernadez@gamil.com">
+    <button (click)="touchSearch.emit()" class="custom-btn">Buscar</button>
   </div>
-  <p class="text-gradient-animated text-center text-sm md:text-base">Puedes buscar tu ticket usando tu numero de teléfono, correo o código del ticket</p>
+  <p class="text-gradient-animated text-center text-sm md:text-base">Puedes buscar tu tickets usando tu correo electrónico</p>
 </div>

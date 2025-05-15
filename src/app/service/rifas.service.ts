@@ -40,7 +40,10 @@ export class RifasService {
     return this.http.get<Rifa>(`${environment.host}/rifa/active`)
   }
 
-  deleteRaffle(id:number){
-     return this.http.delete<any>(`${environment.host}/rifa/delete/${id}`)
+  deleteRaffle(id: number) {
+    return this.http.delete<any>(`${environment.host}/rifa/delete/${id}`)
+  }
+  searchTikeByEmail(email: string) {
+    return this.http.get<any>(`${environment.host}/rifa/tickets/${email}`)
   }
 }

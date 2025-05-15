@@ -6,13 +6,13 @@
   </div>
 </p-overlayPanel>
 
-<p-overlayPanel #tk>
+<!-- <p-overlayPanel #tk>
   <div class="flex justify-content-center  w-full md:w-w-3">
     @for (t of tikesArray; track $index) {
     <p class="text-gradient-animated p-3 text-xl font-bold">{{t}}</p>
     }
   </div>
-</p-overlayPanel>
+</p-overlayPanel> -->
 
 <p-dialog [modal]="true" contentStyleClass="p-3 md:p-4" [showHeader]="true" [resizable]="false" [(visible)]="visible"
   ngClass="w-30rem">
@@ -60,6 +60,19 @@
       </div>
     </div>
   </div>
+</p-dialog>
+
+<p-dialog [modal]="true" contentStyleClass="p-3 md:p-4" [showHeader]="true" [resizable]="false" [(visible)]="visibleTikes" 
+ [style]="{ width: '600px', height: '400px' }" ngClass="w-30rem">
+  <div>
+    <h1>Tikes {{sale.usuario}}</h1>
+    <div class="flex justify-content-between flex-wrap gap-1 align-items-center mt-2">
+      @for (t of sale.tikes; track $index) {
+      <p class="bg-secondary text-white border-round-md p-3 font-bold text-white">{{t}}</p>
+      }
+    </div>
+  </div>
+
 </p-dialog>
 
 <section class="main-form p-3 md:p-0  pb-5 md:pb-0 mb-5 md:mb-0 ">
@@ -113,7 +126,7 @@
                 <span class="p-2" *ngSwitchCase="'fecha'">{{ ticket.fecha| date: 'short' }}</span>
 
                 <!-- Tickets: array join -->
-                <span *ngSwitchCase="'tikes'" (click)="mostrarTickets(ticket.tikes, tk, $event)"
+                <span *ngSwitchCase="'tikes'" (click)="mostrarTickets(ticket)"
                   class="cursor-pointer text-gradient-animated  font-bold">
                   {{ ticket.tikes.length > 1 ? ticket.tikes.slice(0, 1).join(', ') + '...' : ticket.tikes.join(', ') }}
                 </span>
@@ -123,21 +136,23 @@
                   [src]="host+ticket.comprobante" class="w-4rem border-round-xl cursor-pointer" />
 
                 <!-- Estatus: badge -->
-                <p *ngSwitchCase="'estatus'" [style.color]="ticket.estatus === 'aprobado' ? '#28a745' : '#ffc107'"
+                <p *ngSwitchCase="'estatus'"
+                  [style.color]="ticket.estatus === 'aprobado' ? '#28a745' : ticket.estatus === 'pendiente' ? '#ffc107' : '#d04949'"
                   class="px-2 py-1 border-round-md font-bold">
-                  {{ ticket.estatus === 'aprobado' ? 'Aprobado' : 'Pendiente' }}
+                  {{ ticket.estatus === 'aprobado' ? 'Aprobado' : ticket.estatus === 'pendiente' ? 'Pendiente' :
+                  'Rechazado' }}
                 </p>
 
                 <!-- Acción: botones -->
                 <span *ngSwitchCase="'accion'" class="flex align-items-center justify-content-start gap-2">
-                  <button [pTooltip]="aprobar" [disabled]="ticket.estatus == 'aprobado'" tooltipPosition="top" class="btn-form  fa-solid fa-check"
-                    (click)="validatePay(ticket.id)" ></button>
+                  <button [pTooltip]="aprobar" [disabled]="ticket.estatus == 'aprobado'" tooltipPosition="top"
+                    class="btn-form  fa-solid fa-check" (click)="validatePay(ticket.id)"></button>
                   <button (click)="ver_mas(ticket)" [pTooltip]="vermas" tooltipPosition="top"
                     class="btn-form fa-solid fa-eye"></button>
                   <button (click)="sendEmail()" [pTooltip]="mensaje" tooltipPosition="top"
                     class="btn-form fa-solid fa-comment"></button>
-                  <button (click)="rejectPayment()" [pTooltip]="rechazar" [disabled]="ticket.estatus == 'aprobado'"
-                    tooltipPosition="top" class="btn-form fa-solid fa-xmark"></button>
+                  <button (click)="rejectPayment(ticket.id)" [pTooltip]="rechazar" tooltipPosition="top"
+                    class="btn-form fa-solid fa-xmark"></button>
                   <button (click)="winUser()" [pTooltip]="ganador" [disabled]="ticket.estatus != 'aprobado'"
                     tooltipPosition="top" class="btn-form fa-solid fa-trophy"></button>
                 </span>

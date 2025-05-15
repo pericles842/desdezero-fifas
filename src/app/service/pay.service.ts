@@ -36,4 +36,7 @@ export class PayService {
   validatePay(id: number): Observable<{ sale: Sales, email: any }> {
     return this.http.get<{ sale: Sales, email: any }>(`${environment.host}/pay/approve-sale/${id}`)
   }
+  rejectPay(id: number): Observable<{ sale: Sales, email: any }> {
+    return this.http.get<{ sale: Sales, email: any }>(`${environment.host}/pay/reject-sale/${id}`)
+  }
 }

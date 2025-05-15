@@ -1,36 +1,36 @@
-<div class="p-4 border-round-lg shadow-5 bg-secondary   flex  flex-column gap-3">
+<div class="p-4 border-round-lg shadow-5 bg-secondary flex flex-column gap-3 w-20rem">
   <div class="flex justify-content-between align-items-center">
-    <div class="font-bold text-lg text-gradient-animated">
-      <i class="fa-solid fa-ticket"></i> {{ ticket.id }}
+    <div class="font-bold text-2xl text-gradient-animated">
+      <i class="fa-solid fa-ticket"></i> {{ ticket.tike }}
     </div>
     <!-- w-18rem -->
     <span class="px-3 py-1 border-round-xl text-sm font-semibold" [ngStyle]="{ 
-      'background-color': ticket.status === 'aprobado' ? '#28a745' : '#ffc107',
-      'color': ticket.status  === 'aprobado' ? '#ffffff' : '#212529'}">
-      {{ ticket.status | titlecase }}
+      'background-color': ticket.estatus === 'aprobado' ? '#28a745' : '#d04949',
+      'color': ticket.estatus  === 'aprobado' ? '#ffffff' : '#ffffff'}">
+      {{ ticket.estatus | titlecase }}
     </span>
   </div>
 
-  <div class="text-md font-semibold text-gradient-animated">{{ ticket.title }}</div>
+  <div class="text-md font-semibold text-gradient-animated">{{ ticket.nombre }}</div>
 
   <div class="flex flex-column gap-2 text-sm">
     <div class="flex align-items-center  gap-3 text-gradient-animated">
       <i class="fas fa-user"></i>
-      <span>{{ ticket.name }}</span>
+      <span>{{ ticket.nombre }}</span>
     </div>
 
     <div class="flex align-items-center gap-3 text-gradient-animated">
       <i class="fas fa-phone"></i>
-      <span>{{ ticket.phone }}</span>
+      <span>{{ ticket.telefono }}</span>
     </div>
 
     <div class="flex align-items-center gap-3 text-gradient-animated">
       <i class="fas fa-envelope"></i>
-      <span>{{ ticket.email }}</span>
+      <span>{{ ticket.correo }}</span>
     </div>
     <div class="flex align-items-center gap-3 text-gradient-animated">
       <i class="fas fa-calendar"></i>
-      <span>{{ ticket.date }}</span>
+      <span>{{ ticket.fecha |date:'dd/MM/yyyy' }}</span>
     </div>
   </div>
   <div class="flex justify-content-end">
