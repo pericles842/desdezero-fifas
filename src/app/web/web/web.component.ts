@@ -268,7 +268,7 @@ export class WebComponent {
     this.paymentMethods.forEach(m => m.active = false)
     method.active = true
     this.paymentMethod = method
-    this.user.cantidad_tickets = this.paymentMethod.min_tickets
+    //this.user.cantidad_tickets = this.paymentMethod.min_tickets
   }
 
 
@@ -440,6 +440,10 @@ export class WebComponent {
 
     if (!/^[0-9]+$/.test(this.user.telefono)) {
       this.toastService.warning('El teléfono debe contener solo números sin signos ni espacios')
+      pass = false
+    }
+    if (this.user.cantidad_tickets < this.paymentMethod.min_tickets) {
+      this.toastService.warning('El ticket no puede ser menor a ' + this.paymentMethod.min_tickets)
       pass = false
     }
 

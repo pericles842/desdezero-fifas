@@ -4,6 +4,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Config, ConfigResponse } from '../models/config';
+import { Statistics } from '../interfaces/Statistics';
 
 @Injectable({
   providedIn: 'root'
@@ -110,8 +111,11 @@ export class UserService {
     let body = { config: config }
     return this.http.post<Config>(`${environment.host}/user/create-config`, body)
   }
-  
+
   getConfig(): Observable<ConfigResponse> {
     return this.http.get<ConfigResponse>(`${environment.host}/user/config`)
+  }
+  getConfigAdmin() {
+    return this.http.get<Statistics[]>(`${environment.host}/user/admin-statistics`)
   }
 }

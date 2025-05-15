@@ -56,7 +56,7 @@ export class PayMethodsComponent {
   ) { }
 
   onFileSelected(event: Event): void {
- 
+
 
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -84,9 +84,14 @@ export class PayMethodsComponent {
   }
 
   ngOnInit() {
+    this.loading = true
     this.payService.listPayMethod().subscribe({
       next: (payMethods) => {
         this.litsPay = payMethods
+        this.loading = false
+      }, error: (err) => {
+        this.toastService.error('',err)
+        this.loading = false
       },
     })
   }

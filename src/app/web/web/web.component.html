@@ -247,9 +247,10 @@
           @if (rifa.ver_tickets) {
           <div class="flex flex-column gap-2 align-items-end">
             <p class="text-sm font-semibold">Tickets disponibles</p>
-            <input type="range" min="0" [max]="rifa.objetivo_ventas" disabled [(ngModel)]="rifa.participantes"
-              [style.background]="getRangeBackground(rifa.participantes)" />
-            <p class="font-bold">{{rifa.participantes}} / {{rifa.objetivo_ventas}}</p>
+            <input type="range" min="0" [max]="rifa.objetivo_ventas" disabled
+              [(ngModel)]="config.estadisticas.tikes_vendidos_rifa"
+              [style.background]="getRangeBackground(config.estadisticas.tikes_vendidos_rifa)" />
+            <p class="font-bold">{{config.estadisticas.tikes_vendidos_rifa}} / {{rifa.objetivo_ventas}}</p>
           </div>
           }
 

@@ -3,10 +3,12 @@
 
   <!-- nombre de la rifa fecha  -->
   <div class="grid">
-   @for (statistic of statistics; track $index) {
+    @for (statistic of statistics; track $index) {
     <div class="field col-12 " [ngClass]="statistic.col">
       <app-card-statitics [statistic]="statistic"></app-card-statitics>
     </div>
-   }
+    }
   </div>
 </section>
+
+<app-loading [loading]="loading"></app-loading>
