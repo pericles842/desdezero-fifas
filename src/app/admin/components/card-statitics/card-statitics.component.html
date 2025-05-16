@@ -2,6 +2,6 @@
     <i  [ngClass]="statistic.icon" class="text-5xl  md:text-5xl text-gradient-animated"></i>
     <div class="flex flex-column  align-items-end gap-2">
         <p class="text-white text-xl text-gradient-animated">{{statistic.title}}</p>
-        <h3 class="text-white text-4xl font-bold">{{statistic.statistic}}</h3>
+        <h3 class="text-white  font-bold"  [ngClass]="getTextSizeClass(statistic.statistic.toString())">{{statistic.statistic}}</h3>
     </div>
 </div>

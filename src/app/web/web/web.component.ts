@@ -114,7 +114,7 @@ export class WebComponent {
             price: tasa_personalizada.toString()
           }
         } else {
-          let tasas = { paralelo: 1, bcv: 0, promedio: 3 }
+          let tasas = { paralelo: 1, bcv: 3, promedio: 3 }
 
           if (this.config && Array.isArray(this.config.config) === false) {
             const key = this.config.config.tasa_banco as keyof typeof tasas;
@@ -291,7 +291,12 @@ export class WebComponent {
     if (!this.user.cantidad_tickets || this.user.cantidad_tickets < min) {
       this.user.cantidad_tickets = min;
 
-      this.toastService.warning('El tiket no puede ser menor a ' + min);
+      this.toastService.warning('El ticket no puede ser menor a ' + min);
+    }
+
+    if (this.user.cantidad_tickets >= 200) {
+      this.user.cantidad_tickets = 200;
+      this.toastService.warning('El ticket no puede ser mayor a 200');
     }
   }
 

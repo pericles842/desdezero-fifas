@@ -65,7 +65,7 @@
 <p-dialog [modal]="true" contentStyleClass="p-3 md:p-4" [showHeader]="true" [resizable]="false" [(visible)]="visibleTikes" 
  [style]="{ width: '600px', height: '400px' }" ngClass="w-30rem">
   <div>
-    <h1>Tikes {{sale.usuario}}</h1>
+    <h1>Tickets {{sale.usuario}}</h1>
     <div class="flex justify-content-between flex-wrap gap-1 align-items-center mt-2">
       @for (t of sale.tikes; track $index) {
       <p class="bg-secondary text-white border-round-md p-3 font-bold text-white">{{t}}</p>

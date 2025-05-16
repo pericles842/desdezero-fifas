@@ -21,6 +21,6 @@
 			<input id="pass" [(ngModel)]="login.password"  type="password" class="custom-input w-full" placeholder="carolinahernadez@gamil.com">
 		</div>
 
-		<button class="w-full mt-4 custom-btn" (click)="auth()">Entrar</button>
+		<button class="w-full mt-4 custom-btn" (click)="auth()" (keyup.enter)="auth()">Entrar</button>
 	</div>
 </div>

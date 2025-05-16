@@ -12,6 +12,18 @@ export class CardStatiticsComponent {
     title: '',
     statistic: 0,
     icon: 'fa-solid fa-chart-line',
-    col:'md:col'
+    col: 'md:col'
   }
+
+  getTextSizeClass(text: string): string {
+    const length = text.length;
+    
+    if (length >= 10) {
+      return 'text-base';
+    }else {
+      return 'text-4xl';
+    }
+
+  }
+
 }
