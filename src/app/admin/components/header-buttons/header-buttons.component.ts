@@ -1,4 +1,6 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { RifasService } from 'src/app/service/rifas.service';
+import { ToastService } from 'src/app/service/toast.service';
 
 @Component({
   selector: 'app-header-buttons',
@@ -11,4 +13,6 @@ export class HeaderButtonsComponent {
   @Output() touchSearch: EventEmitter<any> = new EventEmitter<any>();
   @Output() touchDelete: EventEmitter<any> = new EventEmitter<any>();
   @Output() touchUpdate: EventEmitter<any> = new EventEmitter<any>();
+
+  @Input() activate_rifa: boolean = false
 }

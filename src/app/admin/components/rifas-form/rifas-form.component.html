@@ -1,4 +1,5 @@
-<app-header-buttons (touchCreate)="showDialog()"></app-header-buttons>
+<app-header-buttons (touchCreate)="showDialog()" (touchDelete)="deletewiners()"
+  [activate_rifa]="true"></app-header-buttons>
 
 <section class="main-form p-3 md:p-0  pb-5 md:pb-0">
   <h1 class="text-3xl md:text-4xl mb-4 text-gradient">Listado de Rifa</h1>
@@ -23,7 +24,9 @@
         </td>
         <td class="flex gap-1 justify-content-start">
           <button (click)="setRaffle(product)" class="btn-form fa-solid fa-pen"></button>
-          <button  (click)="activateRaffle(product.id)" [pTooltip]="activar" tooltipPosition="top"  class="btn-form fa-solid fa-check"></button>
+          <button (click)="activateRaffle(product.id)" [pTooltip]="activar" tooltipPosition="top"
+            class="btn-form fa-solid fa-check"></button>
+          <button (click)="desactivateRaffle(product.id)" class="btn-form fa-solid fa-xmark"></button>
           <button (click)="deleteRaffle(product.id)" class="btn-form fa-solid fa-trash"></button>
         </td>
       </tr>
@@ -34,11 +37,11 @@
 
 
 <p-dialog [modal]="true" contentStyleClass="p-3 md:p-4" [showHeader]="true" [resizable]="false" [(visible)]="visible"
-  ngClass="w-5  " >
+  ngClass="w-5  ">
   <div class="grid">
     <label class="col-12 field file-upload  ">
       <i class="fas fa-upload text-white"></i> Imagen de la rifa
-      <input type="file" #fileInput (input)="onFileSelected($event)"(change)="onFileSelected($event)">
+      <input type="file" #fileInput (input)="onFileSelected($event)" (change)="onFileSelected($event)">
       <div *ngIf="selectedFileName" class="text-white text-xs font-semibold">
         Archivo seleccionado: {{ selectedFileName }}
       </div>

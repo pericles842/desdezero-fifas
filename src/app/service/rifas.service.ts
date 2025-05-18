@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Rifa } from '../models/rifa.model';
+import { Rifa, winUser } from '../models/rifa.model';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs/internal/Observable';
 
@@ -45,5 +45,23 @@ export class RifasService {
   }
   searchTikeByEmail(email: string) {
     return this.http.get<any>(`${environment.host}/rifa/tickets/${email}`)
+  }
+
+  desactivateRaffle(id: number): Observable<Rifa> {
+    return this.http.get<Rifa>(`${environment.host}/rifa/deactivate/${id}`)
+  }
+  winUser(id: number, nombre: string, telefono: string, tike_ganador: string, nombre_rifa: string) {
+    let body = {
+      ganador: { id, nombre, telefono, tike_ganador, nombre_rifa }
+    }
+    return this.http.post<winUser>(`${environment.host}/rifa/winner/create`, body)
+  }
+
+  getWinUser(): Observable<winUser> {
+    return this.http.get<any>(`${environment.host}/rifa/winner`)
+  }
+
+  deleteWin() {
+    return this.http.delete<any>(`${environment.host}/rifa/winner/delete`)
   }
 }

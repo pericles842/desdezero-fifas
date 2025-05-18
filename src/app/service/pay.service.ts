@@ -39,4 +39,13 @@ export class PayService {
   rejectPay(id: number): Observable<{ sale: Sales, email: any }> {
     return this.http.get<{ sale: Sales, email: any }>(`${environment.host}/pay/reject-sale/${id}`)
   }
+
+   sendEmail(correo: string, subject: string, text: string) {
+    let body = { correo, subject, text }
+    return this.http.post<{
+        accepted: string[],
+        error: string,
+        message: string
+      }>(`${environment.host}/user/send-email`, body)
+  }
 }

@@ -269,7 +269,8 @@
                 [disabled]="user.cantidad_tickets <= paymentMethod.min_tickets"></button>
               <input type="number" (blur)="validateMinTike($event)" class="custom-input  w-full" [min]="1" max="100"
                 step="1" [(ngModel)]="user.cantidad_tickets">
-              <button class="custom-btn fa-solid fa-plus " [disabled]="user.cantidad_tickets >= 200" (click)="user.cantidad_tickets = user.cantidad_tickets + 1">
+              <button class="custom-btn fa-solid fa-plus " [disabled]="user.cantidad_tickets >= 200"
+                (click)="user.cantidad_tickets = user.cantidad_tickets + 1">
               </button>
 
             </div>
@@ -433,7 +434,8 @@
             </div>
           </div>
 
-          <p class="mt-3" style=" color: rgb(237, 85, 85);">Importante: Al realizar la transferencia, asegúrate de colocar en los comentarios el nombre
+          <p class="mt-3" style=" color: rgb(237, 85, 85);">Importante: Al realizar la transferencia, asegúrate de
+            colocar en los comentarios el nombre
             del titular de
             la cuenta desde la cual estás transfiriendo.
             Por favor, no incluyas conceptos relacionados con rifas, sorteos o ventas en el comentario de la
@@ -484,9 +486,11 @@
     @for (tiket of tickets; track $index) {
     <app-ticket [ticket]="tiket"></app-ticket>
     }
+
   </section>
-  }@else {
-  <app-user-win></app-user-win>
+  }
+  @if ( winUser.id != 0  ) {
+  <app-user-win [win]="winUser" [telefono]="config.config.telefono"></app-user-win>
   }
 </aside>
 

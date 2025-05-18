@@ -5,7 +5,7 @@ import { DollarOficial } from 'src/app/interfaces/PaymentMethods';
 import { Ticket } from 'src/app/interfaces/Ticket';
 import { Config, ConfigResponse, TypeDolar } from 'src/app/models/config';
 import { PayMethod } from 'src/app/models/pay_method';
-import { Rifa } from 'src/app/models/rifa.model';
+import { Rifa, winUser } from 'src/app/models/rifa.model';
 import { PayService } from 'src/app/service/pay.service';
 import { RifasService } from 'src/app/service/rifas.service';
 import { ToastService } from 'src/app/service/toast.service';
@@ -35,7 +35,7 @@ export class WebComponent {
   esCelular = window.innerWidth < 768;
   rangeValue = 30;
   contract: string = contract
-
+  winUser: winUser = new winUser()
   emailSearch: string = ''
   selectedFile: File | null = null;
   selectedFileName: string | null = null;
@@ -76,6 +76,7 @@ export class WebComponent {
     //Carga el rolar y la configuración
     this.configDolarDownload()
     //Carga los recurso de la pagina web 
+
 
   }
 
@@ -147,12 +148,17 @@ export class WebComponent {
     this.loading = true
     forkJoin(
       this.rifasService.getActiveRaffle(),
-      this.payService.listPayMethod()
+      this.payService.listPayMethod(),
+      this.rifasService.getWinUser()
     ).subscribe({
-      next: ([rifa, payList]) => {
+      next: ([rifa, payList, win]) => {
 
         //proceso para las rifas
         this.rifa = 'id' in rifa ? rifa : new Rifa
+
+        //proceso para el ganador
+        this.winUser =  Object.keys(win).length !== 0 ? win : new winUser()
+
 
         //Proceso para los metodos de pago
         //!VALIDA LOS METODOS DE PAGO PORQUE DA ERROR SI NO HAY NADA

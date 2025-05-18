@@ -190,4 +190,32 @@ export class RifasFormComponent {
     this.selectedFile = null
     this.fileInput.nativeElement.value = '';
   }
+
+  desactivateRaffle(id: number) {
+    this.loading = true
+    this.rifasService.desactivateRaffle(id).subscribe({
+      next: (res) => {
+        const index = this.listRaffle.findIndex(r => r.id == res.id)
+        this.listRaffle.map(r => r.status = 'no_activa')
+        if (index >= 0) this.listRaffle[index] = res
+        this.toastService.success('Rifa desactivada exitosamente')
+        this.loading = false
+      }, error: (err) => {
+        this.loading = false
+        this.toastService.error('', err)
+      }
+    })
+  }
+  deletewiners() {
+    this.loading = true
+    this.rifasService.deleteWin().subscribe({
+      next: (res) => {
+        this.toastService.success('Ganadores eliminados exitosamente')
+        this.loading = false
+      }, error: (err) => {
+        this.loading = false
+        this.toastService.error('', err)
+      }
+    })
+  }
 }

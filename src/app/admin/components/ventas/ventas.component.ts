@@ -1,6 +1,9 @@
+import { ThisReceiver } from '@angular/compiler';
 import { Component, HostListener } from '@angular/core';
 import { Sales } from 'src/app/interfaces/PaymentMethods';
+import { Rifa, winUser } from 'src/app/models/rifa.model';
 import { PayService } from 'src/app/service/pay.service';
+import { RifasService } from 'src/app/service/rifas.service';
 import { ToastService } from 'src/app/service/toast.service';
 import { environment } from 'src/environments/environment';
 import { SweetAlertResult } from 'sweetalert2';
@@ -14,10 +17,14 @@ export class VentasComponent {
   esCelular: boolean = false
   loading: boolean = false
   visibleTikes: boolean = false
+  modalSendEmail: boolean = false
   sales: Sales[] = []
   host: string = environment.host
   visible: boolean = false
 
+  messageEmail: {
+    correo: string, subject: string, text: string,
+  } = { correo: '', subject: '', text: '' }
   sale: Sales = new Sales()
   columnas: any[] = [
     { key: 'usuario', label: 'Nombre', activa: true, id: 'usuario' },
@@ -32,7 +39,8 @@ export class VentasComponent {
 
   constructor(
     private toastService: ToastService,
-    private payService: PayService
+    private payService: PayService,
+    private rafflesService: RifasService
   ) { }
   toggleColumna(col: any): void {
     col.activa = !col.activa;
@@ -103,13 +111,13 @@ export class VentasComponent {
             this.sales[index] = sales.sale
             this.toastService.success('Pago validado correctamente', '')
 
-            if (sales.email && sales.email.errno) {
+            if (sales.email && sales.email.error) {
               setTimeout(() => {
-                this.toastService.error('', 'No se pudo enviar el correo')
+                this.toastService.error('No se pudo enviar el correo', sales.email.message)
               }, 2000)
             } else {
               setTimeout(() => {
-                this.toastService.success('Correo enviado correctamente', '')
+                this.toastService.success('Correo enviado correctamente', sales.email.accepted[0])
               }, 2000)
 
             }
@@ -137,13 +145,13 @@ export class VentasComponent {
             this.sales[index] = sales.sale
             this.toastService.success('Pago rechazado correctamente', '')
 
-            if (sales.email && sales.email.errno) {
+            if (sales.email && sales.email.error) {
               setTimeout(() => {
-                this.toastService.error('', 'No se pudo enviar el correo')
+                this.toastService.error('No se pudo enviar el correo', sales.email.message)
               }, 2000)
             } else {
               setTimeout(() => {
-                this.toastService.success('Correo enviado correctamente', '')
+                this.toastService.success('Correo enviado correctamente', sales.email.accepted[0])
               }, 2000)
 
             }
@@ -157,10 +165,61 @@ export class VentasComponent {
       }
     })
   }
-  sendEmail() {
-    console.log('sendEmail')
+  openSendEmail(sale: Sales) {
+    this.messageEmail = { correo: '', subject: '', text: '' }
+    this.messageEmail.correo = sale.correo
+    this.modalSendEmail = true
   }
-  winUser() {
-    console.log('winUser')
+  /**
+   * Selecciona un ganador para la rifa, se activa una vez seleccionado el ganador
+   * y se desactiva la rifa actual
+   * @param sale
+   */
+  winUser(sale: Sales) {
+    this.loading = true
+
+    this.rafflesService.winUser(0, sale.usuario, sale.telefono, '', sale.rifa).subscribe({
+      next: (res) => {
+
+        this.toastService.success('Ganador seleccionado correctamente', sale.correo)
+        //!PROCEDIMIENTO PARA DESACTIVAR LA RIFA
+        // this.rafflesService.listRaffle().subscribe({
+        //   next: (rifas) => {
+        //     let rifa_activa = rifas.find(rifa => rifa.status === 'activa') as Rifa
+        //     this.rafflesService.desactivateRaffle(rifa_activa.id).subscribe()
+        //     this.toastService.success('Rifa desactivada', rifa_activa.nombre)
+        //   }
+        // })
+        this.loading = false
+      },
+      error: (err) => {
+        this.loading = false
+        this.toastService.error('', err.message)
+      },
+    })
+  }
+
+  /**
+   *Envía un correo personalizado
+   *
+   * @memberof VentasComponent
+   */
+  sendEmail() {
+    this.loading = true
+    this.payService.sendEmail(this.messageEmail.correo, this.messageEmail.subject, this.messageEmail.text).subscribe({
+      next: (email) => {
+        this.modalSendEmail = false
+        if (email && email.error) {
+          this.toastService.error('No se pudo enviar el correo', email.message)
+        } else {
+          this.toastService.success('Correo enviado correctamente', email.accepted[0])
+        }
+        this.loading = false
+      },
+      error: (err) => {
+        this.loading = false
+        this.toastService.error('', err)
+      },
+    })
   }
 }

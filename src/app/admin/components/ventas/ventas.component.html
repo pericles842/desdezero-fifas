@@ -62,8 +62,44 @@
   </div>
 </p-dialog>
 
-<p-dialog [modal]="true" contentStyleClass="p-3 md:p-4" [showHeader]="true" [resizable]="false" [(visible)]="visibleTikes" 
- [style]="{ width: '600px', height: '400px' }" ngClass="w-30rem">
+<!-- Modal para enviar email -->
+<p-dialog [modal]="true" contentStyleClass="p-3 md:p-4" [showHeader]="true" [resizable]="false"
+  [(visible)]="modalSendEmail" ngClass="w-30rem">
+  <h1>Enviar correo personalizado</h1>
+  <div class="grid">
+    <div class="field col-12 ">
+      <label for="email" class="font-semibold text-xs uppercase">
+        <i class="fa-solid fa-user text-sm mr-1"></i>
+        Correo</label>
+      <input [(ngModel)]="messageEmail.correo" id="text" type="text" class="custom-input w-full">
+    </div>
+
+    <div class="field col-12 ">
+      <label for="email" class="font-semibold text-xs uppercase">
+        <i class="fa-solid fa-file text-sm mr-1"></i>
+        Titulo</label>
+      <input [(ngModel)]="messageEmail.subject" id="text" type="text" class="custom-input w-full">
+    </div>
+
+    <div class="field col-12 ">
+      <label for="date" class="font-semibold text-xs uppercase">
+        <i class="fa-solid fa-pencil text-sm mr-1"></i>
+        Descripción</label>
+      <textarea [(ngModel)]="messageEmail.text" id="description" rows="10" class="custom-input w-full"
+        placeholder="Descripción de la rifa"></textarea>
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="flex gap-1 p-2 justify-content-end">
+      <button (click)="sendEmail()" class="custom-btn">Enviar</button>
+      <button (click)="modalSendEmail=false" class="custom-btn">cerrar</button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<p-dialog [modal]="true" contentStyleClass="p-3 md:p-4" [showHeader]="true" [resizable]="false"
+  [(visible)]="visibleTikes" [style]="{ width: '600px', height: '400px' }" ngClass="w-30rem">
   <div>
     <h1>Tickets {{sale.usuario}}</h1>
     <div class="flex justify-content-between flex-wrap gap-1 align-items-center mt-2">
@@ -145,15 +181,20 @@
 
                 <!-- Acción: botones -->
                 <span *ngSwitchCase="'accion'" class="flex align-items-center justify-content-start gap-2">
+                  <!-- APROBAR VENTA -->
                   <button [pTooltip]="aprobar" [disabled]="ticket.estatus == 'aprobado'" tooltipPosition="top"
                     class="btn-form  fa-solid fa-check" (click)="validatePay(ticket.id)"></button>
+                  <!-- VER MAS  -->
                   <button (click)="ver_mas(ticket)" [pTooltip]="vermas" tooltipPosition="top"
                     class="btn-form fa-solid fa-eye"></button>
-                  <button (click)="sendEmail()" [pTooltip]="mensaje" tooltipPosition="top"
+                  <!-- enviar email -->
+                  <button (click)="openSendEmail(ticket)" [pTooltip]="mensaje" tooltipPosition="top"
                     class="btn-form fa-solid fa-comment"></button>
+                  <!-- RECHAZAR VENTA -->
                   <button (click)="rejectPayment(ticket.id)" [pTooltip]="rechazar" tooltipPosition="top"
                     class="btn-form fa-solid fa-xmark"></button>
-                  <button (click)="winUser()" [pTooltip]="ganador" [disabled]="ticket.estatus != 'aprobado'"
+                  <!-- GANADOR -->
+                  <button (click)="winUser(ticket)" [pTooltip]="ganador" [disabled]="ticket.estatus != 'aprobado'"
                     tooltipPosition="top" class="btn-form fa-solid fa-trophy"></button>
                 </span>
 
@@ -165,9 +206,6 @@
 
     </p-table>
   </div>
-
-
-
 
 </section>
 
