@@ -206,9 +206,14 @@ export class WebComponent {
   }
 
 
-  getRangeBackground(value: number): string {
-    return `linear-gradient(to right, var(--primary-custom-color) 0%,var(--primary-custom-color) ${value}%, #eee ${value}%, #eee 100%)`;
-  }
+  get getRangeBackground(): string {
+  const vendidos = this.config.estadisticas.tikes_vendidos_rifa || 0;
+  const total = this.rifa.objetivo_ventas || 1;
+
+  const porcentaje = (vendidos / total) * 100;
+
+  return `linear-gradient(to right, var(--primary-custom-color) 0%, var(--primary-custom-color) ${porcentaje}%, #eee ${porcentaje}%, #eee 100%)`;
+}
 
   /**
    *Se encarga de cambiar el metodo de pago y sus referencias 

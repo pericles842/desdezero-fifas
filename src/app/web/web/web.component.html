@@ -207,7 +207,7 @@
       <div style="top: -4rem; left: 1.5rem;" class="flex flex-column relative z-5 gap-2">
         <div class="flex align-items-center justify-content-start gap-2 ">
           <i class="fa-solid fa-calendar text-gradient text-xl"></i>
-          <span class="text-white ">Sorteo: {{rifa.fecha_fin | date}}</span>
+          <span class="text-white ">Sorteo: {{rifa.fecha_fin | date:'dd/MM/yyyy h:mm a' | lowercase}}</span>
         </div>
 
         <div class="flex align-items-center justify-content-start gap-2">
@@ -247,9 +247,8 @@
           @if (rifa.ver_tickets) {
           <div class="flex flex-column gap-2 align-items-end">
             <p class="text-sm font-semibold">Tickets disponibles</p>
-            <input type="range" min="0" [max]="rifa.objetivo_ventas" disabled
-              [(ngModel)]="config.estadisticas.tikes_vendidos_rifa"
-              [style.background]="getRangeBackground(config.estadisticas.tikes_vendidos_rifa)" />
+            <input type="range" disabled [(ngModel)]="config.estadisticas.tikes_vendidos_rifa"
+              [max]="rifa.objetivo_ventas" [style.background]="getRangeBackground" />
             <p class="font-bold">{{config.estadisticas.tikes_vendidos_rifa}} / {{rifa.objetivo_ventas}}</p>
           </div>
           }
@@ -489,7 +488,7 @@
 
   </section>
   }
-  @if ( winUser.id != 0  ) {
+  @if ( winUser.id != 0 ) {
   <app-user-win [win]="winUser" [telefono]="config.config.telefono"></app-user-win>
   }
 </aside>
