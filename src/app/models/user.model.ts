@@ -14,7 +14,7 @@ export class User {
     telefono: string = '';
     comprobante: string = ''
     password?: string = '';
-    cantidad_tickets: number = 1
+    cantidad_tickets: number = 2
     status: 'aprobado' | 'pendiente' | 'rechazado' = 'pendiente'
     detalle_metodo_pago: PayMethod = new PayMethod()
     creado_en: string = new Date().toLocaleDateString()

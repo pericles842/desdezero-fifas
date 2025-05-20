@@ -102,7 +102,7 @@
   [(visible)]="visibleTikes" [style]="{ width: '600px', height: '400px' }" ngClass="w-30rem">
   <div>
     <h1>Tickets {{sale.usuario}}</h1>
-    <div class="flex justify-content-between flex-wrap gap-1 align-items-center mt-2">
+    <div class="flex justify-content-start flex-wrap gap-1 align-items-center mt-2">
       @for (t of sale.tikes; track $index) {
       <p class="bg-secondary text-white border-round-md p-3 font-bold text-white">{{t}}</p>
       }
@@ -158,7 +158,7 @@
                 <!-- Direct values -->
                 <span class="p-2" *ngSwitchCase="'usuario'">{{ ticket.usuario }}</span>
                 <span class="p-2" *ngSwitchCase="'telefono'">{{ ticket.telefono }}</span>
-                <span class="p-2" *ngSwitchCase="'total_bs'">{{ ticket.total_bs+' Bs' }}</span>
+                <span class="p-2" *ngSwitchCase="'total_bs'">{{ ticket.total_bs | number:'1.2-2'  }} Bs</span>
                 <span class="p-2" *ngSwitchCase="'fecha'">{{ ticket.fecha| date: 'short' }}</span>
 
                 <!-- Tickets: array join -->

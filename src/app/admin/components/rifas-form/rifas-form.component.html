@@ -18,7 +18,7 @@
       <tr>
         <td class="p-3">{{product.nombre}}</td>
         <td>{{product.precio+' $'}}</td>
-        <td>{{product.fondos_recaudados}}</td>
+        <td>{{product.fondos_recaudados+' $'}}</td>
         <td class="uppercase" [style.color]="product.status === 'activa' ? 'green' : 'red'">
           {{product.status === 'activa' ? 'Activa' : 'Inactiva'}}
         </td>
@@ -61,8 +61,7 @@
       <label for="date" class="font-semibold text-xs uppercase">
         <i class="fa-solid fa-calendar-days text-sm mr-1"></i>
         Fecha de finalización</label>
-      <input [(ngModel)]="rifa.fecha_fin" id="date" type="date" class="custom-input w-full"
-        placeholder="Familia activa">
+      <input [(ngModel)]="rifa.fecha_fin" id="date" type="datetime-local" class="custom-input w-full" placeholder="Seleccionar fecha y hora">
     </div>
   </div>
 

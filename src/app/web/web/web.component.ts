@@ -40,7 +40,7 @@ export class WebComponent {
   selectedFile: File | null = null;
   selectedFileName: string | null = null;
   user: User = new User()
-
+  searchTike: boolean = false
   rifa: Rifa = new Rifa;
   today: Date = new Date()
   dollar: DollarOficial = {
@@ -157,7 +157,7 @@ export class WebComponent {
         this.rifa = 'id' in rifa ? rifa : new Rifa
 
         //proceso para el ganador
-        this.winUser =  Object.keys(win).length !== 0 ? win : new winUser()
+        this.winUser = Object.keys(win).length !== 0 ? win : new winUser()
 
 
         //Proceso para los metodos de pago
@@ -207,13 +207,13 @@ export class WebComponent {
 
 
   get getRangeBackground(): string {
-  const vendidos = this.config.estadisticas.tikes_vendidos_rifa || 0;
-  const total = this.rifa.objetivo_ventas || 1;
+    const vendidos = this.config.estadisticas.tikes_vendidos_rifa || 0;
+    const total = this.rifa.objetivo_ventas || 1;
 
-  const porcentaje = (vendidos / total) * 100;
+    const porcentaje = (vendidos / total) * 100;
 
-  return `linear-gradient(to right, var(--primary-custom-color) 0%, var(--primary-custom-color) ${porcentaje}%, #eee ${porcentaje}%, #eee 100%)`;
-}
+    return `linear-gradient(to right, var(--primary-custom-color) 0%, var(--primary-custom-color) ${porcentaje}%, #eee ${porcentaje}%, #eee 100%)`;
+  }
 
   /**
    *Se encarga de cambiar el metodo de pago y sus referencias 
@@ -421,6 +421,7 @@ export class WebComponent {
   searchTikeByEmail() {
     this.rifasService.searchTikeByEmail(this.emailSearch).subscribe({
       next: (tikes) => {
+        this.searchTike = true
         this.tickets = tikes
 
       },

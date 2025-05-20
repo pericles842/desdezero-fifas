@@ -134,9 +134,9 @@
         class="col-12 md:col-6 lg:col-3 flex align-items-start justify-content-start p-3 shadow-5 border-round-md gap-2">
         <i style="background-color: #18c832;" class="fa-solid fa-medal p-3 text-3xl text-white border-round-md"></i>
         <div class="flex flex-column align-items-start">
-          <p class="text-sm font-semibold">Premios Entregados</p>
+          <p class="text-sm font-semibold">Percentage de rifa</p>
 
-          <h2 class="text-3xl">{{config.estadisticas.premios}}</h2>
+          <h2 class="text-3xl">{{config.estadisticas.porcentaje_venta}}</h2>
         </div>
       </div>
 
@@ -198,7 +198,7 @@
 
     <div class="col-12 lg:col-6 ">
       <!-- !para una tamño de imagne quemado  h64  arreglar foto-->
-      <div class="relative w-full h-full overflow-hidden border-round-xl">
+      <div class="relative w-full overflow-hidden border-round-xl">
         <img [src]="host+rifa!.url_img" class="w-full h-full object-cover" />
         <div class="gradient-bottom-to-top"></div>
       </div>
@@ -485,7 +485,10 @@
     @for (tiket of tickets; track $index) {
     <app-ticket [ticket]="tiket"></app-ticket>
     }
-
+    @if (tickets.length == 0 && searchTike ) {
+    <p class="font-semibold text-xl" style="color: rgb(238, 82, 82);">El usuario {{emailSearch}} aun no tiene tickets
+      comprados </p>
+    }
   </section>
   }
   @if ( winUser.id != 0 ) {
@@ -529,8 +532,8 @@
   <!-- Copirray y Diseñado por -->
   <div class="text-center  mt-4" #contacto>
     <p class="text-sm text-white">
-      {{ '@Copyright ' + (today | date:'yyyy') + ' Todos los derechos reservados | Diseñado por ' }}<a target="_blank"
-        href="https://www.instagram.com/coffeecode.ve/" style="color: #0077ff;">Coffee Code</a>
+      {{ '@Copyright ' + (today | date:'yyyy') + ' Todos los derechos reservados | Desarrollado por ' }}<a
+        target="_blank" href="https://www.instagram.com/coffeecode.ve/" style="color: #0077ff;">Coffee Code</a>
     </p>
   </div>
 

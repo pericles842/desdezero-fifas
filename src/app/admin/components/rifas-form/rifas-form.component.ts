@@ -60,6 +60,13 @@ export class RifasFormComponent {
 
         if (this.rifa.id == 0) {
           this.toastService.success('Rifa creada exitosamente')
+
+          const fecha = new Date(value.fecha_fin);
+          const offset = fecha.getTimezoneOffset();
+          const localDate = new Date(fecha.getTime() - offset * 60000);
+          const formattedDate = localDate.toISOString().slice(0, 16);
+          value.fecha_fin = formattedDate
+          
           this.listRaffle.push(value)
         } else {
           let index = this.listRaffle.findIndex(r => r.id == value.id)
@@ -144,9 +151,12 @@ export class RifasFormComponent {
     this.rifa = raflle
     this.selectedFileName = raflle.url_img.split('/')[raflle.url_img.split('/').length - 1].toString()
 
-    const date = new Date(this.rifa.fecha_fin).toLocaleDateString('en-CA')
+    const fecha = new Date(this.rifa.fecha_fin);
+    const offset = fecha.getTimezoneOffset();
+    const localDate = new Date(fecha.getTime() - offset * 60000);
+    const formattedDate = localDate.toISOString().slice(0, 16);
 
-    this.rifa.fecha_fin = date
+    this.rifa.fecha_fin = formattedDate
     this.visible = true;
   }
 

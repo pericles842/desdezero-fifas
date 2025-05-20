@@ -19,10 +19,10 @@ export class Config {
 
 export class Estadisticas {
     participantes: number = 0;
-    tikes_vendidos: number = 0;
-    premios: number = 0;
+    tikes_vendidos: number = 0
     rifas_activas: number = 0;
     tikes_vendidos_rifa: number = 0;
+    porcentaje_venta: number = 0
 }
 
 
