@@ -23,8 +23,8 @@ export class VentasComponent {
   visible: boolean = false
 
   messageEmail: {
-    correo: string, subject: string, text: string,
-  } = { correo: '', subject: '', text: '' }
+    correo: string, subject: string, text: string, id_payment: number
+  } = { correo: '', subject: '', text: '', id_payment: 0 }
   sale: Sales = new Sales()
   columnas: any[] = [
     { key: 'usuario', label: 'Nombre', activa: true, id: 'usuario' },
@@ -165,8 +165,13 @@ export class VentasComponent {
       }
     })
   }
+  /**
+   * Abre el modal para enviar un correo personalizado al usuario
+   * que realizo el pago
+   * @param sale Pago que se va a enviar el correo
+   */
   openSendEmail(sale: Sales) {
-    this.messageEmail = { correo: '', subject: '', text: '' }
+    this.messageEmail = { correo: '', subject: '', text: '', id_payment: sale.id }
     this.messageEmail.correo = sale.correo
     this.modalSendEmail = true
   }
@@ -206,9 +211,13 @@ export class VentasComponent {
    */
   sendEmail() {
     this.loading = true
-    this.payService.sendEmail(this.messageEmail.correo, this.messageEmail.subject, this.messageEmail.text).subscribe({
+    this.payService.sendEmail(this.messageEmail.correo, this.messageEmail.subject, this.messageEmail.text, this.messageEmail.id_payment).subscribe({
       next: (email) => {
         this.modalSendEmail = false
+
+        let index = this.sales.findIndex(sale => sale.id === this.messageEmail.id_payment)
+        this.sales[index].estatus = 'rechazado'
+
         if (email && email.error) {
           this.toastService.error('No se pudo enviar el correo', email.message)
         } else {

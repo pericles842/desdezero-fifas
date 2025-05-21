@@ -40,12 +40,12 @@ export class PayService {
     return this.http.get<{ sale: Sales, email: any }>(`${environment.host}/pay/reject-sale/${id}`)
   }
 
-   sendEmail(correo: string, subject: string, text: string) {
-    let body = { correo, subject, text }
+  sendEmail(correo: string, subject: string, text: string, id_payment: number) {
+    let body = { correo, subject, text, id_payment }
     return this.http.post<{
-        accepted: string[],
-        error: string,
-        message: string
-      }>(`${environment.host}/user/send-email`, body)
+      accepted: string[],
+      error: string,
+      message: string
+    }>(`${environment.host}/user/send-email`, body)
   }
 }
