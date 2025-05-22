@@ -98,17 +98,27 @@
   </ng-template>
 </p-dialog>
 
-<p-dialog [modal]="true" contentStyleClass="p-3 md:p-4" [showHeader]="true" [resizable]="false"
-  [(visible)]="visibleTikes" [style]="{ width: '600px', height: '400px' }" ngClass="w-30rem">
+<p-dialog (onHide)="closeModalTikes()" [modal]="true" contentStyleClass="p-3 md:p-4" [showHeader]="true"
+  [resizable]="false" [(visible)]="visibleTikes" [style]="{ width: '600px', height: '400px' }" ngClass="w-30rem">
   <div>
     <h1>Tickets {{sale.usuario}}</h1>
+    <input type="text" pInputText [(ngModel)]="filtroTike" placeholder="Buscar ticket..."
+      class="custom-input w-full mb-3 " />
+
     <div class="flex justify-content-start flex-wrap gap-1 align-items-center mt-2">
-      @for (t of sale.tikes; track $index) {
-      <p class="bg-secondary text-white border-round-md p-3 font-bold text-white">{{t}}</p>
+      @for (t of tikesFiltrados; track $index) {
+      <p (click)="winUser(sale,t)"
+        class="bg-secondary text-white border-round-md p-3 font-bold text-white cursor-pointer">
+        {{ t }}
+      </p>
       }
     </div>
   </div>
-
+  <ng-template pTemplate="footer">
+    <div class="flex gap-1 p-2 justify-content-end">
+      <button (click)="closeModalTikes()" class="custom-btn">cerrar</button>
+    </div>
+  </ng-template>
 </p-dialog>
 
 <section class="main-form p-3 md:p-0  pb-5 md:pb-0 mb-5 md:mb-0 ">
@@ -158,7 +168,7 @@
                 <!-- Direct values -->
                 <span class="p-2" *ngSwitchCase="'usuario'">{{ ticket.usuario }}</span>
                 <span class="p-2" *ngSwitchCase="'telefono'">{{ ticket.telefono }}</span>
-                <span class="p-2" *ngSwitchCase="'total_bs'">{{ ticket.total_bs | number:'1.2-2'  }} Bs</span>
+                <span class="p-2" *ngSwitchCase="'total_bs'">{{ ticket.total_bs | number:'1.2-2' }} Bs</span>
                 <span class="p-2" *ngSwitchCase="'fecha'">{{ ticket.fecha| date: 'short' }}</span>
 
                 <!-- Tickets: array join -->
@@ -194,8 +204,8 @@
                   <button (click)="rejectPayment(ticket.id)" [pTooltip]="rechazar" tooltipPosition="top"
                     class="btn-form fa-solid fa-xmark"></button>
                   <!-- GANADOR -->
-                  <button (click)="winUser(ticket)" [pTooltip]="ganador" [disabled]="ticket.estatus != 'aprobado'"
-                    tooltipPosition="top" class="btn-form fa-solid fa-trophy"></button>
+                  <button (click)="openModalWinUser(ticket)" [pTooltip]="ganador" tooltipPosition="top"
+                    class="btn-form fa-solid fa-trophy"></button>
                 </span>
 
               </ng-container>

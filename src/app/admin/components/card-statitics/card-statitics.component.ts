@@ -19,7 +19,7 @@ export class CardStatiticsComponent {
     const length = text.length;
     
     if (length >= 10) {
-      return 'text-base';
+      return 'text-xs';
     }else {
       return 'text-4xl';
     }

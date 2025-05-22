@@ -18,6 +18,14 @@ export class VentasComponent {
   loading: boolean = false
   visibleTikes: boolean = false
   modalSendEmail: boolean = false
+  modalWinUser: boolean = false
+  /**
+   *Variable para filtrar los tikes del modal ganardor y vista de tikes
+   *
+   * @type {string}
+   * @memberof VentasComponent
+   */
+  filtroTike: string = '';
   sales: Sales[] = []
   host: string = environment.host
   visible: boolean = false
@@ -180,27 +188,35 @@ export class VentasComponent {
    * y se desactiva la rifa actual
    * @param sale
    */
-  winUser(sale: Sales) {
-    this.loading = true
+  winUser(sale: Sales, tike: string) {
 
-    this.rafflesService.winUser(0, sale.usuario, sale.telefono, '', sale.rifa).subscribe({
-      next: (res) => {
+    //si no se activa el modo win user no se puede seleccionar un ganador
+    if (!this.modalWinUser) return
 
-        this.toastService.success('Ganador seleccionado correctamente', sale.correo)
-        //!PROCEDIMIENTO PARA DESACTIVAR LA RIFA
-        // this.rafflesService.listRaffle().subscribe({
-        //   next: (rifas) => {
-        //     let rifa_activa = rifas.find(rifa => rifa.status === 'activa') as Rifa
-        //     this.rafflesService.desactivateRaffle(rifa_activa.id).subscribe()
-        //     this.toastService.success('Rifa desactivada', rifa_activa.nombre)
-        //   }
-        // })
-        this.loading = false
-      },
-      error: (err) => {
-        this.loading = false
-        this.toastService.error('', err.message)
-      },
+    this.toastService.confirm('Seguro desea seleccionar el ganador ' + sale.usuario, 'Con el ticket ' + tike).then((res: SweetAlertResult) => {
+      if (res.isConfirmed) {
+        this.loading = true
+
+        this.rafflesService.winUser(0, sale.usuario, sale.telefono, tike, sale.rifa).subscribe({
+          next: (res) => {
+
+            this.toastService.success('Ganador seleccionado correctamente', sale.correo)
+            //!PROCEDIMIENTO PARA DESACTIVAR LA RIFA
+            // this.rafflesService.listRaffle().subscribe({
+            //   next: (rifas) => {
+            //     let rifa_activa = rifas.find(rifa => rifa.status === 'activa') as Rifa
+            //     this.rafflesService.desactivateRaffle(rifa_activa.id).subscribe()
+            //     this.toastService.success('Rifa desactivada', rifa_activa.nombre)
+            //   }
+            // })
+            this.loading = false
+          },
+          error: (err) => {
+            this.loading = false
+            this.toastService.error('', err.message)
+          },
+        })
+      }
     })
   }
 
@@ -230,5 +246,41 @@ export class VentasComponent {
         this.toastService.error('', err)
       },
     })
+  }
+  openModalWinUser(sale: Sales) {
+    if (sale.estatus == 'rechazado' || sale.estatus == 'pendiente') {
+      this.toastService.warning('No se puede seleccionar un ganador con un pago rechazado o pendiente', 'Advertencia')
+      return
+    }
+    this.sale = sale
+    this.modalWinUser = true
+    this.visibleTikes = true
+  }
+  /**
+   * Closes the modal for displaying tickets and resets the modal for selecting a winner.
+   * It sets the visibility of both 'visibleTikes' and 'modalWinUser' to false.
+   */
+
+  closeModalTikes() {
+    this.visibleTikes = false
+    this.modalWinUser = false
+    this.filtroTike = ''
+  }
+
+  /**
+   *Retorna una lista de tikes segun el filtro del modal
+   *
+   * @readonly
+   * @type {string[]}
+   * @memberof VentasComponent
+   */
+  get tikesFiltrados(): string[] {
+    if (!this.sale || !Array.isArray(this.sale.tikes)) {
+      return [];
+    }
+
+    return this.sale.tikes.filter((tike: string) =>
+      tike.toString().includes(this.filtroTike)
+    );
   }
 }
