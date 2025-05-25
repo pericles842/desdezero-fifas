@@ -1,5 +1,5 @@
 export class ConfigResponse {
-    config: Config ;
+    config: Config;
     estadisticas: Estadisticas;
 
     constructor() {
@@ -13,6 +13,7 @@ export class Config {
     tasa_personalizada: number = 0;
     telefono: string = '';
     correo: string = '';
+    tasa_automatica: number = 0;
     estadisticas: number = 0;
     createdAt: Date = new Date();
 }

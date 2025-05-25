@@ -18,7 +18,7 @@ export class CardStatiticsComponent {
   getTextSizeClass(text: string): string {
     const length = text.length;
     
-    if (length >= 10) {
+    if (length >= 20) {
       return 'text-xs';
     }else {
       return 'text-4xl';

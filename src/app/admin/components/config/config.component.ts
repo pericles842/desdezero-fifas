@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
+import { forkJoin } from 'rxjs';
+import { TasasDesdezero } from 'src/app/interfaces/RatesDesdezero';
 import { Config } from 'src/app/models/config';
+import { PayService } from 'src/app/service/pay.service';
 import { ToastService } from 'src/app/service/toast.service';
 import { UserService } from 'src/app/service/user.service';
 
@@ -11,17 +14,22 @@ import { UserService } from 'src/app/service/user.service';
 export class ConfigComponent {
   loading: boolean = false
   configuration_web: Config = new Config()
+  tasas_web: TasasDesdezero[] = []
 
   constructor(
     private toastService: ToastService,
-    private userService: UserService
+    private userService: UserService,
+    private payService: PayService
   ) { }
 
   ngOnInit() {
     this.loading = true
-    this.userService.getConfig().subscribe({
-      next: (config) => {
-
+    forkJoin(
+      this.payService.getRatesDesdezero(),
+      this.userService.getConfig()
+    ).subscribe({
+      next: ([rates, config]) => {
+        this.tasas_web = rates
         this.configuration_web = Array.isArray(config.config) && config.config.length === 0 ? new Config() : config.config as Config
         this.loading = false
       },

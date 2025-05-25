@@ -1,7 +1,24 @@
 <app-header-buttons (touchCreate)="createConfig()"></app-header-buttons>
 
 <section class="main-form p-3 md:p-0  pb-5 md:pb-0">
-  <h1 class="text-3xl md:text-4xl mb-4 text-gradient">Configuración Web</h1>
+  <h1 class="text-3xl md:text-4xl mb-4 text-gradient">Tasas Oficiales</h1>
+  <div class="grid">
+    @for (tasa of tasas_web; track $index) {
+    <div class="col-12 sm:col-6 md:col-4 lg:col-3 ">
+      <div class="p-4 shadow-5 border-round-lg bg-secondary">
+        <div class="flex justify-content-between align-items-center">
+          <div class="text-xl font-bold mb-2 text-gradient">{{ tasa.title }}</div>
+          <img [src]="tasa.img_url" width="30px" class="border-round-lg" alt="">
+        </div>
+        <div class="text-2xl font-semibold text-white mb-1">{{ tasa.price }} Bs</div>
+        <div class="text-sm line-through mb-2" style="color: rgb(202, 82, 82);">{{ tasa.price_old }} Bs</div>
+        <div class="text-xs text-white ">Actualizado: {{ tasa.last_update }}</div>
+      </div>
+    </div>
+    }
+  </div>
+
+  <h1 class="text-3xl md:text-4xl my-4 text-gradient">Configuración Web</h1>
 
   <div class="grid">
     <div class="field col-12 md:col-4 flex  flex-column justify-content-start  gap-2">
@@ -23,7 +40,7 @@
     <div class="field col-12 md:col-4 flex  flex-column justify-content-start  gap-2">
       <label for="active-date" class="font-semibold text-xs uppercase m-0">
         <i class="fa-solid fa-building-columns text-sm mr-1"></i>
-        Dorado P2P
+        Bcv
       </label>
       <input name="tasa" [(ngModel)]="configuration_web.tasa_banco" value="bcv" type="radio" class="custom-input" />
     </div>
@@ -33,9 +50,18 @@
     <div class="field col-12 md:col-4 flex  flex-column justify-content-start  gap-2">
       <label for="active-date" class="font-semibold text-xs uppercase m-0">
         <i class="fa-solid fa-building-columns text-sm mr-1"></i>
-        Tasa personalizada
+        Tasa de respaldo
       </label>
       <input [(ngModel)]="configuration_web.tasa_personalizada" type="number" class="custom-input" />
+    </div>
+
+    <!-- TASAS AUTOMATICA -->
+    <div class="field col-12 md:col-4 flex  flex-column justify-content-start  gap-2">
+      <label for="active-date" class="font-semibold text-xs uppercase m-0">
+        <i class="fa-solid fa-robot text-sm mr-1"></i>
+        Tasa automática
+      </label>
+      <input [(ngModel)]="configuration_web.tasa_automatica" type="checkbox" class="custom-input" />
     </div>
   </div>
 

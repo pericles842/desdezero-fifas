@@ -15,6 +15,7 @@ import { phoneCountryCodes } from './nums';
 import { User } from 'src/app/models/user.model';
 import { SweetAlertResult } from 'sweetalert2';
 import { contract } from './terminos';
+import { TasasDesdezero } from 'src/app/interfaces/RatesDesdezero';
 
 @Component({
   selector: 'app-web',
@@ -43,11 +44,8 @@ export class WebComponent {
   searchTike: boolean = false
   rifa: Rifa = new Rifa;
   today: Date = new Date()
-  dollar: DollarOficial = {
-    id: 0,
-    title: '',
-    imgUrl: '',
-    price: ''
+  dollar: TasasDesdezero = {
+    id: 0, title: '', key: 'paralelo', img_url: '', price: 0, price_old: 0, last_update: ''
   };
 
 
@@ -93,7 +91,7 @@ export class WebComponent {
     this.loading = true
     forkJoin({
       config: this.userService.getConfig(),
-      dollarList: this.payService.getRateDollar().pipe(
+      dollarList: this.payService.getRatesDesdezero().pipe(
         catchError((err) => {
           this.toastService.warning('', 'No se pudo cargar las tasas');
           return of([]);
@@ -101,27 +99,24 @@ export class WebComponent {
       )
     }).subscribe({
       next: ({ config, dollarList }) => {
-
         this.config = config
 
         //!Si la tasa web da error
-        if (dollarList.length == 0) {
+        if (dollarList.length == 0 || !Boolean(config.config.tasa_automatica)) {
           let { tasa_banco, tasa_personalizada } = this.config.config as Config
 
           this.dollar = {
             id: 1,
+            key: 'paralelo',
+            price_old: tasa_personalizada,
+            last_update: new Date().toDateString(),
             title: tasa_banco,
-            imgUrl: '',
-            price: tasa_personalizada.toString()
+            img_url: '',
+            price: tasa_personalizada
           }
         } else {
-          let tasas = { paralelo: 1, bcv: 3, promedio: 3 }
+          this.dollar = dollarList.find(d => d.key == config.config.tasa_banco) as TasasDesdezero
 
-          if (this.config && Array.isArray(this.config.config) === false) {
-            const key = this.config.config.tasa_banco as keyof typeof tasas;
-            const index = tasas[key];
-            this.dollar = dollarList[index];
-          }
         }
         this.loading = false;
 
@@ -289,10 +284,10 @@ export class WebComponent {
     return titles[pay]
   }
 
-  returnDollarForBs(tikes: number, monto: number, precio_dolar: string) {
-    const tasa = parseFloat(precio_dolar.replace(',', '.'));
-    if (!tikes || !monto || isNaN(tasa) || tasa <= 0) return 0;
-    return tikes * monto * tasa;
+  returnDollarForBs(tikes: number, monto: number, precio_dolar: number) {
+    // const tasa = parseFloat(precio_dolar.replace(',', '.'));
+    if (!tikes || !monto || isNaN(precio_dolar) || precio_dolar <= 0) return 0;
+    return tikes * monto * precio_dolar;
   }
 
   validateMinTike(tike: any): void {
@@ -339,7 +334,7 @@ export class WebComponent {
         //extraemos inforamcion de apgos y tasa
         this.user.total = this.user.cantidad_tickets * this.rifa.precio
         this.user.total_bs = this.returnDollarForBs(this.user.cantidad_tickets, this.rifa.precio, this.dollar.price)
-        this.user.tasa = this.dollar.price
+        this.user.tasa = this.dollar.price.toString()
         this.user.detalle_metodo_pago = this.paymentMethod
 
         //agregamos el form data

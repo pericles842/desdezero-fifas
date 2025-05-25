@@ -5,6 +5,7 @@ import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs/internal/Observable';
 import { DollarOficial, Payment, Sales } from '../interfaces/PaymentMethods';
 import { User } from '../models/user.model';
+import { TasasDesdezero } from '../interfaces/RatesDesdezero';
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +25,12 @@ export class PayService {
   deletePayMethod(id: number): Observable<any> {
     return this.http.delete<any>(`${environment.host}/pay/delete/${id}`)
   }
+  //!deprecar
   getRateDollar() {
     return this.http.get<DollarOficial[]>(`${environment.host}/pay/get-rates`)
+  }
+  getRatesDesdezero() {
+    return this.http.get<TasasDesdezero[]>(`${environment.host}/pay/get-rates-desdezero`)
   }
   createPayForUser(pay: User) {
     return this.http.post<Payment>(`${environment.host}/pay/create-pay`, pay)
