@@ -192,7 +192,7 @@
                 <!-- Acción: botones -->
                 <span *ngSwitchCase="'accion'" class="flex align-items-center justify-content-start gap-2">
                   <!-- APROBAR VENTA -->
-                  <button [pTooltip]="aprobar" [disabled]="ticket.estatus == 'aprobado'" tooltipPosition="top"
+                  <button [pTooltip]="aprobar" tooltipPosition="top"
                     class="btn-form  fa-solid fa-check" (click)="validatePay(ticket.id)"></button>
                   <!-- VER MAS  -->
                   <button (click)="ver_mas(ticket)" [pTooltip]="vermas" tooltipPosition="top"
