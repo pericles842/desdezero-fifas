@@ -419,7 +419,9 @@
             </p>
             <div class="flex align-items-center gap-2">
               <p class="font-semibold">{{dollar.price}} Bs</p>
-              <img class="w-2rem" [src]="dollar.img_url" [alt]="dollar.img_url">
+              <img class="w-2rem"
+                [src]="dollar.img_url 
+                ||'https://monitordolarvenezuela.com/img/logos/enparalelo.webp'" [alt]="dollar.img_url">
             </div>
           </div>
           }
