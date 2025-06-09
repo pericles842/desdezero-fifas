@@ -1,3 +1,5 @@
+import { Awards } from "src/app/models/rifa.model";
+
 export const contract = `
 <div style="display: flex; flex-direction: column; justify-content: start; gap: 20px;">
     <p style="text-align: justify;">1- Los tickets serán enviados en un lapso de 24 horas.
@@ -19,3 +21,44 @@ export const contract = `
 </div>
 `;
 
+export const PREMIOS_ENTREGADOS: Awards[] = [
+    {
+        rifa: new Awards().rifa,
+        ganador: new Awards().ganador
+    },
+    {
+        rifa: new Awards().rifa,
+        ganador: new Awards().ganador
+    },
+    {
+        rifa: new Awards().rifa,
+        ganador: new Awards().ganador
+    },
+    {
+        rifa: new Awards().rifa,
+        ganador: new Awards().ganador
+    },
+    {
+        rifa: new Awards().rifa,
+        ganador: new Awards().ganador
+    }
+]
+
+
+export const REPONSIVE_OPTIONS = [
+    {
+        breakpoint: '1199px',
+        numVisible: 1,
+        numScroll: 1
+    },
+    {
+        breakpoint: '991px',
+        numVisible: 2,
+        numScroll: 1
+    },
+    {
+        breakpoint: '767px',
+        numVisible: 1,
+        numScroll: 1
+    }
+];

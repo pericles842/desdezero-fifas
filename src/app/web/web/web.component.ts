@@ -5,7 +5,7 @@ import { DollarOficial } from 'src/app/interfaces/PaymentMethods';
 import { Ticket } from 'src/app/interfaces/Ticket';
 import { Config, ConfigResponse, TypeDolar } from 'src/app/models/config';
 import { PayMethod } from 'src/app/models/pay_method';
-import { Rifa, winUser } from 'src/app/models/rifa.model';
+import { Awards, Rifa, winUser } from 'src/app/models/rifa.model';
 import { PayService } from 'src/app/service/pay.service';
 import { RifasService } from 'src/app/service/rifas.service';
 import { ToastService } from 'src/app/service/toast.service';
@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
 import { phoneCountryCodes } from './nums';
 import { User } from 'src/app/models/user.model';
 import { SweetAlertResult } from 'sweetalert2';
-import { contract } from './terminos';
+import { contract, PREMIOS_ENTREGADOS, REPONSIVE_OPTIONS } from './terminos';
 import { TasasDesdezero } from 'src/app/interfaces/RatesDesdezero';
 
 @Component({
@@ -29,7 +29,12 @@ export class WebComponent {
   @ViewChild('inicio') inicio!: ElementRef;
   @ViewChild('ticket') ticket!: ElementRef;
   @ViewChild('quienesSomos') quienesSomos!: ElementRef;
-  @ViewChild('contacto') contacto!: ElementRef;
+  @ViewChild('contacto') contacto!: ElementRef
+  @ViewChild('premiosEntregados') premiosEntregados!: ElementRef;;
+
+  responsiveOptions = REPONSIVE_OPTIONS
+  premios_entregados: Awards[] = PREMIOS_ENTREGADOS
+
   phoneList: string[] = phoneCountryCodes
   loading = false;
   host = environment.host
@@ -180,6 +185,7 @@ export class WebComponent {
       inicio: this.inicio,
       ticket: this.ticket,
       quienesSomos: this.quienesSomos,
+      premiosEntregados: this.premiosEntregados,
       contacto: this.contacto,
 
     };

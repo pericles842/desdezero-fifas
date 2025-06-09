@@ -11,6 +11,7 @@
     <a (click)="irASeccion('rifas')" class="font-semibold text-sm md:text-base">Rifas</a>
     <a (click)="irASeccion('ticket')" class="font-semibold text-sm md:text-base">Ticket</a>
     <a (click)="irASeccion('quienesSomos')" class="font-semibold text-sm md:text-base">Quiénes Somos</a>
+    <a (click)="irASeccion('premiosEntregados')" class="font-semibold text-sm md:text-base">Premios entregados</a>
     <a (click)="irASeccion('contacto')" class="font-semibold text-sm md:text-base">Contacto</a>
   </nav>
 </header>
@@ -419,8 +420,7 @@
             </p>
             <div class="flex align-items-center gap-2">
               <p class="font-semibold">{{dollar.price}} Bs</p>
-              <img class="w-2rem"
-                [src]="dollar.img_url 
+              <img class="w-2rem" [src]="dollar.img_url 
                 ||'https://www.bcv.org.ve/sites/default/files/dollar-04_2.png'" [alt]="dollar.img_url">
             </div>
           </div>
@@ -495,9 +495,32 @@
     }
   </section>
   }
+
+  <!--//* PREMIOS GANADOS -->
+  <section #premiosEntregados>
+    <h1 class="text-2xl md:text-5xl text-gradient-animated">Premios entregados</h1>
+    <p class="font-semibold">Conoce a nuestros afortunados ganadores
+      y los increíbles premios que se han llevado</p>
+
+    <div class="mt-4">
+      <p-carousel [responsiveOptions]="responsiveOptions" [value]="premios_entregados" showIndicators="false"
+        [numVisible]="3" [numScroll]="3" [circular]="true" autoplayInterval="3000">
+        <ng-template let-premio pTemplate="item">
+
+          <div class="px-1 md:px-2">
+            <app-card-award [award]="premio"></app-card-award>
+          </div>
+
+        </ng-template>
+      </p-carousel>
+
+    </div>
+  </section>
+
   @if ( winUser.id != 0 ) {
   <app-user-win [win]="winUser" [telefono]="config.config.telefono"></app-user-win>
   }
+
 </aside>
 
 

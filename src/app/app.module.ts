@@ -14,6 +14,8 @@ import { TicketComponent } from './web/components/ticket/ticket.component';
 import { ValidateTicketComponent } from './web/components/validate-ticket/validate-ticket.component';
 import { WebComponent } from './web/web/web.component';
 import { UserWinComponent } from "./standalone/user-win/user-win.component";
+import { CardAwardComponent } from "./standalone/card-award/card-award.component";
+import { CarouselModule } from 'primeng/carousel';
 
 
 
@@ -33,7 +35,9 @@ import { UserWinComponent } from "./standalone/user-win/user-win.component";
     HttpClientModule,
     SweetAlert2Module.forRoot(),
     LoadingComponent,
-    UserWinComponent
+    UserWinComponent,
+    CarouselModule,
+    CardAwardComponent
 ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

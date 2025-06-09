@@ -1,0 +1,61 @@
+<div class="flex flex-column shadow-5 gap-4 border-round-xl p-3 bg-secondary shadow-5 ">
+
+  <div class="flex justify-content-center gap-3 align-items-center ">
+    <i class="fa-solid fa-trophy text-gradient-animated text-xl"></i>
+    <h2 class="text-gradient-animated ">{{award.rifa.nombre}}</h2>
+    <i class="fa-solid fa-trophy text-gradient-animated text-xl"></i>
+  </div>
+  <img class="img-card-award" src="assets/img/rifa.jpg" alt="">
+
+  <p class="text-white text-center text-xl font-semibold">{{award.rifa.nombre}}</p>
+
+  <div class="flex flex-column align-items-start gap-2">
+
+    <!-- Fila -->
+    <div class="flex justify-content-between w-full">
+
+      <!-- LABEL CON ICONO -->
+      <div class="flex align-items-center gap-2">
+        <i class="fa-solid fa-user text-white text-gradient-animated"></i>
+        <p class="text-white text-sm font-semibold text-gradient-animated">Ganador</p>
+      </div>
+
+      <!-- valor -->
+      <div>
+        <p class="text-white text-sm font-semibold">{{award.ganador.nombre}}</p>
+      </div>
+
+    </div>
+
+    <div class="flex justify-content-between w-full">
+
+      <!-- LABEL CON ICONO -->
+      <div class="flex align-items-center gap-2">
+        <i class="fa-solid fa-user text-white text-gradient-animated"></i>
+        <p class="text-white text-sm font-semibold text-gradient-animated">Ticket</p>
+      </div>
+
+      <!-- valor -->
+      <div>
+        <p class="text-white text-sm font-semibold">{{award.ganador.tike_ganador}}</p>
+      </div>
+
+    </div>
+
+    <div class="flex justify-content-between w-full">
+
+      <!-- LABEL CON ICONO -->
+      <div class="flex align-items-center gap-2">
+        <i class="fa-solid fa-user text-white text-gradient-animated"></i>
+        <p class="text-white text-sm font-semibold text-gradient-animated">Dia de entrega</p>
+      </div>
+
+      <!-- valor -->
+      <div>
+        <p class="text-white text-sm font-semibold">{{award.ganador.fecha | date:'dd/MM/yyyy'}}</p>
+      </div>
+
+    </div>
+
+  </div>
+</div>

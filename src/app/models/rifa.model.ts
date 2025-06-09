@@ -29,3 +29,8 @@ export class winUser {
     nombre_rifa: string = ""
     fecha: Date = new Date
 }
+
+export class Awards {
+    rifa: Rifa = new Rifa()
+    ganador: winUser = new winUser()
+}
