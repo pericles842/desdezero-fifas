@@ -6,6 +6,7 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
 import { ConfigComponent } from './components/config/config.component';
 import { PayMethodsComponent } from './components/pay-methods/pay-methods.component';
 import { VentasComponent } from './components/ventas/ventas.component';
+import { PremiosEntregadosComponent } from './components/premios-entregados/premios-entregados.component';
 
 const routes: Routes = [
   {
@@ -17,7 +18,8 @@ const routes: Routes = [
       { path: 'estadisticas', component: StatisticsComponent },
       { path: 'configuracion', component: ConfigComponent },
       { path: 'metodos-pagos', component: PayMethodsComponent },
-      { path: 'ventas', component: VentasComponent }
+      { path: 'ventas', component: VentasComponent },
+      { path: 'premios', component: PremiosEntregadosComponent }
     ]
   },
   { path: '**', redirectTo: '/admin/estadisticas' } // Ruta no encontrada redirige a 'admin/estadisticas'

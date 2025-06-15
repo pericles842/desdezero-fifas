@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { Awards } from 'src/app/models/rifa.model';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-card-award',
@@ -11,4 +12,5 @@ import { Awards } from 'src/app/models/rifa.model';
 })
 export class CardAwardComponent {
   @Input() award: Awards = new Awards()
+  host: string = environment.host
 }

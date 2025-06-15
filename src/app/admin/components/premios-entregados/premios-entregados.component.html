@@ -1,0 +1,80 @@
+<app-header-buttons (touchCreate)="showDialog()"></app-header-buttons>
+
+<section class="main-form p-3 md:p-0  pb-5 md:pb-0">
+  <h1 class="text-3xl md:text-4xl mb-4 text-gradient">Premios entregados</h1>
+  <!-- FOTO -->
+  <p-table [value]="premios" styleClass="p-datatable-striped" [tableStyle]="{'min-width': 'w-5'}">
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="p-3">Rifa</th>
+        <th>Ganador</th>
+        <th>Tike ganador</th>
+        <th>Fecha de entrega</th>
+        <th>Acción</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-product>
+      <tr>
+        <td class="p-3">{{product.nombre_rifa}}</td>
+        <td>{{product.nombre_ganador}}</td>
+        <td>{{product.tike_ganador}}</td>
+        <td>{{product.fecha |date : 'dd/MM/yyyy' }}</td>
+        <td class="flex gap-1 justify-content-start">
+          <button (click)="setPremio(product)" class="btn-form fa-solid fa-pen"></button>
+          <button (click)="deletePremio(product.id)" class="btn-form fa-solid fa-trash"></button>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+
+</section>
+
+<p-dialog [modal]="true" contentStyleClass="p-3 md:p-4" [showHeader]="true" [resizable]="false" [(visible)]="visible"
+  ngClass="w-5">
+  <div class="grid">
+    <label class="col-12 field file-upload">
+      <i class="fas fa-upload text-white"></i> Imagen del premio
+      <input type="file" #fileInput (input)="onFileSelected($event)" (change)="onFileSelected($event)">
+      <div *ngIf="selectedFileName" class="text-white text-xs font-semibold">
+        Archivo seleccionado: {{ selectedFileName }}
+      </div>
+    </label>
+  </div>
+
+  <div class="grid">
+    <div class="field col-12 md:col-6 ">
+      <label for="nombre" class="font-semibold text-xs uppercase">
+        <i class="fa-solid fa-trophy text-sm mr-1"></i>
+        Nombre de rifa</label>
+      <input [(ngModel)]="premio.nombre_rifa" id="text" type="text" class="custom-input w-full"
+        placeholder="Rifa numero 4">
+    </div>
+
+    <div class="field col-12 md:col-6 ">
+      <label for="email" class="font-semibold text-xs uppercase">
+        <i class="fa-solid fa-user text-sm mr-1"></i>
+        Nombre del ganador</label>
+      <input [(ngModel)]="premio.nombre_ganador" id="text" type="text" class="custom-input w-full"
+        placeholder="Carlos Gonzalez">
+    </div>
+
+  </div>
+
+  <div class="grid">
+    <div class="field col-12 md:col-6 ">
+      <label for="email" class="font-semibold text-xs uppercase">
+        <i class="fa-solid fa-ticket text-sm mr-1"></i>
+        Nro del ticket </label>
+      <input [(ngModel)]="premio.tike_ganador" id="text" type="text" class="custom-input w-full" placeholder="4231">
+    </div>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <div class="flex gap-1 p-2 justify-content-end">
+      <button (click)="createPremio()" class="custom-btn">Guardar</button>
+      <button (click)="closeModal()" class="custom-btn">cerrar</button>
+    </div>
+  </ng-template>
+</p-dialog>
+
+<app-loading [loading]="loading"></app-loading>

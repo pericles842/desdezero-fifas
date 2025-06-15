@@ -35,5 +35,12 @@ export const MENU: Menu[] = [
         active: false,
         icon: 'fa-solid fa-credit-card ',
         rute: '/admin/metodos-pagos'
+    },
+    {
+        id: 6,
+        name: "Premios entregados",
+        active: false,
+        icon: 'fa-solid fa-crown ',
+        rute: '/admin/premios'
     }
 ]

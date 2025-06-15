@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Rifa, winUser } from '../models/rifa.model';
+import { Awards, Rifa, winUser } from '../models/rifa.model';
 import { environment } from 'src/environments/environment';
 import { Observable } from 'rxjs/internal/Observable';
 
@@ -64,4 +64,17 @@ export class RifasService {
   deleteWin() {
     return this.http.delete<any>(`${environment.host}/rifa/winner/delete`)
   }
+
+  createAward(premio: any): Observable<Awards> {
+    return this.http.post<Awards>(`${environment.host}/rifa/premios`, premio)
+  }
+
+  listAwards(): Observable<Awards[]> {
+    return this.http.get<Awards[]>(`${environment.host}/rifa/premios`)
+  }
+
+  deleteAwards(id: number) {
+    return this.http.delete<any>(`${environment.host}/rifa/premios/${id}`)
+  }
+
 }

@@ -23,24 +23,44 @@ export const contract = `
 
 export const PREMIOS_ENTREGADOS: Awards[] = [
     {
-        rifa: new Awards().rifa,
-        ganador: new Awards().ganador
+        id: 1,
+        nombre_rifa: 'Rifa 1',
+        nombre_ganador: 'Ganador 1',
+        tike_ganador: 'Ticket 1',
+        url: 'https://www.google.com',
+        fecha: '2023-06-30'
     },
     {
-        rifa: new Awards().rifa,
-        ganador: new Awards().ganador
+        id: 2,
+        nombre_rifa: 'Rifa 2',
+        nombre_ganador: 'Ganador 2',
+        tike_ganador: 'Ticket 2',
+        url: 'https://www.google.com',
+        fecha: '2023-06-30'
     },
     {
-        rifa: new Awards().rifa,
-        ganador: new Awards().ganador
+        id: 3,
+        nombre_rifa: 'Rifa 3',
+        nombre_ganador: 'Ganador 3',
+        tike_ganador: 'Ticket 3',
+        url: 'https://www.google.com',
+        fecha: '2023-06-30'
     },
     {
-        rifa: new Awards().rifa,
-        ganador: new Awards().ganador
+        id: 4,
+        nombre_rifa: 'Rifa 4',
+        nombre_ganador: 'Ganador 4',
+        tike_ganador: 'Ticket 4',
+        url: 'https://www.google.com',
+        fecha: '2023-06-30'
     },
     {
-        rifa: new Awards().rifa,
-        ganador: new Awards().ganador
+        id: 5,
+        nombre_rifa: 'Rifa 5',
+        nombre_ganador: 'Ganador 5',
+        tike_ganador: 'Ticket 5',
+        url: 'https://www.google.com',
+        fecha: '2023-06-30'
     }
 ]
 
@@ -48,7 +68,7 @@ export const PREMIOS_ENTREGADOS: Awards[] = [
 export const REPONSIVE_OPTIONS = [
     {
         breakpoint: '1199px',
-        numVisible: 1,
+        numVisible: 3,
         numScroll: 1
     },
     {

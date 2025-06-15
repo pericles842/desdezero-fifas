@@ -31,6 +31,10 @@ export class winUser {
 }
 
 export class Awards {
-    rifa: Rifa = new Rifa()
-    ganador: winUser = new winUser()
+    id: number = 0
+    nombre_rifa: string = ""
+    nombre_ganador: string = ""
+    tike_ganador: string = ""
+    url: string = ""
+    fecha: string = ""
 }

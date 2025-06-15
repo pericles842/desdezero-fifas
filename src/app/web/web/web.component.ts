@@ -33,7 +33,7 @@ export class WebComponent {
   @ViewChild('premiosEntregados') premiosEntregados!: ElementRef;;
 
   responsiveOptions = REPONSIVE_OPTIONS
-  premios_entregados: Awards[] = PREMIOS_ENTREGADOS
+  premios_entregados: Awards[] = []
 
   phoneList: string[] = phoneCountryCodes
   loading = false;
@@ -149,9 +149,10 @@ export class WebComponent {
     forkJoin(
       this.rifasService.getActiveRaffle(),
       this.payService.listPayMethod(),
-      this.rifasService.getWinUser()
+      this.rifasService.getWinUser(),
+      this.rifasService.listAwards()
     ).subscribe({
-      next: ([rifa, payList, win]) => {
+      next: ([rifa, payList, win, premios]) => {
 
         //proceso para las rifas
         this.rifa = 'id' in rifa ? rifa : new Rifa
@@ -167,6 +168,8 @@ export class WebComponent {
           this.paymentMethod = this.paymentMethods[0]
           this.changeMethodPay(this.paymentMethod)
         }
+
+        if (premios.length != 0) this.premios_entregados = premios
 
 
         this.loading = false

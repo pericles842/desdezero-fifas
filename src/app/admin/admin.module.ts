@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 import { DialogModule } from 'primeng/dialog';
 import { MinimalTableComponent } from "./components/minimal-table/minimal-table.component";
 import { LoadingComponent } from '../web/components/loading/loading.component';
+import { PremiosEntregadosComponent } from './components/premios-entregados/premios-entregados.component';
 
 
 
@@ -29,7 +30,8 @@ import { LoadingComponent } from '../web/components/loading/loading.component';
     ConfigComponent,
     PayMethodsComponent,
     VentasComponent,
-    MinimalTableComponent
+    MinimalTableComponent,
+    PremiosEntregadosComponent
   ],
   imports: [
     CommonModule,

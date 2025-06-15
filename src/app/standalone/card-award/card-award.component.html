@@ -1,13 +1,13 @@
-<div class="flex flex-column shadow-5 gap-4 border-round-xl p-3 bg-secondary shadow-5 ">
+<div class="flex flex-column justify-content-between shadow-5 gap-4 border-round-xl p-3 bg-secondary shadow-5 h-full">
 
   <div class="flex justify-content-center gap-3 align-items-center ">
     <i class="fa-solid fa-trophy text-gradient-animated text-xl"></i>
-    <h2 class="text-gradient-animated ">{{award.rifa.nombre}}</h2>
+    <h2 class="text-gradient-animated ">{{award.nombre_rifa}}</h2>
     <i class="fa-solid fa-trophy text-gradient-animated text-xl"></i>
   </div>
-  <img class="img-card-award" src="assets/img/rifa.jpg" alt="">
+  <img class="img-card-award " [src]="host+award.url" alt="">
 
-  <p class="text-white text-center text-xl font-semibold">{{award.rifa.nombre}}</p>
+  <p class="text-white text-center text-xl font-semibold">{{award.nombre_rifa}}</p>
 
   <div class="flex flex-column align-items-start gap-2">
 
@@ -22,7 +22,7 @@
 
       <!-- valor -->
       <div>
-        <p class="text-white text-sm font-semibold">{{award.ganador.nombre}}</p>
+        <p class="text-white text-sm font-semibold">{{award.nombre_ganador}}</p>
       </div>
 
     </div>
@@ -37,7 +37,7 @@
 
       <!-- valor -->
       <div>
-        <p class="text-white text-sm font-semibold">{{award.ganador.tike_ganador}}</p>
+        <p class="text-white text-sm font-semibold">{{award.tike_ganador}}</p>
       </div>
 
     </div>
@@ -52,7 +52,7 @@
 
       <!-- valor -->
       <div>
-        <p class="text-white text-sm font-semibold">{{award.ganador.fecha | date:'dd/MM/yyyy'}}</p>
+        <p class="text-white text-sm font-semibold">{{award.fecha | date:'dd/MM/yyyy'}}</p>
       </div>
 
     </div>
