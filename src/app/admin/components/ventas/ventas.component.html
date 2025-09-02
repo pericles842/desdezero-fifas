@@ -6,6 +6,9 @@
   </div>
 </p-overlayPanel>
 
+<p-toast position="top-right" key="confirm" [baseZIndex]="5000"></p-toast>
+
+
 <!-- <p-overlayPanel #tk>
   <div class="flex justify-content-center  w-full md:w-w-3">
     @for (t of tikesArray; track $index) {
@@ -192,8 +195,8 @@
                 <!-- Acción: botones -->
                 <span *ngSwitchCase="'accion'" class="flex align-items-center justify-content-start gap-2">
                   <!-- APROBAR VENTA -->
-                  <button [pTooltip]="aprobar" tooltipPosition="top"
-                    class="btn-form  fa-solid fa-check" (click)="validatePay(ticket.id)"></button>
+                  <button [pTooltip]="aprobar" tooltipPosition="top" class="btn-form  fa-solid fa-check"
+                    (click)="validatePay(ticket.id)"></button>
                   <!-- VER MAS  -->
                   <button (click)="ver_mas(ticket)" [pTooltip]="vermas" tooltipPosition="top"
                     class="btn-form fa-solid fa-eye"></button>

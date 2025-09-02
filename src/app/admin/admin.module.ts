@@ -17,7 +17,9 @@ import { DialogModule } from 'primeng/dialog';
 import { MinimalTableComponent } from "./components/minimal-table/minimal-table.component";
 import { LoadingComponent } from '../web/components/loading/loading.component';
 import { PremiosEntregadosComponent } from './components/premios-entregados/premios-entregados.component';
-
+import { ToastModule } from 'primeng/toast';
+import { MessageService } from 'primeng/api';
+import { Ripple } from "primeng/ripple";
 
 
 @NgModule({
@@ -34,6 +36,7 @@ import { PremiosEntregadosComponent } from './components/premios-entregados/prem
     PremiosEntregadosComponent
   ],
   imports: [
+    ToastModule,
     CommonModule,
     AdminRoutingModule,
     TableModule,
@@ -41,7 +44,9 @@ import { PremiosEntregadosComponent } from './components/premios-entregados/prem
     OverlayPanelModule,
     FormsModule,
     DialogModule,
-    LoadingComponent
-]
+    LoadingComponent,
+    Ripple
+],
+  providers: [MessageService]
 })
 export class AdminModule { }

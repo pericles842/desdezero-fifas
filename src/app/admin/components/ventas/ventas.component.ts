@@ -1,5 +1,6 @@
 import { ThisReceiver } from '@angular/compiler';
 import { Component, HostListener } from '@angular/core';
+import { MessageService } from 'primeng/api';
 import { Sales } from 'src/app/interfaces/PaymentMethods';
 import { Rifa, winUser } from 'src/app/models/rifa.model';
 import { PayService } from 'src/app/service/pay.service';
@@ -48,7 +49,8 @@ export class VentasComponent {
   constructor(
     private toastService: ToastService,
     private payService: PayService,
-    private rafflesService: RifasService
+    private rafflesService: RifasService,
+    private messageService: MessageService
   ) { }
   toggleColumna(col: any): void {
     col.activa = !col.activa;
@@ -56,6 +58,7 @@ export class VentasComponent {
 
 
   ngOnInit() {
+
     this.loading = true
     this.payService.ticketSales().subscribe({
       next: (sales) => {
@@ -282,5 +285,26 @@ export class VentasComponent {
     return this.sale.tikes.filter((tike: string) =>
       tike.toString().includes(this.filtroTike)
     );
+  }
+
+  /**
+   * Muestra un toast con el mensaje de correo entregado exitosamente
+   *
+   * @param {string} email
+   * @param {string} [sms='Correo entregado exitosamente']
+   * @memberof VentasComponent
+   */
+  showToast(email: string, sms: string = 'Correo entregado exitosamente') {
+
+    this.messageService.add({
+      key: 'confirm',
+      sticky: false,
+      severity: 'success',
+      summary: sms,
+      detail: email,
+      icon: 'fa-solid fa-bell',
+      contentStyleClass: ' p-3 gap-3 flex w-full justify-content-between align-items-center',
+      life: 6000
+    });
   }
 }
