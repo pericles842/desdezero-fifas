@@ -5,6 +5,7 @@ import { Sales } from 'src/app/interfaces/PaymentMethods';
 import { Rifa, winUser } from 'src/app/models/rifa.model';
 import { PayService } from 'src/app/service/pay.service';
 import { RifasService } from 'src/app/service/rifas.service';
+import { SocketService } from 'src/app/service/socket.service';
 import { ToastService } from 'src/app/service/toast.service';
 import { environment } from 'src/environments/environment';
 import { SweetAlertResult } from 'sweetalert2';
@@ -50,14 +51,22 @@ export class VentasComponent {
     private toastService: ToastService,
     private payService: PayService,
     private rafflesService: RifasService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private socketService: SocketService
   ) { }
+
   toggleColumna(col: any): void {
     col.activa = !col.activa;
   }
 
 
   ngOnInit() {
+    //activamos el web socket para el envio del correo
+    this.socketService.listen('notificationEmail').subscribe((data: any) => {
+      console.log(data)
+      let text = data.res.error ? `Hubo un problema al enviar el correo ${data.res.message}` : 'Correo entregado exitosamente'
+      this.showToast(data.email, data.severity, text)
+    });
 
     this.loading = true
     this.payService.ticketSales().subscribe({
@@ -109,7 +118,7 @@ export class VentasComponent {
   }
 
   validatePay(id: number) {
-    this.toastService.confirm('Seguro desea validar el pago', '').then((res: SweetAlertResult) => {
+    this.toastService.confirm('Seguro desea aprobar el pago', '').then((res: SweetAlertResult) => {
       if (res.isConfirmed) {
         this.loading = true
         this.payService.validatePay(id).subscribe({
@@ -120,18 +129,8 @@ export class VentasComponent {
             const index = this.sales.findIndex(sale => sale.id === id)
 
             this.sales[index] = sales.sale
-            this.toastService.success('Pago validado correctamente', '')
+            this.toastService.success('Venta aprobada', `Procesando el correo de ${sales.sale.correo}`)
 
-            if (sales.email && sales.email.error) {
-              setTimeout(() => {
-                this.toastService.error('No se pudo enviar el correo', sales.email.message)
-              }, 2000)
-            } else {
-              setTimeout(() => {
-                this.toastService.success('Correo enviado correctamente', sales.email.accepted[0])
-              }, 2000)
-
-            }
             this.loading = false
           },
           error: (err) => {
@@ -154,18 +153,9 @@ export class VentasComponent {
             const index = this.sales.findIndex(sale => sale.id === id)
 
             this.sales[index] = sales.sale
-            this.toastService.success('Pago rechazado correctamente', '')
+            this.toastService.success('Pago rechazado correctamente',
+              `Procesando el correo de ${sales.sale.correo}`)
 
-            if (sales.email && sales.email.error) {
-              setTimeout(() => {
-                this.toastService.error('No se pudo enviar el correo', sales.email.message)
-              }, 2000)
-            } else {
-              setTimeout(() => {
-                this.toastService.success('Correo enviado correctamente', sales.email.accepted[0])
-              }, 2000)
-
-            }
             this.loading = false
           },
           error: (err) => {
@@ -294,13 +284,12 @@ export class VentasComponent {
    * @param {string} [sms='Correo entregado exitosamente']
    * @memberof VentasComponent
    */
-  showToast(email: string, sms: string = 'Correo entregado exitosamente') {
-
+  showToast(email: string, severity: 'success' | 'error' = 'success', message_email: string = 'Correo entregado exitosamente') {
     this.messageService.add({
       key: 'confirm',
       sticky: false,
-      severity: 'success',
-      summary: sms,
+      severity: severity,
+      summary: message_email,
       detail: email,
       icon: 'fa-solid fa-bell',
       contentStyleClass: ' p-3 gap-3 flex w-full justify-content-between align-items-center',
