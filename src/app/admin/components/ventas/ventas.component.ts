@@ -1,5 +1,5 @@
 import { ThisReceiver } from '@angular/compiler';
-import { Component, HostListener } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Sales } from 'src/app/interfaces/PaymentMethods';
 import { Rifa, winUser } from 'src/app/models/rifa.model';
@@ -16,6 +16,11 @@ import { SweetAlertResult } from 'sweetalert2';
   styleUrl: './ventas.component.css'
 })
 export class VentasComponent {
+  @ViewChild('dt') dataTable!: ElementRef<HTMLInputElement>;
+  @ViewChild('globalFilter') globalFilterInput!: ElementRef<HTMLInputElement>;
+
+
+
   esCelular: boolean = false
   loading: boolean = false
   visibleTikes: boolean = false
@@ -131,6 +136,9 @@ export class VentasComponent {
             this.sales[index] = sales.sale
             this.toastService.success('Venta aprobada', `Procesando el correo de ${sales.sale.correo}`)
 
+            //refrescamos el filtro
+            this.filterGlobal({ target: this.globalFilterInput.nativeElement } as unknown as Event, this.dataTable);
+
             this.loading = false
           },
           error: (err) => {
@@ -156,6 +164,8 @@ export class VentasComponent {
             this.toastService.success('Pago rechazado correctamente',
               `Procesando el correo de ${sales.sale.correo}`)
 
+            //refrescamos el filtro
+            this.filterGlobal({ target: this.globalFilterInput.nativeElement } as unknown as Event, this.dataTable);
             this.loading = false
           },
           error: (err) => {
