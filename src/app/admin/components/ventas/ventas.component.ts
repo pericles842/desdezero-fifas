@@ -68,7 +68,6 @@ export class VentasComponent {
   ngOnInit() {
     //activamos el web socket para el envio del correo
     this.socketService.listen('notificationEmail').subscribe((data: any) => {
-      console.log(data)
       let text = data.res.error ? `Hubo un problema al enviar el correo ${data.res.message.error}` : 'Correo entregado exitosamente'
       this.showToast(data.email, data.severity, text)
     });
