@@ -69,7 +69,7 @@ export class VentasComponent {
     //activamos el web socket para el envio del correo
     this.socketService.listen('notificationEmail').subscribe((data: any) => {
       console.log(data)
-      let text = data.res.error ? `Hubo un problema al enviar el correo ${data.res.message}` : 'Correo entregado exitosamente'
+      let text = data.res.error ? `Hubo un problema al enviar el correo ${data.res.message.error}` : 'Correo entregado exitosamente'
       this.showToast(data.email, data.severity, text)
     });
 
@@ -232,16 +232,17 @@ export class VentasComponent {
     this.loading = true
     this.payService.sendEmail(this.messageEmail.correo, this.messageEmail.subject, this.messageEmail.text, this.messageEmail.id_payment).subscribe({
       next: (email) => {
+
         this.modalSendEmail = false
 
         let index = this.sales.findIndex(sale => sale.id === this.messageEmail.id_payment)
         this.sales[index].estatus = 'rechazado'
 
-        if (email && email.error) {
-          this.toastService.error('No se pudo enviar el correo', email.message)
-        } else {
-          this.toastService.success('Correo enviado correctamente', email.accepted[0])
-        }
+        this.toastService.success('Mensaje enviado correctamente', this.sales[index].correo)
+
+        //refrescamos el filtro
+        this.filterGlobal({ target: this.globalFilterInput.nativeElement } as unknown as Event, this.dataTable);
+
         this.loading = false
       },
       error: (err) => {

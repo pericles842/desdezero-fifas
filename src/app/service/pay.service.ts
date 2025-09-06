@@ -48,7 +48,7 @@ export class PayService {
   sendEmail(correo: string, subject: string, text: string, id_payment: number) {
     let body = { correo, subject, text, id_payment }
     return this.http.post<{
-      accepted: string[],
+      emails: string[],
       error: string,
       message: string
     }>(`${environment.host}/user/send-email`, body)
