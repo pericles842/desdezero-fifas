@@ -333,7 +333,7 @@
           <label for="email" class="font-semibold text-xs uppercase">
             <i class="fa-solid fa-at text-sm mr-1"></i>
             Correo</label>
-          <input id="email" [(ngModel)]="user.correo" type="text" class="custom-input w-full"
+          <input id="email" appNoSpaces [(ngModel)]="user.correo" type="text" class="custom-input w-full"
             placeholder="carolinahernadez@gmail.com">
         </div>
 
@@ -341,7 +341,7 @@
           <label for="email" class="font-semibold text-xs uppercase">
             <i class="fa-solid fa-at text-sm mr-1"></i>
             Confirmar correo</label>
-          <input (blur)="valideEmail()" id="email" [(ngModel)]="user.confirm_correo" type="text"
+          <input (blur)="valideEmail()" appNoSpaces id="email" [(ngModel)]="user.confirm_correo" type="text"
             class="custom-input w-full" placeholder="carolinahernadez@gmail.com">
         </div>
 
@@ -349,7 +349,8 @@
           <label for="email" class="font-semibold text-xs uppercase">
             <i class="fa-solid fa-hashtag text-sm mr-1"></i>
             Referencia</label>
-          <input [(ngModel)]="user.referencia" type="text" class="custom-input w-full" placeholder="636813584">
+          <input [(ngModel)]="user.referencia" appNoSpaces type="text" class="custom-input w-full"
+            placeholder="636813584">
         </div>
 
         <div class=" col-12 md:col-12 flex flex-column md:flex-row gap-3 justify-content-between">
@@ -468,7 +469,7 @@
         <i class="text-gradient-animated text-white fa-regular fa-credit-card"></i>
       </button>
 
-      @if (config.estadisticas.tikes_vendidos >= 1000)
+      @if (config.estadisticas.tikes_vendidos >= 10000)
       {
       <div class="col-12 flex align-items-center gap-2 mt-4"
         style="background-color:#b1d3ff; border-radius: 5px; padding: 10px 20px; box-sizing: border-box;">

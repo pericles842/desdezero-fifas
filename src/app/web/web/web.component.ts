@@ -316,6 +316,9 @@ export class WebComponent {
   }
 
   validePhone() {
+   
+    if (this.user.telefono === '' || this.user.confirm_telefono === '') return;
+    
     if (this.user.telefono !== this.user.confirm_telefono) {
       this.toastService.warning('', 'El numero de teléfono no coincide')
       this.user.confirm_telefono = ''

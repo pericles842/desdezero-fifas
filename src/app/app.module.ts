@@ -16,6 +16,7 @@ import { WebComponent } from './web/web/web.component';
 import { UserWinComponent } from "./standalone/user-win/user-win.component";
 import { CardAwardComponent } from "./standalone/card-award/card-award.component";
 import { CarouselModule } from 'primeng/carousel';
+import { NoSpacesDirective } from './directive/no-spaces.directive';
 
 
 
@@ -25,7 +26,8 @@ import { CarouselModule } from 'primeng/carousel';
     AppComponent,
     WebComponent,
     ValidateTicketComponent,
-    TicketComponent
+    TicketComponent,
+    NoSpacesDirective
   ],
   imports: [
     BrowserModule,
@@ -38,7 +40,7 @@ import { CarouselModule } from 'primeng/carousel';
     UserWinComponent,
     CarouselModule,
     CardAwardComponent
-],
+  ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
