@@ -11,14 +11,17 @@
   <link rel="icon" type="image/png" href="assets/img/isotipo-negativo.jpg">
 
   <!-- META SEO -->
-  <meta name="description" content="Participa en rifas online seguras desde Venezuela y América Latina. Gana premios reales con sorteos confiables y transparentes. Descubre cómo jugar y ganar.">
-  <meta name="keywords" content="rifas online, rifas Venezuela, rifas seguras, rifas por Instagram, rifas en Latinoamérica, sorteos online, ganar rifas, premios en Venezuela">
+  <meta name="description"
+    content="Participa en rifas online seguras desde Venezuela y América Latina. Gana premios reales con sorteos confiables y transparentes. Descubre cómo jugar y ganar.">
+  <meta name="keywords"
+    content="rifas online, rifas Venezuela, rifas seguras, rifas por Instagram, rifas en Latinoamérica, sorteos online, ganar rifas, premios en Venezuela">
   <meta name="author" content="Desdezero">
   <meta name="robots" content="index, follow">
 
   <!-- Open Graph (para compartir en redes) -->
   <meta property="og:title" content="Rifas Online en Venezuela | Desdezero">
-  <meta property="og:description" content="Participa en rifas seguras desde cualquier parte de Latinoamérica. ¡Premios reales y sorteos transparentes!">
+  <meta property="og:description"
+    content="Participa en rifas seguras desde cualquier parte de Latinoamérica. ¡Premios reales y sorteos transparentes!">
   <meta property="og:image" content="https://tusitio.com/assets/img/banner-og.jpg">
   <meta property="og:url" content="https://desdezerolg.com/">
   <meta property="og:type" content="website">
@@ -39,6 +42,26 @@
 
 <body>
   <app-root></app-root>
+
+  <!-- Meta Pixel Code -->
+  <script>
+    !function (f, b, e, v, n, t, s) {
+      if (f.fbq) return; n = f.fbq = function () {
+        n.callMethod ?
+        n.callMethod.apply(n, arguments) : n.queue.push(arguments)
+      };
+      if (!f._fbq) f._fbq = n; n.push = n; n.loaded = !0; n.version = '2.0';
+      n.queue = []; t = b.createElement(e); t.async = !0;
+      t.src = v; s = b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t, s)
+    }(window, document, 'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '1347676406695300');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none"
+      src="https://www.facebook.com/tr?id=1347676406695300&ev=PageView&noscript=1" /></noscript>
+  <!-- End Meta Pixel Code -->
 </body>
 
 </html>
