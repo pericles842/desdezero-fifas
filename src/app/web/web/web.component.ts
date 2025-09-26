@@ -456,7 +456,6 @@ export class WebComponent {
     this.rifasService.searchTikeByEmail(this.emailSearch).subscribe({
       next: (tikes) => {
         this.searchTike = true;
-        console.log(tikes);
         this.tickets = tikes;
       },
       error(err) {
