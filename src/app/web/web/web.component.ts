@@ -20,7 +20,7 @@ import { TasasDesdezero } from 'src/app/interfaces/RatesDesdezero';
 @Component({
   selector: 'app-web',
   templateUrl: './web.component.html',
-  styleUrl: './web.component.scss'
+  styleUrl: './web.component.scss',
 })
 export class WebComponent {
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
@@ -29,33 +29,38 @@ export class WebComponent {
   @ViewChild('inicio') inicio!: ElementRef;
   @ViewChild('ticket') ticket!: ElementRef;
   @ViewChild('quienesSomos') quienesSomos!: ElementRef;
-  @ViewChild('contacto') contacto!: ElementRef
-  @ViewChild('premiosEntregados') premiosEntregados!: ElementRef;;
+  @ViewChild('contacto') contacto!: ElementRef;
+  @ViewChild('premiosEntregados') premiosEntregados!: ElementRef;
 
-  responsiveOptions = REPONSIVE_OPTIONS
-  premios_entregados: Awards[] = []
+  responsiveOptions = REPONSIVE_OPTIONS;
+  premios_entregados: Awards[] = [];
 
-  phoneList: string[] = phoneCountryCodes
+  phoneList: string[] = phoneCountryCodes;
   loading = false;
-  host = environment.host
+  host = environment.host;
   esCelular = window.innerWidth < 768;
   rangeValue = 30;
-  contract: string = contract
-  winUser: winUser = new winUser()
-  emailSearch: string = ''
+  contract: string = contract;
+  winUser: winUser = new winUser();
+  emailSearch: string = '';
   selectedFile: File | null = null;
   selectedFileName: string | null = null;
-  user: User = new User()
-  searchTike: boolean = false
-  rifa: Rifa = new Rifa;
-  today: Date = new Date()
+  user: User = new User();
+  searchTike: boolean = false;
+  rifa: Rifa = new Rifa();
+  today: Date = new Date();
   dollar: TasasDesdezero = {
-    id: 0, title: '', key: 'paralelo', img_url: '', price: 0, price_old: 0, last_update: ''
+    id: 0,
+    title: '',
+    key: 'paralelo',
+    img_url: '',
+    price: 0,
+    price_old: 0,
+    last_update: '',
   };
 
-
-  config: ConfigResponse = new ConfigResponse()
-  tickets: Ticket[] = []
+  config: ConfigResponse = new ConfigResponse();
+  tickets: Ticket[] = [];
 
   /**
    *METODOS de pago
@@ -63,24 +68,20 @@ export class WebComponent {
    * @type {PayMethod[]}
    * @memberof WebComponent
    */
-  paymentMethods!: PayMethod[]
-  paymentMethod: PayMethod = new PayMethod()
-
+  paymentMethods!: PayMethod[];
+  paymentMethod: PayMethod = new PayMethod();
 
   constructor(
     private rifasService: RifasService,
     private payService: PayService,
     private toastService: ToastService,
     private userService: UserService
-  ) { }
+  ) {}
 
   ngOnInit() {
-
     //Carga el rolar y la configuración
-    this.configDolarDownload()
-    //Carga los recurso de la pagina web 
-
-
+    this.configDolarDownload();
+    //Carga los recurso de la pagina web
   }
 
   /**
@@ -93,7 +94,7 @@ export class WebComponent {
    * @returns {void}
    */
   configDolarDownload() {
-    this.loading = true
+    this.loading = true;
     forkJoin({
       config: this.userService.getConfig(),
       dollarList: this.payService.getRatesDesdezero().pipe(
@@ -101,14 +102,14 @@ export class WebComponent {
           this.toastService.warning('', 'No se pudo cargar las tasas');
           return of([]);
         })
-      )
+      ),
     }).subscribe({
       next: ({ config, dollarList }) => {
-        this.config = config
+        this.config = config;
 
         //!Si la tasa web da error
         if (dollarList.length == 0 || !Boolean(config.config.tasa_automatica)) {
-          let { tasa_banco, tasa_personalizada } = this.config.config as Config
+          let { tasa_banco, tasa_personalizada } = this.config.config as Config;
 
           this.dollar = {
             id: 1,
@@ -117,23 +118,23 @@ export class WebComponent {
             last_update: new Date().toDateString(),
             title: tasa_banco,
             img_url: '',
-            price: tasa_personalizada
-          }
+            price: tasa_personalizada,
+          };
         } else {
-          this.dollar = dollarList.find(d => d.key == config.config.tasa_banco) as TasasDesdezero
-
+          this.dollar = dollarList.find(
+            (d) => d.key == config.config.tasa_banco
+          ) as TasasDesdezero;
         }
         this.loading = false;
 
-        this.resourcesWeb()
+        this.resourcesWeb();
       },
       error: (err) => {
         console.error('Error general:', err);
         this.toastService.error('', err);
         this.loading = false;
-      }
+      },
     });
-
   }
 
   /**
@@ -145,7 +146,7 @@ export class WebComponent {
    * @returns {void}
    */
   resourcesWeb() {
-    this.loading = true
+    this.loading = true;
     forkJoin(
       this.rifasService.getActiveRaffle(),
       this.payService.listPayMethod(),
@@ -153,32 +154,29 @@ export class WebComponent {
       this.rifasService.listAwards()
     ).subscribe({
       next: ([rifa, payList, win, premios]) => {
-
         //proceso para las rifas
-        this.rifa = 'id' in rifa ? rifa : new Rifa
+        this.rifa = 'id' in rifa ? rifa : new Rifa();
 
         //proceso para el ganador
-        this.winUser = Object.keys(win).length !== 0 ? win : new winUser()
-
+        this.winUser = Object.keys(win).length !== 0 ? win : new winUser();
 
         //Proceso para los metodos de pago
         //!VALIDA LOS METODOS DE PAGO PORQUE DA ERROR SI NO HAY NADA
         if (payList.length != 0) {
-          this.paymentMethods = payList
-          this.paymentMethod = this.paymentMethods[0]
-          this.changeMethodPay(this.paymentMethod)
+          this.paymentMethods = payList;
+          this.paymentMethod = this.paymentMethods[0];
+          this.changeMethodPay(this.paymentMethod);
         }
 
-        if (premios.length != 0) this.premios_entregados = premios
+        if (premios.length != 0) this.premios_entregados = premios;
 
-
-        this.loading = false
+        this.loading = false;
       },
       error: (err) => {
-        this.toastService.error('', err)
-        this.loading = false
+        this.toastService.error('', err);
+        this.loading = false;
       },
-    })
+    });
   }
 
   irASeccion(seccion: string) {
@@ -190,7 +188,6 @@ export class WebComponent {
       quienesSomos: this.quienesSomos,
       premiosEntregados: this.premiosEntregados,
       contacto: this.contacto,
-
     };
 
     const elemento = secciones[seccion];
@@ -209,7 +206,6 @@ export class WebComponent {
     this.esCelular = window.innerWidth < 768;
   }
 
-
   get getRangeBackground(): string {
     const vendidos = this.config.estadisticas.tikes_vendidos_rifa || 0;
     const total = this.rifa.objetivo_ventas || 1;
@@ -220,19 +216,17 @@ export class WebComponent {
   }
 
   /**
-   *Se encarga de cambiar el metodo de pago y sus referencias 
+   *Se encarga de cambiar el metodo de pago y sus referencias
    *
    * @param {PaymentMethods} method
    * @memberof WebComponent
    */
   changeMethodPay(method: PayMethod) {
-    this.paymentMethods.forEach(m => m.active = false)
-    method.active = true
-    this.paymentMethod = method
+    this.paymentMethods.forEach((m) => (m.active = false));
+    method.active = true;
+    this.paymentMethod = method;
     //this.user.cantidad_tickets = this.paymentMethod.min_tickets
   }
-
-
 
   /**
    *Se ecantaga de capturar el nombre del archivo en el file y asinarlo a select filename
@@ -253,9 +247,10 @@ export class WebComponent {
 
   getDaysCount(isoDate: string | Date): number {
     // Parsear la fecha destino
-    const target = typeof isoDate === 'string'
-      ? new Date(isoDate)
-      : new Date(isoDate.getTime());
+    const target =
+      typeof isoDate === 'string'
+        ? new Date(isoDate)
+        : new Date(isoDate.getTime());
 
     // Fecha de hoy a medianoche local
     const today = new Date();
@@ -288,9 +283,9 @@ export class WebComponent {
       type_person: 'Persona',
       cuenta: 'Cuenta',
       nro_cuenta: 'Numero de Cuenta',
-      correo: 'Correo'
-    }
-    return titles[pay]
+      correo: 'Correo',
+    };
+    return titles[pay];
   }
 
   returnDollarForBs(tikes: number, monto: number, precio_dolar: number) {
@@ -301,7 +296,6 @@ export class WebComponent {
 
   validateMinTike(tike: any): void {
     const min = this.paymentMethod.min_tickets;
-
 
     if (!this.user.cantidad_tickets || this.user.cantidad_tickets < min) {
       this.user.cantidad_tickets = min;
@@ -316,12 +310,11 @@ export class WebComponent {
   }
 
   validePhone() {
-   
     if (this.user.telefono === '' || this.user.confirm_telefono === '') return;
-    
+
     if (this.user.telefono !== this.user.confirm_telefono) {
-      this.toastService.warning('', 'El numero de teléfono no coincide')
-      this.user.confirm_telefono = ''
+      this.toastService.warning('', 'El numero de teléfono no coincide');
+      this.user.confirm_telefono = '';
     }
   }
 
@@ -336,105 +329,136 @@ export class WebComponent {
    * @returns {void}
    */
   saleTicket() {
+    if (
+      this.config.estadisticas.tikes_vendidos + this.user.cantidad_tickets >=
+      9999
+    ) {
+      this.toastService.warning(
+        'Se sobrepaso en la cantidad de tickets',
+        `Tickets disponibles: ${9999 - this.config.estadisticas.tikes_vendidos}`
+      );
+      return;
+    }
 
-    if (!this.valideFormPay()) return
+    if (this.config.estadisticas.tikes_vendidos >= 9999) {
+      this.toastService.warning(
+        ' Gracias por participar',
+        'Ya no hay ticket disponibles'
+      );
+      return;
+    }
+    if (!this.valideFormPay()) return;
     //terminos u condiciones
-    this.toastService.confirm('Términos y condiciones', this.contract).then((res: SweetAlertResult) => {
-      if (res.isConfirmed) {
-        this.loading = true
+    this.toastService
+      .confirm('Términos y condiciones', this.contract)
+      .then((res: SweetAlertResult) => {
+        if (res.isConfirmed) {
+          this.loading = true;
 
-        //extraemos inforamcion de apgos y tasa
-        this.user.total = this.user.cantidad_tickets * this.rifa.precio
-        this.user.total_bs = this.returnDollarForBs(this.user.cantidad_tickets, this.rifa.precio, this.dollar.price)
-        this.user.tasa = this.dollar.price.toString()
-        this.user.detalle_metodo_pago = this.paymentMethod
+          //extraemos inforamcion de apgos y tasa
+          this.user.total = this.user.cantidad_tickets * this.rifa.precio;
+          this.user.total_bs = this.returnDollarForBs(
+            this.user.cantidad_tickets,
+            this.rifa.precio,
+            this.dollar.price
+          );
+          this.user.tasa = this.dollar.price.toString();
+          this.user.detalle_metodo_pago = this.paymentMethod;
 
-        //agregamos el form data
-        const formData = new FormData();
-        if (this.selectedFile) {
-          formData.append('image', this.selectedFile);
-        }
-        formData.append('pay', JSON.stringify(this.user))
+          //agregamos el form data
+          const formData = new FormData();
+          if (this.selectedFile) {
+            formData.append('image', this.selectedFile);
+          }
+          formData.append('pay', JSON.stringify(this.user));
 
-        //ejecutamos el servicio
-        this.payService.createPayForUser(formData as any).subscribe({
-          next: (pago) => {
+          //ejecutamos el servicio
+          this.payService.createPayForUser(formData as any).subscribe({
+            next: (pago) => {
+              //limpiamos todo, por si quiere hacer otro pago
+              this.selectedFileName = '';
+              this.selectedFile = null;
+              this.fileInput.nativeElement.value = '';
+              this.user = new User();
+              this.user.detalle_metodo_pago = this.paymentMethod;
 
-            //limpiamos todo, por si quiere hacer otro pago
-            this.selectedFileName = ''
-            this.selectedFile = null
-            this.fileInput.nativeElement.value = '';
-            this.user = new User();
-            this.user.detalle_metodo_pago = this.paymentMethod
-
-            //mandamos las instrucciones
-            this.toastService.confirm('Pago esta en proceso', `
+              //mandamos las instrucciones
+              this.toastService
+                .confirm(
+                  'Pago esta en proceso',
+                  `
               Hola <b>${pago.nombre}</b>, tu pago está en proceso. Puede demorar hasta 24 horas. Al confirmarse,
               te enviaremos el comprobante y tus tickets a este correo: <b>${pago.correo} recuerda revisar en spam</b>.
               ¡Gracias por tu confianza!
-            `).then(() => { })
+            `
+                )
+                .then(() => {});
 
-            this.loading = false
-          }, error: (err) => {
-
-            this.selectedFileName = ''
-            this.selectedFile = null
-            this.fileInput.nativeElement.value = '';
-            this.user = new User();
-            this.user.detalle_metodo_pago = this.paymentMethod
-            this.toastService.warning('Hubo un problema con el pago por favor vuelva a llenar los datos', err);
-            this.loading = false
-          },
-        })
-      }
-    })
+              this.loading = false;
+            },
+            error: (err) => {
+              this.selectedFileName = '';
+              this.selectedFile = null;
+              this.fileInput.nativeElement.value = '';
+              this.user = new User();
+              this.user.detalle_metodo_pago = this.paymentMethod;
+              this.toastService.warning(
+                'Hubo un problema con el pago por favor vuelva a llenar los datos',
+                err
+              );
+              this.loading = false;
+            },
+          });
+        }
+      });
   }
 
   valideFormPay() {
-    let pass = true
+    let pass = true;
 
     if (!this.selectedFileName) {
-      this.toastService.warning('Debe seleccionar el comprobante')
-      pass = false
+      this.toastService.warning('Debe seleccionar el comprobante');
+      pass = false;
     }
 
     if (!this.user.nombre.trim()) {
-      this.toastService.warning('Debe ingresar su nombre')
-      pass = false
+      this.toastService.warning('Debe ingresar su nombre');
+      pass = false;
     }
     if (!this.user.referencia.trim()) {
-      this.toastService.warning('Debe ingresar la referencia del pago')
-      pass = false
+      this.toastService.warning('Debe ingresar la referencia del pago');
+      pass = false;
     }
 
     if (!/^[0-9]+$/.test(this.user.telefono)) {
-      this.toastService.warning('El teléfono debe contener solo números sin signos ni espacios')
-      pass = false
+      this.toastService.warning(
+        'El teléfono debe contener solo números sin signos ni espacios'
+      );
+      pass = false;
     }
     if (this.user.cantidad_tickets < this.paymentMethod.min_tickets) {
-      this.toastService.warning('El ticket no puede ser menor a ' + this.paymentMethod.min_tickets)
-      pass = false
+      this.toastService.warning(
+        'El ticket no puede ser menor a ' + this.paymentMethod.min_tickets
+      );
+      pass = false;
     }
 
-    return pass
+    return pass;
   }
 
   valideEmail() {
     if (this.user.correo !== this.user.confirm_correo) {
-      this.toastService.warning('', 'El correo no coincide')
-      this.user.confirm_correo = ''
+      this.toastService.warning('', 'El correo no coincide');
+      this.user.confirm_correo = '';
     }
   }
   searchTikeByEmail() {
     this.rifasService.searchTikeByEmail(this.emailSearch).subscribe({
       next: (tikes) => {
-        this.searchTike = true
-        this.tickets = tikes
-
+        this.searchTike = true;
+        this.tickets = tikes;
       },
-      error(err) {
-
-      },
-    })
+      error(err) {},
+    });
   }
 }

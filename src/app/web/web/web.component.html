@@ -460,16 +460,16 @@
       </label>
 
 
-      <!-- VALIDAR 10000  tickets -->
+      <!-- VALIDAR 9999  tickets -->
       <!-- COMPRAR TIKE config.estadisticas.tikes_vendidos -->
-      <button [disabled]="config.estadisticas.tikes_vendidos >= 10000" (click)="saleTicket()"
+      <button (click)="saleTicket()"
         class="mt-3 w-full custom-btn gradient-border flex align-items-center justify-content-center gap-2  "
         style="border: none;">
         <span class="text-gradient-animated">Comprar ticket</span>
         <i class="text-gradient-animated text-white fa-regular fa-credit-card"></i>
       </button>
 
-      @if (config.estadisticas.tikes_vendidos >= 10000)
+      @if (config.estadisticas.tikes_vendidos >= 9999)
       {
       <div class="col-12 flex align-items-center gap-2 mt-4"
         style="background-color:#b1d3ff; border-radius: 5px; padding: 10px 20px; box-sizing: border-box;">
