@@ -1,234 +1,344 @@
-<header class="flex flex-wrap md:flex-nowrap align-items-center justify-content-between px-3 md:px-3 py-3 shadow-3  ">
+<header
+  class="flex flex-wrap md:flex-nowrap align-items-center justify-content-between px-3 md:px-3 py-3 shadow-3"
+>
   <!-- Logo y nombre -->
-  <div class="flex flex-column align-items-center md:align-items-start font-bold col-12 md:col cursor-pointer">
-    <img routerLink="/admin" src="assets/img/logo.png" class="w-8 md:w-7" alt="Logo DesdeZero">
+  <div
+    class="flex flex-column align-items-center md:align-items-start font-bold col-12 md:col cursor-pointer"
+  >
+    <img
+      routerLink="/admin"
+      src="assets/img/logo.png"
+      class="w-8 md:w-7"
+      alt="Logo DesdeZero"
+    />
   </div>
 
   <!-- Menú de navegación -->
-  <nav class="flex flex-wrap md:flex-nowrap col-12 md:col-8 justify-content-center
-   md:justify-content-end gap-3  ">
-    <a (click)="irASeccion('inicio')" class="font-semibold text-sm md:text-base">Inicio</a>
-    <a (click)="irASeccion('rifas')" class="font-semibold text-sm md:text-base">Rifas</a>
-    <a (click)="irASeccion('ticket')" class="font-semibold text-sm md:text-base">Ticket</a>
-    <a (click)="irASeccion('quienesSomos')" class="font-semibold text-sm md:text-base">Quiénes Somos</a>
-    <a (click)="irASeccion('premiosEntregados')" class="font-semibold text-sm md:text-base">Premios entregados</a>
-    <a (click)="irASeccion('contacto')" class="font-semibold text-sm md:text-base">Contacto</a>
+  <nav
+    class="flex flex-wrap md:flex-nowrap col-12 md:col-8 justify-content-center md:justify-content-end gap-3"
+  >
+    <a (click)="irASeccion('inicio')" class="font-semibold text-sm md:text-base"
+      >Inicio</a
+    >
+    <a (click)="irASeccion('rifas')" class="font-semibold text-sm md:text-base"
+      >Rifas</a
+    >
+    <a (click)="irASeccion('ticket')" class="font-semibold text-sm md:text-base"
+      >Ticket</a
+    >
+    <a
+      (click)="irASeccion('quienesSomos')"
+      class="font-semibold text-sm md:text-base"
+      >Quiénes Somos</a
+    >
+    <a
+      (click)="irASeccion('premiosEntregados')"
+      class="font-semibold text-sm md:text-base"
+      >Premios entregados</a
+    >
+    <a
+      (click)="irASeccion('contacto')"
+      class="font-semibold text-sm md:text-base"
+      >Contacto</a
+    >
   </nav>
 </header>
 
-
-
-
 <!-- HOME RESPONSIVO -->
-<section #inicio
-  class=" flex flex-column md:flex-row justify-content-evenly align-items-center px-4 py-7 flex-wrap pt-3 md:pt-6 bg-secondary ">
+<section
+  #inicio
+  class="flex flex-column md:flex-row justify-content-evenly align-items-center px-4 py-7 flex-wrap pt-3 md:pt-6 bg-secondary"
+>
   <!-- TEXTO Y BOTONES -->
-  <div class="flex flex-column gap-4 justify-content-center w-full md:w-6 ">
+  <div class="flex flex-column gap-4 justify-content-center w-full md:w-6">
     <div>
-      <h1 class="text-3xl md:text-5xl lg:text-6xl font-bold text-gradient-animated">LLevate a tu casa</h1>
-      <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-gradient-animated">la bendición que mereces</h1>
+      <h1
+        class="text-3xl md:text-5xl lg:text-6xl font-bold text-gradient-animated"
+      >
+        LLevate a tu casa
+      </h1>
+      <h1
+        class="text-3xl md:text-4xl lg:text-5xl font-bold text-gradient-animated"
+      >
+        la bendición que mereces
+      </h1>
     </div>
 
     <div>
-      <p class="text-lg text-white">Únete a nuestra comunidad y descubre oportunidades únicas para ganar.
-        <br> Confía en sorteos justos y accesibles desde la comodidad de tu hogar.
+      <p class="text-lg text-white">
+        Únete a nuestra comunidad y descubre oportunidades únicas para ganar.
+        <br />
+        Confía en sorteos justos y accesibles desde la comodidad de tu hogar.
       </p>
     </div>
 
     <!-- ICONOS -->
-    <div class="flex md:flex-nowrap justify-content-between  gap-1 md:justify-content-start  md:gap-2 ">
+    <div
+      class="flex md:flex-nowrap justify-content-between gap-1 md:justify-content-start md:gap-2"
+    >
       <div
-        class=" flex flex-column gap-2 w-full  sm:w-3 gradient-border text-gradient-animated shadow-5 px-1 py-3  justify-content-center align-items-center">
+        class="flex flex-column gap-2 w-full sm:w-3 gradient-border text-gradient-animated shadow-5 px-1 py-3 justify-content-center align-items-center"
+      >
         <i class="text-xl fa-solid fa-medal"></i>
         <p class="text-xs font-bold">Calidad</p>
       </div>
       <div
-        class=" flex flex-column gap-2 w-full sm:w-3 gradient-border text-gradient-animated shadow-5  px-1 py-3 justify-content-center align-items-center">
+        class="flex flex-column gap-2 w-full sm:w-3 gradient-border text-gradient-animated shadow-5 px-1 py-3 justify-content-center align-items-center"
+      >
         <i class="text-xl fa-solid fa-shield-halved"></i>
         <p class="text-xs font-bold">100% seguro</p>
       </div>
       <div
-        class=" flex flex-column  gap-2 w-full sm:w-3 gradient-border text-gradient-animated shadow-5 px-1 py-3   justify-content-center align-items-center">
+        class="flex flex-column gap-2 w-full sm:w-3 gradient-border text-gradient-animated shadow-5 px-1 py-3 justify-content-center align-items-center"
+      >
         <i class="text-xl fa-solid fa-trophy"></i>
-        <p class="text-xs font-bold ">Un ganador</p>
+        <p class="text-xs font-bold">Un ganador</p>
       </div>
     </div>
 
     <!-- BOTONES -->
     <div class="flex flex-column sm:flex-row gap-3 mt-4">
-      <button (click)="irASeccion('rifas')"
-        class="custom-btn gradient-border flex align-items-center justify-content-center gap-2  " style="border: none;">
+      <button
+        (click)="irASeccion('rifas')"
+        class="custom-btn gradient-border flex align-items-center justify-content-center gap-2"
+        style="border: none"
+      >
         <span class="text-gradient-animated">Comprar ticket</span>
-        <i class="text-gradient-animated text-white fa-regular fa-credit-card"></i>
+        <i
+          class="text-gradient-animated text-white fa-regular fa-credit-card"
+        ></i>
       </button>
-      <button (click)="irASeccion('comoFunciona')" class="custom-btn">¿Cómo funciona?</button>
+      <button (click)="irASeccion('comoFunciona')" class="custom-btn">
+        ¿Cómo funciona?
+      </button>
     </div>
   </div>
 
   <!-- IMAGEN -->
-  @if (!esCelular) {
-  @if (rifa.id != 0 && config.estadisticas.tikes_vendidos < 9999) {
-  <img [src]="host+rifa.url_img" class="w-full mt-4 md:mt-0 md:w-6 border-round-xl rotate-right"
-    style="max-width: 400px;" [alt]="rifa.url_img">
+  @if (!esCelular) { @if (rifa.id != 0 && config.estadisticas.tikes_vendidos <
+  9999) {
+  <img
+    [src]="host + rifa.url_img"
+    class="w-full mt-4 md:mt-0 md:w-6 border-round-xl rotate-right"
+    style="max-width: 400px"
+    [alt]="rifa.url_img"
+  />
+  } } @if (rifa.id == 0 || config.estadisticas.tikes_vendidos >= 9999) {
+  <img
+    src="assets/img/desdezero-isotipo2.jpg"
+    class="w-full mt-4 md:mt-0 md:w-6 border-round-xl rotate-right"
+    style="max-width: 500px"
+    alt=""
+  />
   }
-  }
-
-  @if (rifa.id == 0 || config.estadisticas.tikes_vendidos >= 9999) {
-  <img src="assets/img/desdezero-isotipo2.jpg" class="w-full mt-4 md:mt-0 md:w-6 border-round-xl rotate-right"
-    style="max-width: 500px;" alt="">
-  }
-
 </section>
 @if (rifa.id == 0 || config.estadisticas.tikes_vendidos >= 9999) {
 <p class="text-center text-sm md:text-xl bg-secondary text-white px-2 pb-3">
   <i class="fa-brands fa-instagram mr-2 text-white"></i>
-  Plataforma cerrada, síguenos en instagram para estar al tanto de las rifas y sorteos.
-  <span class="text-gradient-animated font-semibold">{{'@'}}desdezerolg</span>
+  Plataforma cerrada, síguenos en instagram para estar al tanto de las rifas y
+  sorteos.
+  <span class="text-gradient-animated font-semibold">{{ "@" }}desdezerolg</span>
 </p>
 }
 
-
 <aside class="mx-4">
-
   <!-- quienes somos -->
   <section class="my-5" #quienesSomos>
-
-    <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">Quiénes Somos</h1>
+    <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">
+      Quiénes Somos
+    </h1>
 
     <p>
-      Todos Tenemos Un Motivo, <span class="font-bold text-primary-custom">¿El Mio Es Mi Hija Cual Es El
-        Tuyo?</span>
-      Yo Andres Jose B.P CEO De Esta Pequeña Comunidad Solamente Quiero Tener La Dicha y La Oportunidad Ayudarnos
-      Mutuamente Ya Que Todos Tenemos Un Propósito En La Vida El Mio Es Lograr Construirle Una Casa A Mi Hija Si Dios Me
-      Lo Permite Brindarles a Ustedes Y Agradecerle Por Su Confianza De Todo Corazón Por Ayudarnos Mutuamente y
-      Recordando Que Todos Merecemos Una Oportunidad y Yo Espero Ganarme La Confianza De Ustedes Ya Que Juntos Podemos
-      Lograr Nuestras Metas y Dios Me De La Oportunidad Para Cada Dia Traerle Bendiciones Nuevas a Sus Vidas Gracias y
-      Recuerden <span class="font-bold text-primary-custom">Todos Empezamos DesdeZero.</span>
+      Todos Tenemos Un Motivo,
+      <span class="font-bold text-primary-custom"
+        >¿El Mio Es Mi Hija Cual Es El Tuyo?</span
+      >
+      Yo Andres Jose B.P CEO De Esta Pequeña Comunidad Solamente Quiero Tener La
+      Dicha y La Oportunidad Ayudarnos Mutuamente Ya Que Todos Tenemos Un
+      Propósito En La Vida El Mio Es Lograr Construirle Una Casa A Mi Hija Si
+      Dios Me Lo Permite Brindarles a Ustedes Y Agradecerle Por Su Confianza De
+      Todo Corazón Por Ayudarnos Mutuamente y Recordando Que Todos Merecemos Una
+      Oportunidad y Yo Espero Ganarme La Confianza De Ustedes Ya Que Juntos
+      Podemos Lograr Nuestras Metas y Dios Me De La Oportunidad Para Cada Dia
+      Traerle Bendiciones Nuevas a Sus Vidas Gracias y Recuerden
+      <span class="font-bold text-primary-custom"
+        >Todos Empezamos DesdeZero.</span
+      >
     </p>
   </section>
-
 
   <!-- EStatistics -->
   @if(config.config.estadisticas){
   <section class="my-5">
-
-    <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">Estadísticas</h1>
+    <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">
+      Estadísticas
+    </h1>
 
     <div class="grid justify-content-between">
       <div
-        class="col-12 md:col-6 lg:col-3 flex align-items-start justify-content-start p-3 shadow-5 border-round-md gap-2">
-        <i style="background-color: #0c6ef0;" class="fa-regular fa-user p-3 text-3xl text-white border-round-md"></i>
+        class="col-12 md:col-6 lg:col-3 flex align-items-start justify-content-start p-3 shadow-5 border-round-md gap-2"
+      >
+        <i
+          style="background-color: #0c6ef0"
+          class="fa-regular fa-user p-3 text-3xl text-white border-round-md"
+        ></i>
         <div class="flex flex-column align-items-start">
           <p class="text-sm font-semibold">Participantes</p>
-          <h2 class="text-3xl">{{config.estadisticas.participantes}}</h2>
+          <h2 class="text-3xl">{{ config.estadisticas.participantes }}</h2>
         </div>
       </div>
 
       <div
-        class="col-12 md:col-6 lg:col-3 flex align-items-start justify-content-start p-3 shadow-5 border-round-md gap-2">
-        <i style="background-color: #f0600c;" class="fa-solid fa-ticket p-3 text-3xl text-white border-round-md"></i>
+        class="col-12 md:col-6 lg:col-3 flex align-items-start justify-content-start p-3 shadow-5 border-round-md gap-2"
+      >
+        <i
+          style="background-color: #f0600c"
+          class="fa-solid fa-ticket p-3 text-3xl text-white border-round-md"
+        ></i>
         <div class="flex flex-column align-items-start">
           <p class="text-sm font-semibold">Tickets Vendidos</p>
-          <h2 class="text-3xl">{{config.estadisticas.tikes_vendidos}}</h2>
+          <h2 class="text-3xl">{{ config.estadisticas.tikes_vendidos }}</h2>
         </div>
       </div>
 
       <div
-        class="col-12 md:col-6 lg:col-3 flex align-items-start justify-content-start p-3 shadow-5 border-round-md gap-2">
-        <i style="background-color: #18c832;" class="fa-solid fa-medal p-3 text-3xl text-white border-round-md"></i>
+        class="col-12 md:col-6 lg:col-3 flex align-items-start justify-content-start p-3 shadow-5 border-round-md gap-2"
+      >
+        <i
+          style="background-color: #18c832"
+          class="fa-solid fa-medal p-3 text-3xl text-white border-round-md"
+        ></i>
         <div class="flex flex-column align-items-start">
           <p class="text-sm font-semibold">Percentage de rifa</p>
 
-          <h2 class="text-3xl">{{config.estadisticas.porcentaje_venta}}</h2>
+          <h2 class="text-3xl">{{ config.estadisticas.porcentaje_venta }}</h2>
         </div>
       </div>
 
       <div
-        class="col-12 md:col-6 lg:col-3 flex align-items-start justify-content-start p-3 shadow-5 border-round-md gap-2">
-        <i style="background-color: #c77614;"
-          class="fa-solid fa-chart-line p-3 text-3xl text-white border-round-md"></i>
+        class="col-12 md:col-6 lg:col-3 flex align-items-start justify-content-start p-3 shadow-5 border-round-md gap-2"
+      >
+        <i
+          style="background-color: #c77614"
+          class="fa-solid fa-chart-line p-3 text-3xl text-white border-round-md"
+        ></i>
         <div class="flex flex-column align-items-start">
           <p class="text-sm font-semibold">Rifas Activas</p>
 
-          <h2 class="text-3xl">{{config.estadisticas.rifas_activas}}</h2>
+          <h2 class="text-3xl">{{ config.estadisticas.rifas_activas }}</h2>
         </div>
       </div>
     </div>
-
   </section>
   }
 
   <!-- COMO FUNCIONA -->
-  <section style="margin: 70px 0;" #comoFunciona>
-    <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">¿Cómo funciona?</h1>
+  <section style="margin: 70px 0" #comoFunciona>
+    <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">
+      ¿Cómo funciona?
+    </h1>
 
-    <div class="grid ">
+    <div class="grid">
       <div class="col-12 md:col-6 lg:col flex flex-column gap-2">
-        <p class="font-bold text-xl md:text-2xl "> <span class="num-list">1</span> Selecciona tus tickets</p>
-        <p>Elige la cantidad de tickets que deseas comprar para aumentar tus probabilidades de ganar.</p>
+        <p class="font-bold text-xl md:text-2xl">
+          <span class="num-list">1</span> Selecciona tus tickets
+        </p>
+        <p>
+          Elige la cantidad de tickets que deseas comprar para aumentar tus
+          probabilidades de ganar.
+        </p>
       </div>
 
       <div class="col-12 md:col-6 lg:col flex flex-column gap-2">
-        <p class="font-bold text-xl md:text-2xl "> <span class="num-list ">2</span> Completa tus datos</p>
-        <p>Ingresa tu información personal para poder comprar tus tickets y validar tu identidad.</p>
+        <p class="font-bold text-xl md:text-2xl">
+          <span class="num-list">2</span> Completa tus datos
+        </p>
+        <p>
+          Ingresa tu información personal para poder comprar tus tickets y
+          validar tu identidad.
+        </p>
       </div>
 
       <div class="col-12 md:col-6 lg:col flex flex-column gap-2">
-        <p class="font-bold text-xl md:text-2xl "> <span class="num-list ">3</span>Realiza el pago</p>
-        <p>Utiliza cualquiera de nuestros métodos de pago disponibles y sube tu comprobante.</p>
+        <p class="font-bold text-xl md:text-2xl">
+          <span class="num-list">3</span>Realiza el pago
+        </p>
+        <p>
+          Utiliza cualquiera de nuestros métodos de pago disponibles y sube tu
+          comprobante.
+        </p>
       </div>
 
-      <div class="col-12  md:col-6  lg:col flex flex-column gap-2">
-        <p class="font-bold text-xl md:text-2xl "> <span class="num-list ">4</span>¡Listo!</p>
-        <p>Recibirás tus tickets por correo electrónico y estarás participando automáticamente.</p>
+      <div class="col-12 md:col-6 lg:col flex flex-column gap-2">
+        <p class="font-bold text-xl md:text-2xl">
+          <span class="num-list">4</span>¡Listo!
+        </p>
+        <p>
+          Recibirás tus tickets por correo electrónico y estarás participando
+          automáticamente.
+        </p>
       </div>
     </div>
 
-    <div class="box-info flex align-items-center  gap-2 mt-4">
-      <i class="text-xl fa-solid fa-circle-info" style="color: #0077ff;"></i>
-      <p style="color: #0077ff;">
-        Todos los resultados serán tomados de la
-        lotería <a href="https://supergana.com.ve/resultados.php" class="font-bold  "
-          style="color: #0077ff;">supergana.com.ve</a> En sus
-        horarios correspondientes
+    <div class="box-info flex align-items-center gap-2 mt-4">
+      <i class="text-xl fa-solid fa-circle-info" style="color: #0077ff"></i>
+      <p style="color: #0077ff">
+        Todos los resultados serán tomados de la lotería
+        <a
+          href="https://supergana.com.ve/resultados.php"
+          class="font-bold"
+          style="color: #0077ff"
+          >supergana.com.ve</a
+        >
+        En sus horarios correspondientes
       </p>
     </div>
   </section>
 
   <!-- Rifas -->
-  @if (rifa.id != 0 && paymentMethod.id != 0 && config.estadisticas.tikes_vendidos < 9999 ) {
-  <section #rifas id="rifas" class="grid my-5  ">
-
-    <div class="col-12 lg:col-6 ">
+  @if (rifa.id != 0 && paymentMethod.id != 0 &&
+  config.estadisticas.tikes_vendidos < 9999 ) {
+  <section #rifas id="rifas" class="grid my-5">
+    <div class="col-12 lg:col-6">
       <!-- !para una tamño de imagne quemado  h64  arreglar foto-->
       <div class="relative w-full overflow-hidden border-round-xl">
-        <img [src]="host+rifa!.url_img" class="w-full h-full object-cover" />
+        <img [src]="host + rifa!.url_img" class="w-full h-full object-cover" />
         <div class="gradient-bottom-to-top"></div>
       </div>
 
       @if (rifa.ver_fecha) {
-      <div style="top: -4rem; left: 1.5rem;" class="flex flex-column relative z-5 gap-2">
-        <div class="flex align-items-center justify-content-start gap-2 ">
+      <div
+        style="top: -4rem; left: 1.5rem"
+        class="flex flex-column relative z-5 gap-2"
+      >
+        <div class="flex align-items-center justify-content-start gap-2">
           <i class="fa-solid fa-calendar text-gradient text-xl"></i>
-          <span class="text-white ">Sorteo: {{rifa.fecha_fin | date:'dd/MM/yyyy h:mm a' | lowercase}}</span>
+          <span class="text-white"
+            >Sorteo:
+            {{ rifa.fecha_fin | date : "dd/MM/yyyy h:mm a" | lowercase }}</span
+          >
         </div>
 
         <div class="flex align-items-center justify-content-start gap-2">
           <i class="fa-solid fa-business-time text-gradient text-xl"></i>
-          <span class="text-white">Quedan: {{ getDaysCount(rifa.fecha_fin) }} Días</span>
+          <span class="text-white"
+            >Quedan: {{ getDaysCount(rifa.fecha_fin) }} Días</span
+          >
         </div>
       </div>
       }
     </div>
     <div class="col-12 lg:col-6 flex flex-column">
-      <div class="flex flex-column  gap-2">
-        <h1 class="text-3xl md:text-5xl font-bold text-gradient-animated">{{rifa.nombre}}</h1>
+      <div class="flex flex-column gap-2">
+        <h1 class="text-3xl md:text-5xl font-bold text-gradient-animated">
+          {{ rifa.nombre }}
+        </h1>
 
         @if (rifa.ver_participantes || rifa.ver_ganador) {
         <div class="flex align-items-center gap-4 justify-content-start">
           <div class="flex align-items-center gap-2">
             <i class="fa-regular fa-user font-semibold text-gradient"></i>
-            <span class="text-sm">{{rifa.participantes}} Participantes</span>
+            <span class="text-sm">{{ rifa.participantes }} Participantes</span>
           </div>
           <span>|</span>
           <div class="flex align-items-center gap-2">
@@ -238,155 +348,244 @@
         </div>
         }
 
-        <p class="mt-3 font-semibold">{{rifa.descripcion}}</p>
+        <p class="mt-3 font-semibold">{{ rifa.descripcion }}</p>
 
-
-        <div class="flex justify-content-between  mt-3">
+        <div class="flex justify-content-between mt-3">
           <div class="flex flex-column align-items-start">
             <p class="text-sm font-semibold">Precio de ticket</p>
-            <h2 class="text-3xl md:text-5xl text-gradient-animated">{{rifa.precio | number:'1.2-2'}}$</h2>
+            <h2 class="text-3xl md:text-5xl text-gradient-animated">
+              {{ rifa.precio | number : "1.2-2" }}$
+            </h2>
           </div>
 
           @if (rifa.ver_tickets) {
           <div class="flex flex-column gap-2 align-items-end">
             <p class="text-sm font-semibold">Tickets disponibles</p>
-            <input type="range" disabled [(ngModel)]="config.estadisticas.tikes_vendidos_rifa"
-              [max]="rifa.objetivo_ventas" [style.background]="getRangeBackground" />
-            <p class="font-bold">{{config.estadisticas.tikes_vendidos_rifa}} / {{rifa.objetivo_ventas}}</p>
+            <input
+              type="range"
+              disabled
+              [(ngModel)]="config.estadisticas.tikes_vendidos_rifa"
+              [max]="rifa.objetivo_ventas"
+              [style.background]="getRangeBackground"
+            />
+            <p class="font-bold">
+              {{ config.estadisticas.tikes_vendidos_rifa }} /
+              {{ rifa.objetivo_ventas }}
+            </p>
           </div>
           }
-
         </div>
 
         <!-- botones de compra -->
         <div
-          class="flex flex-column md:flex-row justify-content-between align-items-between md:align-items-end  mt-2 gap-3  ">
+          class="flex flex-column md:flex-row justify-content-between align-items-between md:align-items-end mt-2 gap-3"
+        >
           <div class="flex flex-column gap-2">
-            <p class="font-semibold text-sm">Tickets: {{this.paymentMethod.min_tickets }}</p>
+            <p class="font-semibold text-sm">
+              Tickets: {{ this.paymentMethod.min_tickets }}
+            </p>
 
             <!-- !RECUERDA VALIDAR NO COMPRAR DEMAS DE LA CANTIDAD DE TIKETS DISPONIBLES -->
-            <div class="flex justify-content-between align-items-center gap-2 ">
-              <button class="custom-btn fa-solid fa-minus text-base"
+            <div class="flex justify-content-between align-items-center gap-2">
+              <button
+                class="custom-btn fa-solid fa-minus text-base"
                 (click)="user.cantidad_tickets = user.cantidad_tickets - 1"
-                [disabled]="user.cantidad_tickets <= paymentMethod.min_tickets"></button>
-              <input type="number" (blur)="validateMinTike($event)" class="custom-input  w-full" [min]="1" max="100"
-                step="1" [(ngModel)]="user.cantidad_tickets">
-              <button class="custom-btn fa-solid fa-plus " [disabled]="user.cantidad_tickets >= 200"
-                (click)="user.cantidad_tickets = user.cantidad_tickets + 1">
-              </button>
-
+                [disabled]="user.cantidad_tickets <= paymentMethod.min_tickets"
+              ></button>
+              <input
+                type="number"
+                (blur)="validateMinTike($event)"
+                class="custom-input w-full"
+                [min]="1"
+                max="100"
+                step="1"
+                [(ngModel)]="user.cantidad_tickets"
+              />
+              <button
+                class="custom-btn fa-solid fa-plus"
+                [disabled]="user.cantidad_tickets >= 200"
+                (click)="user.cantidad_tickets = user.cantidad_tickets + 1"
+              ></button>
             </div>
           </div>
           <div flex class="flex flex-column gap-2">
             <div class="flex align-items-center gap-2">
               <p class="font-semibold text-sm">Total:</p>
-              <span class="font-bold text-4xl text-gradient-animated">{{user.cantidad_tickets*rifa.precio |
-                number:'1.2-2'}}$</span>
+              <span class="font-bold text-4xl text-gradient-animated"
+                >{{
+                  user.cantidad_tickets * rifa.precio | number : "1.2-2"
+                }}$</span
+              >
             </div>
           </div>
         </div>
       </div>
     </div>
-
   </section>
 
   <!-- FORMULARIO DE PAGO   -->
 
-  <section class="grid  gap-5 md:gap-0">
+  <section class="grid gap-5 md:gap-0">
     <!-- formulario de pago -->
-    <section class="col-12  lg:col-6  md:p-4 ">
-      <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">Formulario de pago</h1>
+    <section class="col-12 lg:col-6 md:p-4">
+      <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">
+        Formulario de pago
+      </h1>
 
-      <div class="formgrid grid ">
+      <div class="formgrid grid">
         <div class="field col-12 md:col-6">
           <label for="firstname1" class="font-semibold text-xs uppercase">
             <i class="fa-regular fa-user text-sm mr-1"></i>
-            Nombre y Apellido</label>
-          <input [(ngModel)]="user.nombre" id="firstname1" type="text" class="custom-input w-full"
-            placeholder="Carolina Hernandez">
+            Nombre y Apellido</label
+          >
+          <input
+            [(ngModel)]="user.nombre"
+            id="firstname1"
+            type="text"
+            class="custom-input w-full"
+            placeholder="Carolina Hernandez"
+          />
         </div>
 
-        <div class="field col-12 md:col-6 flex flex-column ">
+        <div class="field col-12 md:col-6 flex flex-column">
           <label for="phone" class="font-semibold text-xs uppercase">
             <i class="fa-solid fa-mobile-screen-button text-sm mr-1"></i>
-            Teléfono</label>
+            Teléfono</label
+          >
           <div class="flex gap-2">
             <select class="custom-input w-4" [(ngModel)]="user.cod_num">
               @for (num of phoneList; track $index) {
-              <option [value]="num">{{num}}</option>
+              <option [value]="num">{{ num }}</option>
               }
             </select>
-            <input [(ngModel)]="user.telefono" id="phone" type="number" class="custom-input w-full"
-              placeholder="04248576749">
+            <input
+              [(ngModel)]="user.telefono"
+              id="phone"
+              type="number"
+              class="custom-input w-full"
+              placeholder="04248576749"
+            />
           </div>
         </div>
 
-        <div class="field col-12 ">
+        <div class="field col-12">
           <label for="email" class="font-semibold text-xs uppercase">
             <i class="fa-solid fa-mobile-screen-button text-sm mr-1"></i>
-            Confirmar numero</label>
-          <input id="email" (blur)="validePhone()" [(ngModel)]="user.confirm_telefono" type="number"
-            class="custom-input w-full" placeholder="04248576749">
+            Confirmar numero</label
+          >
+          <input
+            id="email"
+            (blur)="validePhone()"
+            [(ngModel)]="user.confirm_telefono"
+            type="number"
+            class="custom-input w-full"
+            placeholder="04248576749"
+          />
         </div>
 
-        <div class="field col-12 ">
+        <div class="field col-12">
           <label for="email" class="font-semibold text-xs uppercase">
             <i class="fa-solid fa-at text-sm mr-1"></i>
-            Correo</label>
-          <input id="email" appNoSpaces [(ngModel)]="user.correo" type="text" class="custom-input w-full"
-            placeholder="carolinahernadez@gmail.com">
+            Correo</label
+          >
+          <input
+            id="email"
+            appNoSpaces
+            [(ngModel)]="user.correo"
+            type="text"
+            class="custom-input w-full"
+            placeholder="carolinahernadez@gmail.com"
+          />
         </div>
 
-        <div class="field col-12 ">
+        <div class="field col-12">
           <label for="email" class="font-semibold text-xs uppercase">
             <i class="fa-solid fa-at text-sm mr-1"></i>
-            Confirmar correo</label>
-          <input (blur)="valideEmail()" appNoSpaces id="email" [(ngModel)]="user.confirm_correo" type="text"
-            class="custom-input w-full" placeholder="carolinahernadez@gmail.com">
+            Confirmar correo</label
+          >
+          <input
+            (blur)="valideEmail()"
+            appNoSpaces
+            id="email"
+            [(ngModel)]="user.confirm_correo"
+            type="text"
+            class="custom-input w-full"
+            placeholder="carolinahernadez@gmail.com"
+          />
         </div>
 
-        <div class="field col-12 ">
+        <div class="field col-12">
           <label for="email" class="font-semibold text-xs uppercase">
             <i class="fa-solid fa-hashtag text-sm mr-1"></i>
-            Referencia</label>
-          <input [(ngModel)]="user.referencia" appNoSpaces type="text" class="custom-input w-full"
-            placeholder="636813584">
+            Referencia</label
+          >
+          <input
+            [(ngModel)]="user.referencia"
+            appNoSpaces
+            type="text"
+            class="custom-input w-full"
+            placeholder="636813584"
+          />
         </div>
 
-        <div class=" col-12 md:col-12 flex flex-column md:flex-row gap-3 justify-content-between">
-          <div class=" flex flex-column align-items-start ">
+        <div
+          class="col-12 md:col-12 flex flex-column md:flex-row gap-3 justify-content-between"
+        >
+          <div class="flex flex-column align-items-start">
             <p class="font-semibold text-sm">Total:</p>
-            <span class="font-bold text-4xl text-gradient-animated">{{user.cantidad_tickets*rifa.precio |
-              number:'1.2-2'}}$</span>
+            <span class="font-bold text-4xl text-gradient-animated"
+              >{{
+                user.cantidad_tickets * rifa.precio | number : "1.2-2"
+              }}$</span
+            >
           </div>
 
-          @if (paymentMethod.tipo == 'transferencia' || paymentMethod.tipo == 'pagomovil') {
-          <div class=" flex flex-column align-items-start ">
+          @if (paymentMethod.tipo == 'transferencia' || paymentMethod.tipo ==
+          'pagomovil') {
+          <div class="flex flex-column align-items-start">
             <p class="font-semibold text-sm">Total (Bs):</p>
-            <span class="font-bold text-4xl text-gradient-animated">{{ returnDollarForBs(user.cantidad_tickets
-              ,rifa.precio ,
-              dollar.price) | number:'1.2-2'}} Bs</span>
+            <span class="font-bold text-4xl text-gradient-animated"
+              >{{
+                returnDollarForBs(
+                  user.cantidad_tickets,
+                  rifa.precio,
+                  dollar.price
+                ) | number : "1.2-2"
+              }}
+              Bs</span
+            >
           </div>
           }
 
-          <div class=" flex flex-column align-items-start ">
+          <div class="flex flex-column align-items-start">
             <p class="font-semibold text-sm">Tickets:</p>
-            <span class="font-bold text-4xl text-gradient-animated">{{user.cantidad_tickets}}</span>
+            <span class="font-bold text-4xl text-gradient-animated">{{
+              user.cantidad_tickets
+            }}</span>
           </div>
         </div>
       </div>
     </section>
 
     <!-- METODOS DE PAGO -->
-    <section class="col-12 lg:col-6  md:p-4 ">
-      <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">Métodos de pago</h1>
+    <section class="col-12 lg:col-6 md:p-4">
+      <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">
+        Métodos de pago
+      </h1>
 
       <div class="flex flex-wrap md:flex-nowrap justify-content-between gap-2">
         @for ( method of paymentMethods; track $index) {
-        <div [ngClass]="method.active ? 'card-payment-active':'' " (click)="changeMethodPay(method)"
-          class="card-payment w-full md:w-4 shadow-6 p-3 flex flex-column align-items-center justify-content-center gap-2">
-          <img [src]="host+method.url_img" class="img-payment" [alt]="host+method.url_img">
-          <p class="font-semibold text-sm md:text-lg">{{method.nombre}}</p>
+        <div
+          [ngClass]="method.active ? 'card-payment-active' : ''"
+          (click)="changeMethodPay(method)"
+          class="card-payment w-full md:w-4 shadow-6 p-3 flex flex-column align-items-center justify-content-center gap-2"
+        >
+          <img
+            [src]="host + method.url_img"
+            class="img-payment"
+            [alt]="host + method.url_img"
+          />
+          <p class="font-semibold text-sm md:text-lg">{{ method.nombre }}</p>
         </div>
         }
       </div>
@@ -394,117 +593,145 @@
       @if (paymentMethod) {
 
       <div class="flex flex-column gap-4 mt-5 h-20rem">
-
         <div class="flex align-items-center justify-content-start gap-3">
-          <img [src]="host+paymentMethod.url_img" width="60px" alt="">
-          <p class="text-xl md:text-2xl font-semibold text-gradient-animated">{{paymentMethod.nombre}}</p>
+          <img [src]="host + paymentMethod.url_img" width="60px" alt="" />
+          <p class="text-xl md:text-2xl font-semibold text-gradient-animated">
+            {{ paymentMethod.nombre }}
+          </p>
         </div>
 
-        <div class="flex flex-column gap-2 ">
-
+        <div class="flex flex-column gap-2">
           @for ( pay_datos of paymentMethod.datos | keyvalue; track $index) {
 
           <div class="flex justify-content-between">
             <p class="font-bold text-gradient">
               <i class="fa-solid fa-hand-point-right"></i>
-              {{parseKeyPayMethods(pay_datos.key)}}
+              {{ parseKeyPayMethods(pay_datos.key) }}
             </p>
-            <p class="font-semibold">{{pay_datos.value}}</p>
+            <p class="font-semibold">{{ pay_datos.value }}</p>
           </div>
-          }
-
-          @if (paymentMethod.tipo == 'transferencia' || paymentMethod.tipo == 'pagomovil' ) {
+          } @if (paymentMethod.tipo == 'transferencia' || paymentMethod.tipo ==
+          'pagomovil' ) {
           <div class="flex justify-content-between">
             <p class="font-bold text-gradient">
               <i class="fa-solid fa-hand-point-right"></i>
               Tasa del dia
             </p>
             <div class="flex align-items-center gap-2">
-              <p class="font-semibold">{{dollar.price}} Bs</p>
-              <img class="w-2rem" [src]="dollar.img_url 
-                ||'https://www.bcv.org.ve/sites/default/files/dollar-04_2.png'" [alt]="dollar.img_url">
+              <p class="font-semibold">{{ dollar.price }} Bs</p>
+              <img
+                class="w-2rem"
+                [src]="
+                  dollar.img_url ||
+                  'https://www.bcv.org.ve/sites/default/files/dollar-04_2.png'
+                "
+                [alt]="dollar.img_url"
+              />
             </div>
           </div>
-          }
-
-          @if (paymentMethod.tipo == 'billeteradigital' ) {
+          } @if (paymentMethod.tipo == 'billeteradigital' ) {
           <div class="flex justify-content-between">
             <p class="font-bold text-gradient">
               <i class="fa-solid fa-hand-point-right"></i>
               Titular
             </p>
             <div class="flex align-items-center gap-2">
-              <p class="font-semibold">{{paymentMethod.titular}}</p>
+              <p class="font-semibold">{{ paymentMethod.titular }}</p>
             </div>
           </div>
 
-          <p class="mt-3" style=" color: rgb(237, 85, 85);">Importante: Al realizar la transferencia, asegúrate de
-            colocar en los comentarios el nombre
-            del titular de
-            la cuenta desde la cual estás transfiriendo.
-            Por favor, no incluyas conceptos relacionados con rifas, sorteos o ventas en el comentario de la
-            transacción.</p>
+          <p class="mt-3" style="color: rgb(237, 85, 85)">
+            Importante: Al realizar la transferencia, asegúrate de colocar en
+            los comentarios el nombre del titular de la cuenta desde la cual
+            estás transfiriendo. Por favor, no incluyas conceptos relacionados
+            con rifas, sorteos o ventas en el comentario de la transacción.
+          </p>
           }
         </div>
-
       </div>
       }
 
       <!-- subir archivo -->
-      <label class="col-12 field file-upload  ">
+      <label class="col-12 field file-upload">
         <i class="fas fa-upload text-white"></i> Captura de pago
-        <input type="file" #fileInput (input)="onFileSelected($event)" (change)="onFileSelected($event)">
+        <input
+          type="file"
+          #fileInput
+          (input)="onFileSelected($event)"
+          (change)="onFileSelected($event)"
+        />
         <div *ngIf="selectedFileName" class="text-white text-xs font-semibold">
           Archivo seleccionado: {{ selectedFileName }}
         </div>
       </label>
 
-
       <!-- VALIDAR 9999  tickets -->
       <!-- COMPRAR TIKE config.estadisticas.tikes_vendidos -->
-      <button (click)="saleTicket()"
-        class="mt-3 w-full custom-btn gradient-border flex align-items-center justify-content-center gap-2  "
-        style="border: none;">
+      <button
+        (click)="saleTicket()"
+        class="mt-3 w-full custom-btn gradient-border flex align-items-center justify-content-center gap-2"
+        style="border: none"
+      >
         <span class="text-gradient-animated">Comprar ticket</span>
-        <i class="text-gradient-animated text-white fa-regular fa-credit-card"></i>
+        <i
+          class="text-gradient-animated text-white fa-regular fa-credit-card"
+        ></i>
       </button>
 
-      @if (config.estadisticas.tikes_vendidos >= 9999)
-      {
-      <div class="col-12 flex align-items-center gap-2 mt-4"
-        style="background-color:#b1d3ff; border-radius: 5px; padding: 10px 20px; box-sizing: border-box;">
-        <i class="text-xl fa-solid fa-circle-info" style="color: #0084ff;"></i>
-        <p style="color: #0084ff;">
-          No hay tickets disponibles
-        </p>
+      @if (config.estadisticas.tikes_vendidos >= 9999) {
+      <div
+        class="col-12 flex align-items-center gap-2 mt-4"
+        style="
+          background-color: #b1d3ff;
+          border-radius: 5px;
+          padding: 10px 20px;
+          box-sizing: border-box;
+        "
+      >
+        <i class="text-xl fa-solid fa-circle-info" style="color: #0084ff"></i>
+        <p style="color: #0084ff">No hay tickets disponibles</p>
       </div>
       }
 
-      <div class="col-12 flex align-items-center gap-2 mt-4"
-        style="background-color:#ffb1b1; border-radius: 5px; padding: 10px 20px;box-sizing: border-box;">
-        <i class="text-xl fa-solid fa-circle-info" style="color: #ff0000;"></i>
-        <p style="color: #ff0000;">
-          No nos hacemos responsables por errores, inexactitudes o datos incorrectos proporcionados por el usuario.
+      <div
+        class="col-12 flex align-items-center gap-2 mt-4"
+        style="
+          background-color: #ffb1b1;
+          border-radius: 5px;
+          padding: 10px 20px;
+          box-sizing: border-box;
+        "
+      >
+        <i class="text-xl fa-solid fa-circle-info" style="color: #ff0000"></i>
+        <p style="color: #ff0000">
+          No nos hacemos responsables por errores, inexactitudes o datos
+          incorrectos proporcionados por el usuario.
         </p>
       </div>
     </section>
-
   </section>
-
+  } @if ( rifa.id != 0 && paymentMethod.id != 0) {
   <!-- Validar tikets -->
   <section class="my-5" #ticket>
-    <app-validate-ticket (touchSearch)="searchTikeByEmail()" [(search)]="emailSearch"
-      class="w-full"></app-validate-ticket>
+    <app-validate-ticket
+      (touchSearch)="searchTikeByEmail()"
+      [(search)]="emailSearch"
+      class="w-full"
+    ></app-validate-ticket>
+   
   </section>
   <!-- listado de tikects -->
-  <section class="flex flex-wrap justify-content-center md:justify-content-between lg:justify-content-evenly
-   gap-1" [ngClass]="tickets.length > 0 ? 'h-30rem overflow-y-auto' : ''">
+  <section
+    class="flex flex-wrap justify-content-center md:justify-content-between lg:justify-content-evenly gap-1"
+    [ngClass]="tickets.length > 0 ? 'h-30rem overflow-y-auto' : ''"
+  >
     @for (tiket of tickets; track $index) {
+
     <app-ticket [ticket]="tiket"></app-ticket>
-    }
-    @if (tickets.length == 0 && searchTike ) {
-    <p class="font-semibold text-xl" style="color: rgb(238, 82, 82);">El usuario {{emailSearch}} aun no tiene tickets
-      comprados </p>
+    } @if (tickets.length == 0 && searchTike ) {
+    <p class="font-semibold text-xl" style="color: rgb(238, 82, 82)">
+      El usuario {{ emailSearch }} aun no tiene tickets comprados
+    </p>
     }
   </section>
   }
@@ -512,78 +739,104 @@
   <!--//* PREMIOS GANADOS -->
   @if ( premios_entregados.length != 0 ) {
   <section #premiosEntregados class="my-5">
-    <h1 class="text-2xl md:text-5xl text-gradient-animated">Premios entregados</h1>
-    <p class="font-semibold">Conoce a nuestros afortunados ganadores
-      y los increíbles premios que se han llevado</p>
+    <h1 class="text-2xl md:text-5xl text-gradient-animated">
+      Premios entregados
+    </h1>
+    <p class="font-semibold">
+      Conoce a nuestros afortunados ganadores y los increíbles premios que se
+      han llevado
+    </p>
 
     <div class="mt-4">
-      <p-carousel [responsiveOptions]="responsiveOptions" [value]="premios_entregados" showIndicators="false"
-        [numVisible]="3" [numScroll]="3" [circular]="true" autoplayInterval="3000">
+      <p-carousel
+        [responsiveOptions]="responsiveOptions"
+        [value]="premios_entregados"
+        showIndicators="false"
+        [numVisible]="3"
+        [numScroll]="3"
+        [circular]="true"
+        autoplayInterval="3000"
+      >
         <ng-template let-premio pTemplate="item">
-
           <div class="px-1 md:px-2 h-full">
             <app-card-award [award]="premio"></app-card-award>
           </div>
-
         </ng-template>
       </p-carousel>
-
     </div>
   </section>
+  } @if ( winUser.id != 0 ) {
+  <app-user-win
+    [win]="winUser"
+    [telefono]="config.config.telefono"
+  ></app-user-win>
   }
-
-  @if ( winUser.id != 0 ) {
-  <app-user-win [win]="winUser" [telefono]="config.config.telefono"></app-user-win>
-  }
-
 </aside>
 
-
-
-<footer class="p-4 bg-secondary  shadow-2 mt-5" #ticket>
-  <div class="flex flex-column md:flex-row justify-content-between align-items-center gap-4 text-white">
-
+<footer class="p-4 bg-secondary shadow-2 mt-5" #ticket>
+  <div
+    class="flex flex-column md:flex-row justify-content-between align-items-center gap-4 text-white"
+  >
     <!-- Logo -->
     <div class="flex align-items-center gap-2">
-      <div class="w-15rem h-4rem surface-300 border-round flex justify-content-center align-items-center">
+      <div
+        class="w-15rem h-4rem surface-300 border-round flex justify-content-center align-items-center"
+      >
         <!-- Aquí irá el logo -->
-        <img src="assets/img/logo-negativo.png" class="w-full" alt="">
+        <img src="assets/img/logo-negativo.png" class="w-full" alt="" />
       </div>
     </div>
 
     <!-- Información de contacto -->
-    <div class="flex flex-column text-center md:text-left ">
+    <div class="flex flex-column text-center md:text-left">
       <div class="text-sm text-white">
-        <i class="pi pi-phone mr-2 "></i> Soporte: +58 {{config.config.telefono}}
+        <i class="pi pi-phone mr-2"></i> Soporte: +58
+        {{ config.config.telefono }}
       </div>
       <div class="text-sm mt-1 text-white">
-        <i class="pi pi-envelope mr-2 "></i> {{config.config.correo}}
+        <i class="pi pi-envelope mr-2"></i> {{ config.config.correo }}
       </div>
       <div class="text-sm mt-1 text-white">
-        <i class="pi pi-map-marker mr-2 "></i> Andrés Belandria, La Guaira, Catia La Mar
+        <i class="pi pi-map-marker mr-2"></i> Andrés Belandria, La Guaira, Catia
+        La Mar
       </div>
     </div>
 
     <!-- Lema -->
-    <div class="text-center md:text-right text-primary font-semibold text-white">
+    <div
+      class="text-center md:text-right text-primary font-semibold text-white"
+    >
       Bendecidos Para Bendecir
     </div>
-
   </div>
 
   <!-- Copirray y Diseñado por -->
-  <div class="text-center  mt-4" #contacto>
+  <div class="text-center mt-4" #contacto>
     <p class="text-sm text-white">
-      {{ '@Copyright ' + (today | date:'yyyy') + ' Todos los derechos reservados | Desarrollado por ' }}<a
-        target="_blank" href="https://www.instagram.com/coffeecode.ve/" style="color: #0077ff;">Coffee Code</a>
+      {{
+        "@Copyright " +
+          (today | date : "yyyy") +
+          " Todos los derechos reservados | Desarrollado por "
+      }}<a
+        target="_blank"
+        href="https://www.instagram.com/coffeecode.ve/"
+        style="color: #0077ff"
+        >Coffee Code</a
+      >
     </p>
   </div>
-
 </footer>
 
 <!-- Botones flotantes -->
-<div style="position: fixed; bottom: 20px; right: 20px; z-index: 1000;" class="flex flex-column  text-center gap-2 ">
-  <a [href]="'https://wa.me/58'+config.config.telefono" target="_blank" class="support-btn">
+<div
+  style="position: fixed; bottom: 20px; right: 20px; z-index: 1000"
+  class="flex flex-column text-center gap-2"
+>
+  <a
+    [href]="'https://wa.me/58' + config.config.telefono"
+    target="_blank"
+    class="support-btn"
+  >
     <i class="fa-brands fa-whatsapp text-5xl px-2 py-3"></i>
   </a>
   <p class="font-semibold text-support">Soporte</p>
