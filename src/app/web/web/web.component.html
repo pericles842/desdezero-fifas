@@ -67,19 +67,19 @@
 
   <!-- IMAGEN -->
   @if (!esCelular) {
-  @if (rifa.id != 0) {
+  @if (rifa.id != 0 && config.estadisticas.tikes_vendidos < 9999) {
   <img [src]="host+rifa.url_img" class="w-full mt-4 md:mt-0 md:w-6 border-round-xl rotate-right"
     style="max-width: 400px;" [alt]="rifa.url_img">
   }
   }
 
-  @if (rifa.id == 0) {
+  @if (rifa.id == 0 || config.estadisticas.tikes_vendidos >= 9999) {
   <img src="assets/img/desdezero-isotipo2.jpg" class="w-full mt-4 md:mt-0 md:w-6 border-round-xl rotate-right"
     style="max-width: 500px;" alt="">
   }
 
 </section>
-@if (rifa.id == 0) {
+@if (rifa.id == 0 || config.estadisticas.tikes_vendidos >= 9999) {
 <p class="text-center text-sm md:text-xl bg-secondary text-white px-2 pb-3">
   <i class="fa-brands fa-instagram mr-2 text-white"></i>
   Plataforma cerrada, síguenos en instagram para estar al tanto de las rifas y sorteos.
@@ -196,7 +196,7 @@
   </section>
 
   <!-- Rifas -->
-  @if (rifa.id != 0 && paymentMethod.id != 0 ) {
+  @if (rifa.id != 0 && paymentMethod.id != 0 && config.estadisticas.tikes_vendidos < 9999 ) {
   <section #rifas id="rifas" class="grid my-5  ">
 
     <div class="col-12 lg:col-6 ">
