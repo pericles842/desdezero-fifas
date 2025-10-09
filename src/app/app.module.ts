@@ -17,6 +17,8 @@ import { UserWinComponent } from "./standalone/user-win/user-win.component";
 import { CardAwardComponent } from "./standalone/card-award/card-award.component";
 import { CarouselModule } from 'primeng/carousel';
 import { NoSpacesDirective } from './directive/no-spaces.directive';
+import { StepsLineComponent } from "src/app/admin/components/steps-line/steps-line.component";
+import { TotalAmountComponent } from "src/app/admin/components/total-amount/total-amount.component";
 
 
 
@@ -39,8 +41,10 @@ import { NoSpacesDirective } from './directive/no-spaces.directive';
     LoadingComponent,
     UserWinComponent,
     CarouselModule,
-    CardAwardComponent
-  ],
+    CardAwardComponent,
+    StepsLineComponent,
+    TotalAmountComponent
+],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
     { provide: JWT_OPTIONS, useValue: JWT_OPTIONS },

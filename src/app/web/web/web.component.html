@@ -116,14 +116,15 @@
 
   <!-- IMAGEN -->
   @if (!esCelular) { @if (rifa.id != 0 && config.estadisticas.tikes_vendidos <
-  9999) {
+  rifa.objetivo_ventas ) {
   <img
     [src]="host + rifa.url_img"
     class="w-full mt-4 md:mt-0 md:w-6 border-round-xl rotate-right"
     style="max-width: 400px"
     [alt]="rifa.url_img"
   />
-  } } @if (rifa.id == 0 || config.estadisticas.tikes_vendidos >= 9999) {
+  } } @if (rifa.id == 0 || config.estadisticas.tikes_vendidos >=
+  rifa.objetivo_ventas ) {
   <img
     src="assets/img/desdezero-isotipo2.jpg"
     class="w-full mt-4 md:mt-0 md:w-6 border-round-xl rotate-right"
@@ -132,7 +133,8 @@
   />
   }
 </section>
-@if (rifa.id == 0 || config.estadisticas.tikes_vendidos >= 9999) {
+@if (rifa.id == 0 || config.estadisticas.tikes_vendidos >= rifa.objetivo_ventas
+) {
 <p class="text-center text-sm md:text-xl bg-secondary text-white px-2 pb-3">
   <i class="fa-brands fa-instagram mr-2 text-white"></i>
   Plataforma cerrada, síguenos en instagram para estar al tanto de las rifas y
@@ -251,21 +253,21 @@
 
       <div class="col-12 md:col-6 lg:col flex flex-column gap-2">
         <p class="font-bold text-xl md:text-2xl">
-          <span class="num-list">2</span> Completa tus datos
+          <span class="num-list">2</span>Realiza el pago
         </p>
         <p>
-          Ingresa tu información personal para poder comprar tus tickets y
-          validar tu identidad.
+          Utiliza cualquiera de nuestros métodos de pago disponibles y sube tu
+          comprobante.
         </p>
       </div>
 
       <div class="col-12 md:col-6 lg:col flex flex-column gap-2">
         <p class="font-bold text-xl md:text-2xl">
-          <span class="num-list">3</span>Realiza el pago
+          <span class="num-list">3</span> Completa tus datos
         </p>
         <p>
-          Utiliza cualquiera de nuestros métodos de pago disponibles y sube tu
-          comprobante.
+          Ingresa tu información personal para poder comprar tus tickets y
+          validar tu identidad.
         </p>
       </div>
 
@@ -297,7 +299,14 @@
 
   <!-- Rifas -->
   @if (rifa.id != 0 && paymentMethod.id != 0 &&
-  config.estadisticas.tikes_vendidos < 9999 ) {
+  config.estadisticas.tikes_vendidos < rifa.objetivo_ventas ) { @if (esCelular)
+  {
+  <app-steps-line
+    [step]="1"
+    [title]="'Selecciona tus tickets'"
+  ></app-steps-line>
+  }
+
   <section #rifas id="rifas" class="grid my-5">
     <div class="col-12 lg:col-6">
       <!-- !para una tamño de imagne quemado  h64  arreglar foto-->
@@ -382,10 +391,9 @@
         >
           <div class="flex flex-column gap-2">
             <p class="font-semibold text-sm">
-              Tickets: {{ this.paymentMethod.min_tickets }}
+              Tickets: {{ paymentMethod.min_tickets }}
             </p>
 
-            <!-- !RECUERDA VALIDAR NO COMPRAR DEMAS DE LA CANTIDAD DE TIKETS DISPONIBLES -->
             <div class="flex justify-content-between align-items-center gap-2">
               <button
                 class="custom-btn fa-solid fa-minus text-base"
@@ -408,17 +416,14 @@
               ></button>
             </div>
           </div>
-          <div flex class="flex flex-column gap-2">
-            <div class="flex align-items-center gap-2">
-              <p class="font-semibold text-sm">Total:</p>
-              <span class="font-bold text-4xl text-gradient-animated"
-                >{{
-                  user.cantidad_tickets * rifa.precio | number : "1.2-2"
-                }}$</span
-              >
-            </div>
-          </div>
         </div>
+        <!-- //*subtotal componente -->
+        <app-total-amount
+          [user]="user"
+          [rifa]="rifa"
+          [paymentMethod]="paymentMethod"
+          [dollar]="dollar"
+        ></app-total-amount>
       </div>
     </div>
   </section>
@@ -426,11 +431,115 @@
   <!-- FORMULARIO DE PAGO   -->
 
   <section class="grid gap-5 md:gap-0">
+    <!-- METODOS DE PAGO -->
+    <section class="col-12 lg:col-6 md:p-4">
+      @if (esCelular) {
+      <app-steps-line [step]="2" title="Métodos de pago"></app-steps-line>
+      }@else {
+      <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">
+        Métodos de pago
+      </h1>
+      }
+
+      <div class="flex flex-wrap md:flex-nowrap justify-content-evenly gap-1">
+        @for ( method of paymentMethods; track $index) {
+        <div
+          [ngClass]="method.active ? 'card-payment-active' : ''"
+          (click)="changeMethodPay(method)"
+          class="card-payment w-7rem h-7rem md:w-4 md:h-4 shadow-6 p-3 flex flex-column align-items-center justify-content-center"
+        >
+          <img
+            [src]="host + method.url_img"
+            class="img-payment"
+            [alt]="host + method.url_img"
+          />
+          <p class="font-semibold text-sm md:text-lg mt-2">
+            {{ method.nombre }}
+          </p>
+        </div>
+
+        }
+      </div>
+
+      @if (paymentMethod) {
+
+      <div class="flex flex-column gap-4 mt-5 h-20rem">
+        <div class="flex align-items-center justify-content-start gap-3">
+          <img [src]="host + paymentMethod.url_img" width="60px" alt="" />
+          <p class="text-xl md:text-2xl font-semibold text-gradient-animated">
+            {{ paymentMethod.nombre }}
+          </p>
+        </div>
+
+        <div class="flex flex-column gap-2">
+          @for ( pay_datos of paymentMethod.datos | keyvalue; track $index) {
+
+          <div class="flex justify-content-between">
+            <p class="font-bold text-gradient">
+              <i class="fa-solid fa-hand-point-right"></i>
+              {{ parseKeyPayMethods(pay_datos.key) }}
+            </p>
+            <p class="font-semibold">{{ pay_datos.value }}</p>
+          </div>
+          }
+          <!-- @if (paymentMethod.tipo == 'transferencia' || paymentMethod.tipo ==
+          'pagomovil' ) {
+           
+          } -->
+          @if (paymentMethod.tipo == 'billeteradigital' ) {
+          <div class="flex justify-content-between">
+            <p class="font-bold text-gradient">
+              <i class="fa-solid fa-hand-point-right"></i>
+              Titular
+            </p>
+            <div class="flex align-items-center gap-2">
+              <p class="font-semibold">{{ paymentMethod.titular }}</p>
+            </div>
+          </div>
+
+          <p class="mt-3" style="color: rgb(237, 85, 85)">
+            Importante: Al realizar la transferencia, asegúrate de colocar en
+            los comentarios el nombre del titular de la cuenta desde la cual
+            estás transfiriendo. Por favor, no incluyas conceptos relacionados
+            con rifas, sorteos o ventas en el comentario de la transacción.
+          </p>
+          }
+        </div>
+      </div>
+      }
+
+      <!-- subir archivo -->
+      <label class="col-12 field file-upload">
+        <i class="fas fa-upload text-white"></i> Captura de pago
+        <input
+          type="file"
+          #fileInput
+          (input)="onFileSelected($event)"
+          (change)="onFileSelected($event)"
+        />
+        <div *ngIf="selectedFileName" class="text-white text-xs font-semibold">
+          Archivo seleccionado: {{ selectedFileName }}
+        </div>
+      </label>
+
+      <!-- //*subtotal componente -->
+      <app-total-amount
+        [user]="user"
+        [rifa]="rifa"
+        [paymentMethod]="paymentMethod"
+        [dollar]="dollar"
+      ></app-total-amount>
+    </section>
+
     <!-- formulario de pago -->
     <section class="col-12 lg:col-6 md:p-4">
+      @if (esCelular) {
+      <app-steps-line [step]="3" title="Formulario de pago"></app-steps-line>
+      }@else {
       <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">
         Formulario de pago
       </h1>
+      }
 
       <div class="formgrid grid">
         <div class="field col-12 md:col-6">
@@ -528,185 +637,59 @@
           />
         </div>
 
-        <div
-          class="col-12 md:col-12 flex flex-column md:flex-row gap-3 justify-content-between"
+        @if (esCelular) {
+        <!-- //*subtotal componente -->
+        <app-total-amount
+          [user]="user"
+          [rifa]="rifa"
+          [paymentMethod]="paymentMethod"
+          [dollar]="dollar"
+          class="field col-12"
+        ></app-total-amount
+        >}
+        <!-- VALIDAR rifa.objetivo_ventas   tickets -->
+        <!-- COMPRAR TIKE config.estadisticas.tikes_vendidos -->
+        <button
+          (click)="saleTicket()"
+          class="mt-4 w-full custom-btn gradient-border flex align-items-center justify-content-center gap-2"
+          style="border: none"
         >
-          <div class="flex flex-column align-items-start">
-            <p class="font-semibold text-sm">Total:</p>
-            <span class="font-bold text-4xl text-gradient-animated"
-              >{{
-                user.cantidad_tickets * rifa.precio | number : "1.2-2"
-              }}$</span
-            >
-          </div>
+          <span class="text-gradient-animated">Comprar ticket</span>
+          <i
+            class="text-gradient-animated text-white fa-regular fa-credit-card"
+          ></i>
+        </button>
 
-          @if (paymentMethod.tipo == 'transferencia' || paymentMethod.tipo ==
-          'pagomovil') {
-          <div class="flex flex-column align-items-start">
-            <p class="font-semibold text-sm">Total (Bs):</p>
-            <span class="font-bold text-4xl text-gradient-animated"
-              >{{
-                returnDollarForBs(
-                  user.cantidad_tickets,
-                  rifa.precio,
-                  dollar.price
-                ) | number : "1.2-2"
-              }}
-              Bs</span
-            >
-          </div>
-          }
-
-          <div class="flex flex-column align-items-start">
-            <p class="font-semibold text-sm">Tickets:</p>
-            <span class="font-bold text-4xl text-gradient-animated">{{
-              user.cantidad_tickets
-            }}</span>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- METODOS DE PAGO -->
-    <section class="col-12 lg:col-6 md:p-4">
-      <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">
-        Métodos de pago
-      </h1>
-
-      <div class="flex flex-wrap md:flex-nowrap justify-content-between gap-2">
-        @for ( method of paymentMethods; track $index) {
+        @if (config.estadisticas.tikes_vendidos >= rifa.objetivo_ventas ) {
         <div
-          [ngClass]="method.active ? 'card-payment-active' : ''"
-          (click)="changeMethodPay(method)"
-          class="card-payment w-full md:w-4 shadow-6 p-3 flex flex-column align-items-center justify-content-center gap-2"
+          class="col-12 flex align-items-center gap-2 mt-4"
+          style="
+            background-color: #b1d3ff;
+            border-radius: 5px;
+            padding: 10px 20px;
+            box-sizing: border-box;
+          "
         >
-          <img
-            [src]="host + method.url_img"
-            class="img-payment"
-            [alt]="host + method.url_img"
-          />
-          <p class="font-semibold text-sm md:text-lg">{{ method.nombre }}</p>
+          <i class="text-xl fa-solid fa-circle-info" style="color: #0084ff"></i>
+          <p style="color: #0084ff">No hay tickets disponibles</p>
         </div>
         }
-      </div>
 
-      @if (paymentMethod) {
-
-      <div class="flex flex-column gap-4 mt-5 h-20rem">
-        <div class="flex align-items-center justify-content-start gap-3">
-          <img [src]="host + paymentMethod.url_img" width="60px" alt="" />
-          <p class="text-xl md:text-2xl font-semibold text-gradient-animated">
-            {{ paymentMethod.nombre }}
+        <div
+          class="col-12 flex align-items-center gap-2 mt-4"
+          style="
+            background-color: #ffb1b1;
+            border-radius: 5px;
+            padding: 10px 20px;
+            box-sizing: border-box;
+          "
+        >
+          <i class="text-xl fa-solid fa-circle-info" style="color: #ff0000"></i>
+          <p style="color: #ff0000">
+            No nos hacemos responsables por errores, inexactitudes o datos
+            incorrectos proporcionados por el usuario.
           </p>
         </div>
-
-        <div class="flex flex-column gap-2">
-          @for ( pay_datos of paymentMethod.datos | keyvalue; track $index) {
-
-          <div class="flex justify-content-between">
-            <p class="font-bold text-gradient">
-              <i class="fa-solid fa-hand-point-right"></i>
-              {{ parseKeyPayMethods(pay_datos.key) }}
-            </p>
-            <p class="font-semibold">{{ pay_datos.value }}</p>
-          </div>
-          } @if (paymentMethod.tipo == 'transferencia' || paymentMethod.tipo ==
-          'pagomovil' ) {
-          <div class="flex justify-content-between">
-            <p class="font-bold text-gradient">
-              <i class="fa-solid fa-hand-point-right"></i>
-              Tasa del dia
-            </p>
-            <div class="flex align-items-center gap-2">
-              <p class="font-semibold">{{ dollar.price }} Bs</p>
-              <img
-                class="w-2rem"
-                [src]="
-                  dollar.img_url ||
-                  'https://www.bcv.org.ve/sites/default/files/dollar-04_2.png'
-                "
-                [alt]="dollar.img_url"
-              />
-            </div>
-          </div>
-          } @if (paymentMethod.tipo == 'billeteradigital' ) {
-          <div class="flex justify-content-between">
-            <p class="font-bold text-gradient">
-              <i class="fa-solid fa-hand-point-right"></i>
-              Titular
-            </p>
-            <div class="flex align-items-center gap-2">
-              <p class="font-semibold">{{ paymentMethod.titular }}</p>
-            </div>
-          </div>
-
-          <p class="mt-3" style="color: rgb(237, 85, 85)">
-            Importante: Al realizar la transferencia, asegúrate de colocar en
-            los comentarios el nombre del titular de la cuenta desde la cual
-            estás transfiriendo. Por favor, no incluyas conceptos relacionados
-            con rifas, sorteos o ventas en el comentario de la transacción.
-          </p>
-          }
-        </div>
-      </div>
-      }
-
-      <!-- subir archivo -->
-      <label class="col-12 field file-upload">
-        <i class="fas fa-upload text-white"></i> Captura de pago
-        <input
-          type="file"
-          #fileInput
-          (input)="onFileSelected($event)"
-          (change)="onFileSelected($event)"
-        />
-        <div *ngIf="selectedFileName" class="text-white text-xs font-semibold">
-          Archivo seleccionado: {{ selectedFileName }}
-        </div>
-      </label>
-
-      <!-- VALIDAR 9999  tickets -->
-      <!-- COMPRAR TIKE config.estadisticas.tikes_vendidos -->
-      <button
-        (click)="saleTicket()"
-        class="mt-3 w-full custom-btn gradient-border flex align-items-center justify-content-center gap-2"
-        style="border: none"
-      >
-        <span class="text-gradient-animated">Comprar ticket</span>
-        <i
-          class="text-gradient-animated text-white fa-regular fa-credit-card"
-        ></i>
-      </button>
-
-      @if (config.estadisticas.tikes_vendidos >= 9999) {
-      <div
-        class="col-12 flex align-items-center gap-2 mt-4"
-        style="
-          background-color: #b1d3ff;
-          border-radius: 5px;
-          padding: 10px 20px;
-          box-sizing: border-box;
-        "
-      >
-        <i class="text-xl fa-solid fa-circle-info" style="color: #0084ff"></i>
-        <p style="color: #0084ff">No hay tickets disponibles</p>
-      </div>
-      }
-
-      <div
-        class="col-12 flex align-items-center gap-2 mt-4"
-        style="
-          background-color: #ffb1b1;
-          border-radius: 5px;
-          padding: 10px 20px;
-          box-sizing: border-box;
-        "
-      >
-        <i class="text-xl fa-solid fa-circle-info" style="color: #ff0000"></i>
-        <p style="color: #ff0000">
-          No nos hacemos responsables por errores, inexactitudes o datos
-          incorrectos proporcionados por el usuario.
-        </p>
       </div>
     </section>
   </section>
@@ -718,7 +701,6 @@
       [(search)]="emailSearch"
       class="w-full"
     ></app-validate-ticket>
-   
   </section>
   <!-- listado de tikects -->
   <section

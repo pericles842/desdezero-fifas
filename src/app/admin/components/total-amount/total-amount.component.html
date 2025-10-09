@@ -1,0 +1,38 @@
+<div class="flex  gap-3 justify-content-between col-12">
+  <div class="flex flex-column align-items-start">
+    <p class="font-semibold text-sm">Total:</p>
+    <span class="font-bold text-3xl text-gradient-animated"
+      >{{ user.cantidad_tickets * rifa.precio | number : "1.2-2" }}$</span
+    >
+  </div>
+
+  <div class="flex flex-column align-items-start">
+    <p class="font-semibold text-sm">Tickets:</p>
+    <span class="font-bold text-3xl text-gradient-animated">{{
+      user.cantidad_tickets
+    }}</span>
+  </div>
+</div>
+
+<div class="flex  gap-3 justify-content-between col-12">
+  @if (paymentMethod.tipo == 'transferencia' || paymentMethod.tipo ==
+  'pagomovil') {
+  <div class="flex flex-column align-items-start">
+    <p class="font-semibold text-sm">Total (Bs):</p>
+    <span class="font-bold text-3xl text-gradient-animated"
+      >{{
+        returnDollarForBs(user.cantidad_tickets, rifa.precio, dollar.price)
+          | number : "1.2-2"
+      }}
+      Bs</span
+    >
+  </div>
+  }
+
+  <div class="flex flex-column align-items-start">
+    <p class="font-semibold text-sm">Tasa del dia:</p>
+    <span class="font-bold text-3xl text-gradient-animated">{{
+        dollar.price | number : "1.2-2"
+    }}</span>
+  </div>
+</div>

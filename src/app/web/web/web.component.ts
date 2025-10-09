@@ -16,6 +16,7 @@ import { User } from 'src/app/models/user.model';
 import { SweetAlertResult } from 'sweetalert2';
 import { contract, PREMIOS_ENTREGADOS, REPONSIVE_OPTIONS } from './terminos';
 import { TasasDesdezero } from 'src/app/interfaces/RatesDesdezero';
+import { returnDollarForBs } from 'src/app/utils/calculatePriceDollar';
 
 @Component({
   selector: 'app-web',
@@ -288,12 +289,6 @@ export class WebComponent {
     return titles[pay];
   }
 
-  returnDollarForBs(tikes: number, monto: number, precio_dolar: number) {
-    // const tasa = parseFloat(precio_dolar.replace(',', '.'));
-    if (!tikes || !monto || isNaN(precio_dolar) || precio_dolar <= 0) return 0;
-    return tikes * monto * precio_dolar;
-  }
-
   validateMinTike(tike: any): void {
     const min = this.paymentMethod.min_tickets;
 
@@ -331,16 +326,18 @@ export class WebComponent {
   saleTicket() {
     if (
       this.config.estadisticas.tikes_vendidos + this.user.cantidad_tickets >=
-      9999
+      this.rifa.objetivo_ventas
     ) {
       this.toastService.warning(
         'Se sobrepaso en la cantidad de tickets',
-        `Tickets disponibles: ${9999 - this.config.estadisticas.tikes_vendidos}`
+        `Tickets disponibles: ${
+          this.rifa.objetivo_ventas - this.config.estadisticas.tikes_vendidos
+        }`
       );
       return;
     }
 
-    if (this.config.estadisticas.tikes_vendidos >= 9999) {
+    if (this.config.estadisticas.tikes_vendidos >= this.rifa.objetivo_ventas) {
       this.toastService.warning(
         ' Gracias por participar',
         'Ya no hay ticket disponibles'
@@ -357,7 +354,7 @@ export class WebComponent {
 
           //extraemos inforamcion de apgos y tasa
           this.user.total = this.user.cantidad_tickets * this.rifa.precio;
-          this.user.total_bs = this.returnDollarForBs(
+          this.user.total_bs = returnDollarForBs(
             this.user.cantidad_tickets,
             this.rifa.precio,
             this.dollar.price
