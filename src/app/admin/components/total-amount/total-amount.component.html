@@ -1,4 +1,4 @@
-<div class="flex  gap-3 justify-content-between col-12">
+<div class="flex gap-3 justify-content-between col-12">
   <div class="flex flex-column align-items-start">
     <p class="font-semibold text-sm">Total:</p>
     <span class="font-bold text-3xl text-gradient-animated"
@@ -14,7 +14,7 @@
   </div>
 </div>
 
-<div class="flex  gap-3 justify-content-between col-12">
+<div class="flex gap-3 justify-content-between col-12">
   @if (paymentMethod.tipo == 'transferencia' || paymentMethod.tipo ==
   'pagomovil') {
   <div class="flex flex-column align-items-start">
@@ -29,10 +29,13 @@
   </div>
   }
 
-  <div class="flex flex-column align-items-start">
-    <p class="font-semibold text-sm">Tasa del dia:</p>
-    <span class="font-bold text-3xl text-gradient-animated">{{
-        dollar.price | number : "1.2-2"
-    }}</span>
+  <div class="flex flex-column align-items-end ">
+    <div class="flex gap-2 justify-content-end align-items-center">
+      <p class="font-semibold text-sm">Tasa</p>
+      <i class="fa-solid fa-dollar-sign font-semibold text-sm"></i>
+    </div>
+    <span class="font-bold text-3xl text-gradient-animated"
+      >{{ dollar.price | number : "1.2-2" }}
+    </span>
   </div>
 </div>

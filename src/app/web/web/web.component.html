@@ -26,11 +26,13 @@
     <a (click)="irASeccion('ticket')" class="font-semibold text-sm md:text-base"
       >Ticket</a
     >
+    @if (!esCelular) {
     <a
       (click)="irASeccion('quienesSomos')"
       class="font-semibold text-sm md:text-base"
       >Quiénes Somos</a
     >
+    }
     <a
       (click)="irASeccion('premiosEntregados')"
       class="font-semibold text-sm md:text-base"
@@ -144,6 +146,7 @@
 }
 
 <aside class="mx-4">
+  @if (!esCelular) {
   <!-- quienes somos -->
   <section class="my-5" #quienesSomos>
     <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">
@@ -168,6 +171,7 @@
       >
     </p>
   </section>
+  }
 
   <!-- EStatistics -->
   @if(config.config.estadisticas){
@@ -236,6 +240,7 @@
 
   <!-- COMO FUNCIONA -->
   <section style="margin: 70px 0" #comoFunciona>
+    @if (!esCelular) {
     <h1 class="text-3xl md:text-5xl mb-4 text-gradient-animated">
       ¿Cómo funciona?
     </h1>
@@ -281,6 +286,7 @@
         </p>
       </div>
     </div>
+    }
 
     <div class="box-info flex align-items-center gap-2 mt-4">
       <i class="text-xl fa-solid fa-circle-info" style="color: #0077ff"></i>
