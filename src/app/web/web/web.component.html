@@ -141,7 +141,7 @@
   <i class="fa-brands fa-instagram mr-2 text-white"></i>
   Plataforma cerrada, síguenos en instagram para estar al tanto de las rifas y
   sorteos.
-  <span class="text-gradient-animated font-semibold">{{ "@" }}desdezerolg</span>
+  <span class="text-gradient-animated font-semibold">{{ "@" }}ajdesdezero</span>
 </p>
 }
 
@@ -449,17 +449,18 @@
 
       <div class="flex flex-wrap md:flex-nowrap justify-content-evenly gap-1">
         @for ( method of paymentMethods; track $index) {
-        <div
+        <div customRipple
           [ngClass]="method.active ? 'card-payment-active' : ''"
           (click)="changeMethodPay(method)"
           class="card-payment w-7rem h-7rem md:w-4 md:h-4 shadow-6 p-3 flex flex-column align-items-center justify-content-center"
         >
+        
           <img
             [src]="host + method.url_img"
-            class="img-payment"
+            class="img-payment no-select-underlined "
             [alt]="host + method.url_img"
           />
-          <p class="font-semibold text-sm md:text-lg mt-2">
+          <p class="font-semibold text-sm md:text-lg mt-2 no-select-underlined ">
             {{ method.nombre }}
           </p>
         </div>

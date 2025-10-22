@@ -19,6 +19,10 @@ import { CarouselModule } from 'primeng/carousel';
 import { NoSpacesDirective } from './directive/no-spaces.directive';
 import { StepsLineComponent } from "src/app/admin/components/steps-line/steps-line.component";
 import { TotalAmountComponent } from "src/app/admin/components/total-amount/total-amount.component";
+import { ButtonDirective } from "primeng/button";
+import { RippleModule } from 'primeng/ripple';
+import { RippleDirective } from './directive/ripple.directive';
+
 
 
 
@@ -29,7 +33,8 @@ import { TotalAmountComponent } from "src/app/admin/components/total-amount/tota
     WebComponent,
     ValidateTicketComponent,
     TicketComponent,
-    NoSpacesDirective
+    NoSpacesDirective,
+    RippleDirective
   ],
   imports: [
     BrowserModule,
@@ -43,7 +48,9 @@ import { TotalAmountComponent } from "src/app/admin/components/total-amount/tota
     CarouselModule,
     CardAwardComponent,
     StepsLineComponent,
-    TotalAmountComponent
+    TotalAmountComponent,
+    ButtonDirective,
+    RippleModule
 ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
