@@ -57,9 +57,15 @@ export class RippleDirective {
     // Forzar el reflow para activar transición
     void ripple.offsetWidth;
 
-    // Iniciar animación
-    this.renderer.setStyle(ripple, 'transform', 'scale(1)');
-    this.renderer.setStyle(ripple, 'opacity', '0');
+    // // Iniciar animación
+    // this.renderer.setStyle(ripple, 'transform', 'scale(1)');
+    // this.renderer.setStyle(ripple, 'opacity', '0');
+
+    //  Hazlo en el siguiente tick del event loop
+    setTimeout(() => {
+      this.renderer.setStyle(ripple, 'transform', 'scale(1)');
+      this.renderer.setStyle(ripple, 'opacity', '0');
+    });
 
     // Remover el ripple al terminar la animación
     setTimeout(() => {
