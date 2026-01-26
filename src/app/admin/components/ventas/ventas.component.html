@@ -1,13 +1,15 @@
 <p-overlayPanel #op>
-  <div class="flex justify-content-center  w-full overflow-y-scroll">
+  <div class="flex justify-content-center w-full overflow-y-scroll">
     @if (sale) {
-    <img [src]="host+sale.comprobante||''" class="w-full border-round-xl">
+      <img
+        [src]="host + sale.comprobante || ''"
+        class="w-full border-round-xl"
+      />
     }
   </div>
 </p-overlayPanel>
 
 <p-toast position="top-right" key="confirm" [baseZIndex]="5000"></p-toast>
-
 
 <!-- <p-overlayPanel #tk>
   <div class="flex justify-content-center  w-full md:w-w-3">
@@ -17,48 +19,75 @@
   </div>
 </p-overlayPanel> -->
 
-<p-dialog [modal]="true" contentStyleClass="p-3 md:p-4" [showHeader]="true" [resizable]="false" [(visible)]="visible"
-  ngClass="w-30rem">
-  <div *ngIf="sale" class="p-2 ">
+<p-dialog
+  [modal]="true"
+  contentStyleClass="p-3 md:p-4"
+  [showHeader]="true"
+  [resizable]="false"
+  [(visible)]="visible"
+  ngClass="w-30rem"
+>
+  <div *ngIf="sale" class="p-2">
     <div class="flex flex-column gap-2">
-      <h3 class="text-2xl font-bold">{{sale.rifa}}</h3>
+      <h3 class="text-2xl font-bold">{{ sale.rifa }}</h3>
 
-      <div class="flex justify-content-between align-items-center ">
+      <div class="flex justify-content-between align-items-center">
         <span class="font-semibold">Correo:</span>
-        <span class="font-medium bg-secondary text-white border-round-md p-1">{{ sale.correo }}</span>
+        <span class="font-medium bg-secondary text-white border-round-md p-1">{{
+          sale.correo
+        }}</span>
       </div>
-      <div class="flex justify-content-between align-items-center ">
+      <div class="flex justify-content-between align-items-center">
         <span class="font-semibold">Teléfono:</span>
-        <span class="font-medium bg-secondary text-white border-round-md p-1">{{ sale.telefono }}</span>
+        <span class="font-medium bg-secondary text-white border-round-md p-1">{{
+          sale.telefono
+        }}</span>
       </div>
-      <div class="flex justify-content-between align-items-center ">
+      <div class="flex justify-content-between align-items-center">
         <span class="font-semibold">Cantidad de Tickets:</span>
-        <span class="font-medium bg-secondary text-white border-round-md p-1">{{ sale.cantidad_tickets }}</span>
+        <span class="font-medium bg-secondary text-white border-round-md p-1">{{
+          sale.cantidad_tickets
+        }}</span>
       </div>
-      <div class="flex justify-content-between align-items-center ">
+      <div class="flex justify-content-between align-items-center">
         <span class="font-semibold">Total (USD):</span>
-        <span class="font-medium bg-secondary text-white border-round-md p-1">{{ sale.total }} $</span>
+        <span class="font-medium bg-secondary text-white border-round-md p-1"
+          >{{ sale.total }} $</span
+        >
       </div>
-      <div class="flex justify-content-between align-items-center ">
+      <div class="flex justify-content-between align-items-center">
         <span class="font-semibold">Total (BS):</span>
-        <span class="font-medium bg-secondary text-white border-round-md p-1">{{ sale.total_bs |number:'1.2-2'}}
-          Bs</span>
+        <span class="font-medium bg-secondary text-white border-round-md p-1"
+          >{{ sale.total_bs | number: "1.2-2" }} Bs</span
+        >
       </div>
-      <div class="flex justify-content-between align-items-center ">
+      <div class="flex justify-content-between align-items-center">
         <span class="font-semibold">Tasa:</span>
-        <span class="font-medium bg-secondary text-white border-round-md p-1">{{ sale.tasa }} Bs</span>
+        <span class="font-medium bg-secondary text-white border-round-md p-1"
+          >{{ sale.tasa }} Bs</span
+        >
       </div>
-      <div class="flex justify-content-between align-items-center ">
+      <div class="flex justify-content-between align-items-center">
         <span class="font-semibold">Referencia:</span>
-        <span class="font-medium bg-secondary text-white border-round-md p-1">{{ sale.referencia }}</span>
+        <span class="font-medium bg-secondary text-white border-round-md p-1">{{
+          sale.referencia
+        }}</span>
       </div>
-      <div class="flex justify-content-between align-items-center ">
+      <div class="flex justify-content-between align-items-center">
         <span class="font-semibold">Método de Pago:</span>
-        <span class="font-medium bg-secondary text-white border-round-md p-1">{{ sale.metodo_pago }}</span>
+        <span class="font-medium bg-secondary text-white border-round-md p-1">{{
+          sale.metodo_pago
+        }}</span>
       </div>
-      <div class="flex justify-content-start flex-wrap gap-1 align-items-center mt-2">
+      <div
+        class="flex justify-content-start flex-wrap gap-1 align-items-center mt-2"
+      >
         @for (t of sale.tikes; track $index) {
-        <p class="bg-secondary text-white border-round-md p-3 font-bold text-white">{{t}}</p>
+          <p
+            class="bg-secondary text-white border-round-md p-3 font-bold text-white"
+          >
+            {{ t }}
+          </p>
         }
       </div>
     </div>
@@ -66,54 +95,97 @@
 </p-dialog>
 
 <!-- Modal para enviar email -->
-<p-dialog [modal]="true" contentStyleClass="p-3 md:p-4" [showHeader]="true" [resizable]="false"
-  [(visible)]="modalSendEmail" ngClass="w-30rem">
+<p-dialog
+  [modal]="true"
+  contentStyleClass="p-3 md:p-4"
+  [showHeader]="true"
+  [resizable]="false"
+  [(visible)]="modalSendEmail"
+  ngClass="w-30rem"
+>
   <h1>Enviar correo personalizado</h1>
   <div class="grid">
-    <div class="field col-12 ">
+    <div class="field col-12">
       <label for="email" class="font-semibold text-xs uppercase">
         <i class="fa-solid fa-user text-sm mr-1"></i>
-        Correo</label>
-      <input [(ngModel)]="messageEmail.correo" id="text" type="text" class="custom-input w-full">
+        Correo</label
+      >
+      <input
+        [(ngModel)]="messageEmail.correo"
+        id="text"
+        type="text"
+        class="custom-input w-full"
+      />
     </div>
 
-    <div class="field col-12 ">
+    <div class="field col-12">
       <label for="email" class="font-semibold text-xs uppercase">
         <i class="fa-solid fa-file text-sm mr-1"></i>
-        Titulo</label>
-      <input [(ngModel)]="messageEmail.subject" id="text" type="text" class="custom-input w-full">
+        Titulo</label
+      >
+      <input
+        [(ngModel)]="messageEmail.subject"
+        id="text"
+        type="text"
+        class="custom-input w-full"
+      />
     </div>
 
-    <div class="field col-12 ">
+    <div class="field col-12">
       <label for="date" class="font-semibold text-xs uppercase">
         <i class="fa-solid fa-pencil text-sm mr-1"></i>
-        Descripción</label>
-      <textarea [(ngModel)]="messageEmail.text" id="description" rows="10" class="custom-input w-full"
-        placeholder="Descripción de la rifa"></textarea>
+        Descripción</label
+      >
+      <textarea
+        [(ngModel)]="messageEmail.text"
+        id="description"
+        rows="10"
+        class="custom-input w-full"
+        placeholder="Descripción de la rifa"
+      ></textarea>
     </div>
   </div>
 
   <ng-template pTemplate="footer">
     <div class="flex gap-1 p-2 justify-content-end">
       <button (click)="sendEmail()" class="custom-btn">Enviar</button>
-      <button (click)="modalSendEmail=false" class="custom-btn">cerrar</button>
+      <button (click)="modalSendEmail = false" class="custom-btn">
+        cerrar
+      </button>
     </div>
   </ng-template>
 </p-dialog>
 
-<p-dialog (onHide)="closeModalTikes()" [modal]="true" contentStyleClass="p-3 md:p-4" [showHeader]="true"
-  [resizable]="false" [(visible)]="visibleTikes" [style]="{ width: '600px', height: '400px' }" ngClass="w-30rem">
+<p-dialog
+  (onHide)="closeModalTikes()"
+  [modal]="true"
+  contentStyleClass="p-3 md:p-4"
+  [showHeader]="true"
+  [resizable]="false"
+  [(visible)]="visibleTikes"
+  [style]="{ width: '600px', height: '400px' }"
+  ngClass="w-30rem"
+>
   <div>
-    <h1>Tickets {{sale.usuario}}</h1>
-    <input type="text" pInputText [(ngModel)]="filtroTike" placeholder="Buscar ticket..."
-      class="custom-input w-full mb-3 "/>
+    <h1>Tickets {{ sale.usuario }}</h1>
+    <input
+      type="text"
+      pInputText
+      [(ngModel)]="filtroTike"
+      placeholder="Buscar ticket..."
+      class="custom-input w-full mb-3"
+    />
 
-    <div class="flex justify-content-start flex-wrap gap-1 align-items-center mt-2">
+    <div
+      class="flex justify-content-start flex-wrap gap-1 align-items-center mt-2"
+    >
       @for (t of tikesFiltrados; track $index) {
-      <p (click)="winUser(sale,t)"
-        class="bg-secondary text-white border-round-md p-3 font-bold text-white cursor-pointer">
-        {{ t }}
-      </p>
+        <p
+          (click)="winUser(sale, t)"
+          class="bg-secondary text-white border-round-md p-3 font-bold text-white cursor-pointer"
+        >
+          {{ t }}
+        </p>
       }
     </div>
   </div>
@@ -124,26 +196,50 @@
   </ng-template>
 </p-dialog>
 
-<section class="main-form p-3 md:p-0  pb-5 md:pb-0 mb-5 md:mb-0 ">
-
-
-  <div style="overflow-x: auto; width: 100%;">
-    <p-table #dt [value]="sales" [paginator]="!esCelular" [rows]="10"
-      [globalFilterFields]="['usuario','estatus','tikes','telefono', 'fecha','correo']" [scrollable]="true"
-      scrollHeight="300px" [resizableColumns]="true" class="p-datatable-sm" styleClass="p-datatable-responsive w-full"
-      [tableStyle]="{ 'min-width': '1000px' }">
-
+<section class="main-form p-3 md:p-0 pb-5 md:pb-0 mb-5 md:mb-0">
+  <div style="overflow-x: auto; width: 100%">
+    <p-table
+      #dt
+      [value]="sales"
+      [paginator]="true"
+      [rows]="10"
+      [globalFilterFields]="[
+        'usuario',
+        'estatus',
+        'tikes',
+        'telefono',
+        'fecha',
+        'correo',
+      ]"
+      [scrollable]="true"
+      scrollHeight="300px"
+      [resizableColumns]="true"
+      class="p-datatable-sm"
+      styleClass="p-datatable-responsive w-full"
+      [tableStyle]="{ 'min-width': '1000px' }"
+    >
       <!-- Caption for search and column visibility toggle -->
       <ng-template pTemplate="caption">
-        <div class="flex align-items-center flex-wrap gap-2 justify-content-start my-4">
+        <div
+          class="flex align-items-center flex-wrap gap-2 justify-content-start my-4"
+        >
           <span class="p-input-icon-left">
             <i class="pi pi-search"></i>
-            <input #globalFilter type="text" class="custom-input" pInputText placeholder="Buscar"
-              (input)="filterGlobal($event, dt)" />
+            <input
+              #globalFilter
+              type="text"
+              class="custom-input"
+              pInputText
+              placeholder="Buscar"
+              (input)="filterGlobal($event, dt)"
+            />
           </span>
           <div *ngFor="let c of columnas">
-            <div (click)="toggleColumna(c)" [ngClass]="c.activa ? 'card-payment-active' : 'card-payment'"
-              class="card-payment px-1 shadow-5 col-12 md:col">
+            <div
+              (click)="toggleColumna(c)"
+              [ngClass]="c.activa ? 'card-payment-active' : 'card-payment'"
+              class="card-payment px-1 shadow-5 col-12 md:col"
+            >
               <p class="font-semibold text-sm px-1">{{ c.label }}</p>
             </div>
           </div>
@@ -167,86 +263,141 @@
           <ng-container *ngFor="let c of columnas">
             <td *ngIf="c.activa">
               <ng-container [ngSwitch]="c.key">
-
                 <!-- Direct values -->
-                <span class="p-2" *ngSwitchCase="'usuario'">{{ ticket.usuario }}</span>
-                <span class="p-2" *ngSwitchCase="'telefono'">{{ ticket.telefono }}</span>
-                <span class="p-2" *ngSwitchCase="'total_bs'">{{ ticket.total_bs | number:'1.2-2' }} Bs</span>
-                <span class="p-2" *ngSwitchCase="'fecha'">{{ ticket.fecha| date: 'short' }}</span>
+                <span class="p-2" *ngSwitchCase="'usuario'">{{
+                  ticket.usuario
+                }}</span>
+                <span class="p-2" *ngSwitchCase="'telefono'">{{
+                  ticket.telefono
+                }}</span>
+                <span class="p-2" *ngSwitchCase="'total_bs'"
+                  >{{ ticket.total_bs | number: "1.2-2" }} Bs</span
+                >
+                <span class="p-2" *ngSwitchCase="'fecha'">{{
+                  ticket.fecha | date: "short"
+                }}</span>
 
                 <!-- Tickets: array join -->
-                <span *ngSwitchCase="'tikes'" (click)="mostrarTickets(ticket)"
-                  class="cursor-pointer text-gradient-animated  font-bold">
-                  {{ ticket.tikes.length > 1 ? ticket.tikes.slice(0, 1).join(', ') + '...' : ticket.tikes.join(', ') }}
+                <span
+                  *ngSwitchCase="'tikes'"
+                  (click)="mostrarTickets(ticket)"
+                  class="cursor-pointer text-gradient-animated font-bold"
+                >
+                  {{
+                    ticket.tikes.length > 1
+                      ? ticket.tikes.slice(0, 1).join(", ") + "..."
+                      : ticket.tikes.join(", ")
+                  }}
                 </span>
 
                 <!-- Pago: imagen -->
-                <img *ngSwitchCase="'comprobante'" (click)="mostrarComprobante(ticket, op, $event)"
-                  [src]="host+ticket.comprobante" class="w-4rem border-round-xl cursor-pointer" />
+                <p-image
+                  *ngSwitchCase="'comprobante'"
+                  [src]="host + ticket.comprobante"
+                  [alt]="host + ticket.comprobante"
+                  [preview]="true"
+                  width="100"
+                  imageClass="border-round-xl cursor-pointer"
+                />
+                <!-- <img *ngSwitchCase="'comprobante'" (click)="mostrarComprobante(ticket, op, $event)"
+                  [src]="host+ticket.comprobante" class="w-4rem border-round-xl cursor-pointer" /> -->
 
                 <!-- Estatus: badge -->
-                <p *ngSwitchCase="'estatus'"
-                  [style.color]="ticket.estatus === 'aprobado' ? '#28a745' : ticket.estatus === 'pendiente' ? '#ffc107' : '#d04949'"
-                  class="px-2 py-1 border-round-md font-bold">
-                  {{ ticket.estatus === 'aprobado' ? 'Aprobado' : ticket.estatus === 'pendiente' ? 'Pendiente' :
-                  'Rechazado' }}
+                <p
+                  *ngSwitchCase="'estatus'"
+                  [style.color]="
+                    ticket.estatus === 'aprobado'
+                      ? '#28a745'
+                      : ticket.estatus === 'pendiente'
+                        ? '#ffc107'
+                        : '#d04949'
+                  "
+                  class="px-2 py-1 border-round-md font-bold"
+                >
+                  {{
+                    ticket.estatus === "aprobado"
+                      ? "Aprobado"
+                      : ticket.estatus === "pendiente"
+                        ? "Pendiente"
+                        : "Rechazado"
+                  }}
                 </p>
 
                 <!-- Acción: botones -->
-                <span *ngSwitchCase="'accion'" class="flex align-items-center justify-content-start gap-2">
+                <span
+                  *ngSwitchCase="'accion'"
+                  class="flex align-items-center justify-content-start gap-2"
+                >
                   <!-- APROBAR VENTA -->
-                  <button [pTooltip]="aprobar" tooltipPosition="top" class="btn-form  fa-solid fa-check"
-                    (click)="validatePay(ticket.id)"></button>
+                  <button
+                    [pTooltip]="aprobar"
+                    tooltipPosition="top"
+                    class="btn-form fa-solid fa-check"
+                    (click)="validatePay(ticket.id)"
+                  ></button>
                   <!-- VER MAS  -->
-                  <button (click)="ver_mas(ticket)" [pTooltip]="vermas" tooltipPosition="top"
-                    class="btn-form fa-solid fa-eye"></button>
+                  <button
+                    (click)="ver_mas(ticket)"
+                    [pTooltip]="vermas"
+                    tooltipPosition="top"
+                    class="btn-form fa-solid fa-eye"
+                  ></button>
                   <!-- enviar email -->
-                  <button (click)="openSendEmail(ticket)" [pTooltip]="mensaje" tooltipPosition="top"
-                    class="btn-form fa-solid fa-comment"></button>
+                  <button
+                    (click)="openSendEmail(ticket)"
+                    [pTooltip]="mensaje"
+                    tooltipPosition="top"
+                    class="btn-form fa-solid fa-comment"
+                  ></button>
                   <!-- RECHAZAR VENTA -->
-                  <button (click)="rejectPayment(ticket.id)" [pTooltip]="rechazar" tooltipPosition="top"
-                    class="btn-form fa-solid fa-xmark"></button>
+                  <button
+                    (click)="rejectPayment(ticket.id)"
+                    [pTooltip]="rechazar"
+                    tooltipPosition="top"
+                    class="btn-form fa-solid fa-xmark"
+                  ></button>
                   <!-- GANADOR -->
-                  <button (click)="openModalWinUser(ticket)" [pTooltip]="ganador" tooltipPosition="top"
-                    class="btn-form fa-solid fa-trophy"></button>
+                  <button
+                    (click)="openModalWinUser(ticket)"
+                    [pTooltip]="ganador"
+                    tooltipPosition="top"
+                    class="btn-form fa-solid fa-trophy"
+                  ></button>
                 </span>
-
               </ng-container>
             </td>
           </ng-container>
         </tr>
       </ng-template>
-
     </p-table>
   </div>
-
 </section>
 
 <ng-template #aprobar>
-  <div class="flex align-items-center p-2 bg-secondary  border-round-xl">
+  <div class="flex align-items-center p-2 bg-secondary border-round-xl">
     <p class="text-white">Aprobar pago</p>
   </div>
 </ng-template>
 
 <ng-template #rechazar>
-  <div class="flex align-items-center p-2 bg-secondary  border-round-xl">
+  <div class="flex align-items-center p-2 bg-secondary border-round-xl">
     <p class="text-white">Rechazar pago</p>
   </div>
 </ng-template>
 
 <ng-template #vermas>
-  <div class="flex align-items-center p-2 bg-secondary  border-round-xl">
+  <div class="flex align-items-center p-2 bg-secondary border-round-xl">
     <p class="text-white">Visualizar mas</p>
   </div>
 </ng-template>
 
 <ng-template #ganador>
-  <div class="flex align-items-center p-2 bg-secondary  border-round-xl">
+  <div class="flex align-items-center p-2 bg-secondary border-round-xl">
     <p class="text-white">Seleccionar ganador</p>
   </div>
 </ng-template>
 <ng-template #mensaje>
-  <div class="flex align-items-center p-2 bg-secondary  border-round-xl">
+  <div class="flex align-items-center p-2 bg-secondary border-round-xl">
     <p class="text-white">Mensaje personalizado</p>
   </div>
 </ng-template>

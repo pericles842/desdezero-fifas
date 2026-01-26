@@ -10,6 +10,7 @@ import { ToastService } from 'src/app/service/toast.service';
 import { environment } from 'src/environments/environment';
 import { SweetAlertResult } from 'sweetalert2';
 
+
 @Component({
   selector: 'app-ventas',
   templateUrl: './ventas.component.html',

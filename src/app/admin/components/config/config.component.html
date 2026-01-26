@@ -10,7 +10,7 @@
           <div class="text-xl font-bold mb-2 text-gradient">{{ tasa.title }}</div>
           <img [src]="tasa.img_url" width="30px" class="border-round-lg" alt="">
         </div>
-        <div class="text-2xl font-semibold text-white mb-1">{{ tasa.price }} Bs</div>
+        <div class="text-2xl font-semibold text-white mb-1">{{ tasa.price |currency:'symbol-narrow':'1.2-2' }} Bs</div>
         <div class="text-sm line-through mb-2" style="color: rgb(202, 82, 82);">{{ tasa.price_old }} Bs</div>
         <div class="text-xs text-white ">Actualizado: {{ tasa.last_update | date: "dd/MM/yyyy"}}</div>
       </div>
@@ -32,7 +32,7 @@
     <div class="field col-12 md:col-4 flex  flex-column justify-content-start  gap-2">
       <label for="active-date" class="font-semibold text-xs uppercase m-0">
         <i class="fa-solid fa-building-columns text-sm mr-1"></i>
-        Paralelo
+        Euro
       </label>
       <input name="tasa" [(ngModel)]="configuration_web.tasa_banco" value="paralelo" type="radio"
         class="custom-input" />

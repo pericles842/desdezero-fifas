@@ -19,6 +19,7 @@ import { LoadingComponent } from '../web/components/loading/loading.component';
 import { PremiosEntregadosComponent } from './components/premios-entregados/premios-entregados.component';
 import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
+import { ImageModule } from 'primeng/image';
 import { Ripple } from "primeng/ripple";
 
 
@@ -40,6 +41,7 @@ import { Ripple } from "primeng/ripple";
     CommonModule,
     AdminRoutingModule,
     TableModule,
+    ImageModule,
     TooltipModule,
     OverlayPanelModule,
     FormsModule,
