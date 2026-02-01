@@ -22,6 +22,8 @@ import { TotalAmountComponent } from "src/app/admin/components/total-amount/tota
 import { ButtonDirective } from "primeng/button";
 import { RippleModule } from 'primeng/ripple';
 import { RippleDirective } from './directive/ripple.directive';
+import { TableModule } from "primeng/table";
+import { DialogModule } from "primeng/dialog";
 
 
 
@@ -50,7 +52,9 @@ import { RippleDirective } from './directive/ripple.directive';
     StepsLineComponent,
     TotalAmountComponent,
     ButtonDirective,
-    RippleModule
+    RippleModule,
+    TableModule,
+    DialogModule
 ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },

@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Config, ConfigResponse } from '../models/config';
 import { Statistics } from '../interfaces/Statistics';
+import { TopUser } from '../interfaces/top';
 
 @Injectable({
   providedIn: 'root'
@@ -19,12 +20,12 @@ export class UserService {
 
   /**
    * Authenticates a user with the provided login credentials.
-   * 
+   *
    * @param {Object} login - An object containing the user's login credentials.
    * @param {string} login.correo - The email address of the user.
    * @param {string} login.password - The password of the user.
    * @returns {Observable<Object>} An observable that emits the authentication response containing the user's name and token.
-   * 
+   *
    * @example
    * this.auth({ correo: 'user@example.com', password: 'password123' }).subscribe({
    *   next: (res) => console.log(res),
@@ -117,5 +118,9 @@ export class UserService {
   }
   getConfigAdmin() {
     return this.http.get<Statistics[]>(`${environment.host}/user/admin-statistics`)
+  }
+
+  rankingForPurchases(): Observable<TopUser[]> {
+    return this.http.get<TopUser[]>(`${environment.host}/user/public-statistics`)
   }
 }

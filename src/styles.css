@@ -238,7 +238,9 @@ a:hover {
   background-size: 300% 100%;
   animation: animated-gradient-border 1s linear infinite;
   border-radius: inherit;
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   z-index: -1;
@@ -385,6 +387,24 @@ input[type="number"] {
   i {
     color: #fff;
   }
+}
+
+.top-btn {
+  border-radius: 100%;
+  cursor: pointer;
+  border: none;
+  background-color: rgb(212, 144, 18);
+
+  i {
+    color: #fff;
+  }
+}
+
+.text-top {
+  color: #fff;
+  padding: 6px;
+  border-radius: 6px;
+  background-color: rgb(212, 144, 18);
 }
 
 .text-support {

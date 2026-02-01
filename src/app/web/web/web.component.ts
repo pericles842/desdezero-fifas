@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, viewChild, ViewChild } from '@angular/core';
 import { catchError, of } from 'rxjs';
 import { forkJoin } from 'rxjs/internal/observable/forkJoin';
 import { DollarOficial } from 'src/app/interfaces/PaymentMethods';
@@ -17,6 +17,7 @@ import { SweetAlertResult } from 'sweetalert2';
 import { contract, PREMIOS_ENTREGADOS, REPONSIVE_OPTIONS } from './terminos';
 import { TasasDesdezero } from 'src/app/interfaces/RatesDesdezero';
 import { returnDollarForBs } from 'src/app/utils/calculatePriceDollar';
+import { TopUser } from 'src/app/interfaces/top';
 
 @Component({
   selector: 'app-web',
@@ -32,6 +33,10 @@ export class WebComponent {
   @ViewChild('quienesSomos') quienesSomos!: ElementRef;
   @ViewChild('contacto') contacto!: ElementRef;
   @ViewChild('premiosEntregados') premiosEntregados!: ElementRef;
+  @ViewChild('topCompra') topCompra!: ElementRef;
+
+  top_users: TopUser[] = [];
+  view_top: boolean = false;
 
   responsiveOptions = REPONSIVE_OPTIONS;
   premios_entregados: Awards[] = [];
@@ -77,7 +82,7 @@ export class WebComponent {
     private payService: PayService,
     private toastService: ToastService,
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
     //Carga el rolar y la configuración
@@ -152,9 +157,12 @@ export class WebComponent {
       this.rifasService.getActiveRaffle(),
       this.payService.listPayMethod(),
       this.rifasService.getWinUser(),
-      this.rifasService.listAwards()
+      this.rifasService.listAwards(),
+      this.userService.rankingForPurchases()
     ).subscribe({
-      next: ([rifa, payList, win, premios]) => {
+      next: ([rifa, payList, win, premios, top]) => {
+        console.log(top);
+
         //proceso para las rifas
         this.rifa = 'id' in rifa ? rifa : new Rifa();
 
@@ -171,6 +179,7 @@ export class WebComponent {
 
         if (premios.length != 0) this.premios_entregados = premios;
 
+        this.top_users = Array.from({ length: 5 }, () => top)[0];
         this.loading = false;
       },
       error: (err) => {
@@ -189,6 +198,7 @@ export class WebComponent {
       quienesSomos: this.quienesSomos,
       premiosEntregados: this.premiosEntregados,
       contacto: this.contacto,
+      topCompra: this.topCompra,
     };
 
     const elemento = secciones[seccion];
@@ -330,8 +340,7 @@ export class WebComponent {
     ) {
       this.toastService.warning(
         'Se sobrepaso en la cantidad de tickets',
-        `Tickets disponibles: ${
-          this.rifa.objetivo_ventas - this.config.estadisticas.tikes_vendidos
+        `Tickets disponibles: ${this.rifa.objetivo_ventas - this.config.estadisticas.tikes_vendidos
         }`
       );
       return;
@@ -389,7 +398,7 @@ export class WebComponent {
               ¡Gracias por tu confianza!
             `
                 )
-                .then(() => {});
+                .then(() => { });
 
               this.loading = false;
             },
