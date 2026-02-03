@@ -469,4 +469,16 @@ export class WebComponent {
       },
     });
   }
+  getTopUsers() {
+    this.loading = true;
+    this.userService.rankingForPurchases().subscribe({
+      next: (tikes) => {
+        this.top_users = tikes;
+        this.loading = false;
+      },
+      error: (err) => {
+        this.loading = false;
+      }
+    });
+  }
 }

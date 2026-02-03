@@ -627,8 +627,13 @@
 
 <p-dialog [(visible)]="view_top" [style]="{ width: '90vw', 'max-width': '620px' }">
   <section class="p-5">
-    <div class="text-center">
-      <img src="assets/img/logo.png" class="w-8 md:w-7" alt="Logo DesdeZero" />
+    <div class=" flex flex-column align-items-end justify-content-end">
+      <div class="text-center">
+        <img src="assets/img/logo.png" class="w-8 md:w-7" alt="Logo DesdeZero" />
+      </div>
+      <button class="custom-btn" (click)="getTopUsers()">
+        <i class="fa-solid fa-refresh fa-spin text-primary"></i>
+      </button>
     </div>
     <p-table [paginator]="true" [rows]="5" [value]="top_users" styleClass="p-datatable-striped mt-5"
       [tableStyle]="{ 'min-width': 'w-5' }">
