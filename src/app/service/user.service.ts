@@ -1,11 +1,22 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
-import { Observable } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
+import { delay } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { Config, ConfigResponse } from '../models/config';
 import { Statistics } from '../interfaces/Statistics';
 import { TopUser } from '../interfaces/top';
+import { MockDbService } from '../mock/mock-db.service';
+import { createFakeJwt } from '../mock/fake-jwt';
+
+const DEMO_DELAY = 250;
+
+/**
+ * Credenciales del panel para el demo (no hay backend que las valide).
+ */
+const DEMO_CREDENTIALS = {
+  correo: 'demo@desdezero.com',
+  password: 'demo123',
+};
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +25,7 @@ export class UserService {
 
 
   constructor(
-    private http: HttpClient,
+    private db: MockDbService,
     private router: Router
   ) { }
 
@@ -34,8 +45,15 @@ export class UserService {
    */
 
   auth(login: { correo: string, password: string }): Observable<{ nombre: string, token: string }> {
-    let body = { user: login }
-    return this.http.post<{ nombre: string, token: string }>(`${environment.host}/user/auth`, body)
+    const correoMatch = login.correo?.trim().toLowerCase() === DEMO_CREDENTIALS.correo;
+    const passwordMatch = login.password === DEMO_CREDENTIALS.password;
+
+    if (correoMatch && passwordMatch) {
+      const token = createFakeJwt({ sub: 'demo-admin', correo: login.correo }, 5);
+      return of({ nombre: 'Administrador Demo', token }).pipe(delay(DEMO_DELAY));
+    }
+
+    return throwError(() => ({ error: 'Usuario o contraseña incorrectos' })).pipe(delay(DEMO_DELAY));
   }
   /**
    * Elimina la cookie de inicio de sesión y redirige al usuario a la página principal
@@ -109,18 +127,21 @@ export class UserService {
   }
 
   saveConfig(config: Config) {
-    let body = { config: config }
-    return this.http.post<Config>(`${environment.host}/user/create-config`, body)
+    return of(this.db.setConfig(config)).pipe(delay(DEMO_DELAY));
   }
 
   getConfig(): Observable<ConfigResponse> {
-    return this.http.get<ConfigResponse>(`${environment.host}/user/config`)
+    const response: ConfigResponse = {
+      config: this.db.getConfig(),
+      estadisticas: this.db.computeEstadisticas(),
+    };
+    return of(response).pipe(delay(DEMO_DELAY));
   }
   getConfigAdmin() {
-    return this.http.get<Statistics[]>(`${environment.host}/user/admin-statistics`)
+    return of(this.db.computeAdminStatistics() as Statistics[]).pipe(delay(DEMO_DELAY));
   }
 
   rankingForPurchases(): Observable<TopUser[]> {
-    return this.http.get<TopUser[]>(`${environment.host}/user/public-statistics`)
+    return of(this.db.computeTopUsers()).pipe(delay(DEMO_DELAY));
   }
 }
